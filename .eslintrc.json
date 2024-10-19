@@ -1,3 +1,46 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "airbnb-typescript",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": "./tsconfig.json", 
+    "tsconfigRootDir": "./" 
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off", // отключаем правило для TypeScript проектов
+    "@typescript-eslint/explicit-module-boundary-types": "off", // не требовать явного указания типов на границах модулей
+    "jsx-a11y/no-noninteractive-element-interactions": "off" // пример отключения правила для a11y
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
