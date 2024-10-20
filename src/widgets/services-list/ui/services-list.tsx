@@ -3,6 +3,7 @@ import {
   GET_SERVICES_QUERY,
   ServicesTable,
 } from '@/entities/service';
+import { CreateServiceModal } from '@/features/services';
 import Loader from '@/shared/ui/loader';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,5 +15,12 @@ export const ServicesList = () => {
   }
 
   //   TODO обработка ошибок
-  return <ServicesTable services={data?.data} />;
+  return (
+    <div className="flex flex-col gap-2">
+      <div>
+        <CreateServiceModal />
+      </div>
+      <ServicesTable services={data!.data} />
+    </div>
+  );
 };
