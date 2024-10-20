@@ -17,6 +17,7 @@ import { LOGIN_MUTATION_OPTIONS } from '../model/hooks';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/shared/config/router-config';
 import { mapLoginErrorToText } from '../model/utils';
+import { LocalStorageManager } from '@/shared/lib/local-storage-manager';
 
 export default function AuthForm() {
   const [password, setPassword] = useState('');
@@ -24,7 +25,13 @@ export default function AuthForm() {
 
   const login = useMutation({
     ...LOGIN_MUTATION_OPTIONS,
-    onSuccess: () => router.push(ROUTES.main),
+    onSuccess: (response) => {
+      LocalStorageManager.setItem(
+        'token',
+        response.data.token
+      );
+      router.push(ROUTES.main);
+    },
   });
 
   const onLoginClick = () => {

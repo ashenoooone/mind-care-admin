@@ -5,4 +5,5 @@ export type TUser = {
   middle_name: string;
   phone: string;
   password: string;
+  token: string;
 };

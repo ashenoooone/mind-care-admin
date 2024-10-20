@@ -7,14 +7,6 @@ export class AuthService {
   }
 
   static async checkUser() {
-    if (process.env.NODE_ENV === 'development') {
-      if (process.env.NEXT_PUBLIC_AUTH === '0') {
-        throw new Error('not auth');
-      }
-      return {
-        first_name: 'test_user',
-      } as TUser;
-    }
-    throw new Error('not implemented');
+    return $api.get<TUser>('/owner/check_token');
   }
 }
