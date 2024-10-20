@@ -64,6 +64,7 @@ export const Sidebar = (props: SidebarProps) => {
       <div className="flex flex-col gap-1 items-start h-full">
         {NAV_ITEMS.map((item) => (
           <Button
+            title={item.text}
             className="w-full justify-start"
             key={item.text}
             variant={'ghost'}

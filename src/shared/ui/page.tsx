@@ -11,11 +11,9 @@ export default function Page({
 }: PageProps) {
   return (
     <div
-      className={`min-h-screen flex items-center justify-center p-4 ${className}`}
+      className={`flex justify-center p-4 max-w-[1280px] ${className}`}
     >
-      <div className="w-full max-w-4xl flex flex-col items-center gap-6">
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
