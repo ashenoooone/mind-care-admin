@@ -6,13 +6,15 @@ import { ReactNode } from 'react';
 import Loader from '../ui/loader';
 
 export type TFormState =
-  | 'loading'
+  | 'pending'
   | 'error'
   | 'idle'
   | 'success';
 
-export type TGetFormButtonTextMapper =
-  Record<TFormState, ReactNode>;
+export type TGetFormButtonTextMapper = Record<
+  TFormState,
+  ReactNode
+>;
 
 const GET_FORM_BUTTON_TEXT_MAPPER: TGetFormButtonTextMapper =
   {
@@ -23,7 +25,7 @@ const GET_FORM_BUTTON_TEXT_MAPPER: TGetFormButtonTextMapper =
     ),
     idle: '',
     success: <CircleCheckBig />,
-    loading: (
+    pending: (
       <>
         <Loader />
         Загрузка
@@ -41,7 +43,5 @@ export const getFormButtonText = ({
   if (mapper && state in mapper) {
     return mapper[state];
   }
-  return GET_FORM_BUTTON_TEXT_MAPPER[
-    state
-  ];
+  return GET_FORM_BUTTON_TEXT_MAPPER[state];
 };

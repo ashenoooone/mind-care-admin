@@ -1,25 +1,22 @@
 'use client';
-import { useCheckUser } from '../model/hooks';
-import { ReactNode, useEffect } from 'react';
+import { CHECK_USER_QUERY_OPTIONS } from '../model/hooks';
+import { ReactNode } from 'react';
 import Loader from '@/shared/ui/loader';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/shared/config/router-config';
+import { useQuery } from '@tanstack/react-query';
 
 type AuthFacadeProps = {
   children?: ReactNode;
 };
 
+const REFETCH_INTERVAL = 5 * 1000 * 60;
+
 export const AuthFacade = (props: AuthFacadeProps) => {
   const { children } = props;
-  const { isLoading, isError } = useCheckUser();
 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isError) {
-      router.push(ROUTES.login);
-    }
-  }, [isError, router]);
+  const { isLoading } = useQuery({
+    ...CHECK_USER_QUERY_OPTIONS,
+    refetchInterval: REFETCH_INTERVAL,
+  });
 
   return (
     <>
