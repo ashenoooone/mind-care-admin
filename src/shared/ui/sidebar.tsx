@@ -67,7 +67,7 @@ export const Sidebar = (props: SidebarProps) => {
     >
       <Button
         onClick={toggleSidebar}
-        className="p-1 mb-4"
+        className="p-1 mb-4 bg-gray-400/30 hover:opacity-80 transition-all"
         variant={'ghost'}
       >
         <SidebarIcon />
