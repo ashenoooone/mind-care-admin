@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { ROUTES } from '../config/router-config';
+import { handleLogout } from '../api/utils';
+import { LocalStorageManager } from '../lib/local-storage-manager';
 
 type SidebarProps = {
   className?: string;
@@ -42,7 +44,16 @@ const NAV_ITEMS = [
 
 export const Sidebar = (props: SidebarProps) => {
   const { className } = props;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(
+    LocalStorageManager.getItem('sidebar-open') ?? false
+  );
+
+  const toggleSidebar = () => {
+    setIsOpen((prev) => {
+      LocalStorageManager.setItem('sidebar-open', !prev);
+      return !prev;
+    });
+  };
 
   return (
     <nav
@@ -55,7 +66,7 @@ export const Sidebar = (props: SidebarProps) => {
       )}
     >
       <Button
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggleSidebar}
         className="p-1 mb-4"
         variant={'ghost'}
       >
@@ -89,6 +100,7 @@ export const Sidebar = (props: SidebarProps) => {
           className="w-full mt-auto"
           size={'sm'}
           variant={'destructive'}
+          onClick={() => handleLogout()}
         >
           {isOpen ? 'Выйти' : <LogOut />}
         </Button>

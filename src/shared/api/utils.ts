@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { ROUTES } from '../config/router-config';
 import { queryClient } from '../providers/react-query-provider';
 
-export const handleUnauthorized = () => {
+export const handleLogout = () => {
   queryClient.removeQueries();
   localStorage.clear();
   window.location.href = ROUTES.login;
@@ -15,7 +15,7 @@ export const handlerApiErrors = (
     const statusCode = error.response?.status;
     switch (statusCode) {
       case 401:
-        handleUnauthorized();
+        handleLogout();
         break;
       default:
         console.error(

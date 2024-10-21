@@ -3,6 +3,7 @@ const ERROR_MAPPER = {
 };
 
 export const mapLoginErrorToText = (error: string) => {
-  if (error in ERROR_MAPPER) return ERROR_MAPPER[error];
+  if (error in ERROR_MAPPER)
+    return ERROR_MAPPER[error as keyof typeof ERROR_MAPPER];
   return 'Непредвиденная ошибка';
 };

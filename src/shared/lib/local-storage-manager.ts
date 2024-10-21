@@ -1,4 +1,6 @@
-export type TLocalStorageManagerKeys = 'token';
+export type TLocalStorageManagerKeys =
+  | 'token'
+  | 'sidebar-open';
 
 export class LocalStorageManager {
   static getItem = <T>(
