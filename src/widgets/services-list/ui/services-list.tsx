@@ -2,10 +2,16 @@
 import {
   GET_SERVICES_QUERY,
   ServicesTable,
+  TService,
 } from '@/entities/service';
-import { CreateServiceModal } from '@/features/services';
+import { CreateServiceModal } from '@/features/services/create-service';
+import { DeleteServiceModal } from '@/features/services/delete-service';
 import Loader from '@/shared/ui/loader';
 import { useQuery } from '@tanstack/react-query';
+
+const getDeleteServiceButton = (
+  serviceId: TService['id']
+) => <DeleteServiceModal serviceId={serviceId} />;
 
 export const ServicesList = () => {
   const { data, isLoading } = useQuery(GET_SERVICES_QUERY);
@@ -20,7 +26,10 @@ export const ServicesList = () => {
       <div>
         <CreateServiceModal />
       </div>
-      <ServicesTable services={data!.data} />
+      <ServicesTable
+        getRemoveServiceButton={getDeleteServiceButton}
+        services={data!.data}
+      />
     </div>
   );
 };

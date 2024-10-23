@@ -1,19 +1,16 @@
 import {
-  queryOptions,
+  GET_SERVICES_QUERY,
+  SERVICES_BASE_KEY,
+  ServicesService,
+  TService,
+} from '@/entities/service';
+import { mutationOptions } from '@/shared/lib/mutation-options';
+import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import { ServicesService } from './services.service';
-import { mutationOptions } from '@/shared/lib/mutation-options';
-import { TService } from '../model/types';
 import { AxiosResponse } from 'axios';
 
-export const SERVICES_BASE_KEY = 'services';
-// get service
-export const GET_SERVICES_QUERY = queryOptions({
-  queryKey: [SERVICES_BASE_KEY],
-  queryFn: () => ServicesService.getServices(),
-});
 // create service
 export const CREATE_SERVICE_MUTATION = mutationOptions<
   typeof ServicesService.postCreateService

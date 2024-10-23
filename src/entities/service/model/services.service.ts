@@ -6,9 +6,15 @@ export class ServicesService {
     return $api.get<TService[]>('/services');
   };
 
+  static deleteService = (params: {
+    id: TService['id'];
+  }) => {
+    return $api.delete(`/services/${params.id}`);
+  };
+
   static postCreateService = (
     params: Omit<Partial<TService>, 'id'>
   ) => {
-    return $api.post('services', params);
+    return $api.post('/services', params);
   };
 }

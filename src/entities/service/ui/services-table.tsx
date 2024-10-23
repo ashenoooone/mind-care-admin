@@ -16,7 +16,7 @@ type ServicesTableProps = {
   className?: string;
   services: TService[];
   getEditServiceButton?: (service: TService) => ReactNode;
-  getRemoveServiceButton?: (service: TService) => ReactNode;
+  getRemoveServiceButton?: (service: number) => ReactNode;
 };
 
 const TABLE_HEADS: (keyof TService)[] = [
@@ -74,7 +74,7 @@ export const ServicesTable = (
             )}
             {getRemoveServiceButton && (
               <TableCell>
-                {getRemoveServiceButton(service)}
+                {getRemoveServiceButton(service.id)}
               </TableCell>
             )}
           </TableRow>

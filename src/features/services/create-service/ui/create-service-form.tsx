@@ -1,7 +1,4 @@
-import {
-  TService,
-  usePostCreateService,
-} from '@/entities/service';
+import { TService } from '@/entities/service';
 import { getFormButtonText } from '@/shared/lib/get-form-button-text';
 import { parseHourRate } from '@/shared/lib/parse-hour-rate';
 import { parseMins } from '@/shared/lib/parse-mins';
@@ -10,6 +7,7 @@ import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Controller, useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
+import { usePostCreateService } from '../model/hooks';
 
 type CreateServiceFormProps = {
   className?: string;
