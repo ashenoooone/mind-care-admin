@@ -12,11 +12,16 @@ import {
 import { Input } from '@/shared/ui/input';
 import { Controller, useForm } from 'react-hook-form';
 import { SelectComponent } from '@/shared/ui/select';
+import {
+  getFormButtonText,
+  TFormState,
+} from '@/shared/lib/get-form-button-text';
 
 type SettingsFormProps = {
   className?: string;
   settings: TSettings;
   onSubmit?: (settings: TSettings) => void;
+  formStatus?: TFormState;
 };
 
 const MINUS_TIME = 5;
@@ -27,11 +32,16 @@ const getTimeZoneText = (timezone: number) => {
   } else if (timezone < 0) {
     return `${timezone} от МСК`;
   }
-  return `по МСК`;
+  return `МСК`;
 };
 
 export const SettingsForm = (props: SettingsFormProps) => {
-  const { className, settings, onSubmit } = props;
+  const {
+    className,
+    settings,
+    onSubmit,
+    formStatus = 'idle',
+  } = props;
 
   const { control, handleSubmit } = useForm<TSettings>({
     defaultValues: { ...settings },
@@ -78,6 +88,8 @@ export const SettingsForm = (props: SettingsFormProps) => {
               )}
             />
           </div>
+          {/* TODO почему-то при МСК не отображается ничего */}
+
           <div className="flex flex-col gap-4">
             <Controller
               name="timezone_server"
@@ -113,7 +125,14 @@ export const SettingsForm = (props: SettingsFormProps) => {
         </CardContent>
         {onSubmit && (
           <CardFooter>
-            <Button type="submit">Сохранить</Button>
+            <Button className="w-full" type="submit">
+              {getFormButtonText({
+                state: formStatus,
+                mapper: {
+                  idle: 'Сохранить',
+                },
+              })}
+            </Button>
           </CardFooter>
         )}
       </form>

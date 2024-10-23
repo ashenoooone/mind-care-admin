@@ -211,13 +211,10 @@ export const SelectComponent = ({
           'flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
         )}
       >
-        {value
+        {value !== null && value !== undefined
           ? options.find((option) => option.value === value)
               ?.label
           : placeholder}
-        <SelectPrimitive.Icon asChild>
-          <CaretSortIcon className="h-4 w-4 opacity-50" />
-        </SelectPrimitive.Icon>
       </SelectTrigger>
 
       <SelectContent>
@@ -229,7 +226,7 @@ export const SelectComponent = ({
           {options.map((option) => (
             <SelectItem
               key={option.value}
-              value={option.value}
+              value={String(option.value)}
               className={cn(
                 'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground'
               )}
