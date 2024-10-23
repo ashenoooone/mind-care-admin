@@ -10,8 +10,9 @@ import {
 } from '@/shared/ui/table';
 import { TClient } from '../model/types';
 import { getUserFio } from '../model/utils';
-import Link from 'next/link';
 import { ReactNode } from 'react';
+import { Link } from '@/shared/ui/link';
+import { cn } from '@/shared/lib/utils';
 
 type UsersTableProps = {
   users?: TClient[];
@@ -43,7 +44,23 @@ export const UsersTable = (props: UsersTableProps) => {
                 target="_blank"
                 href={`https://t.me/${c.username}`}
               >
-                {c.username}
+                {(params) => {
+                  return (
+                    <span>
+                      <span
+                        className={cn(
+                          'opacity-0 transition-all text-white',
+                          {
+                            'opacity-100': params.hovered,
+                          }
+                        )}
+                      >
+                        @
+                      </span>
+                      <span>{c.username}</span>
+                    </span>
+                  );
+                }}
               </Link>
             </TableCell>
           </TableRow>
