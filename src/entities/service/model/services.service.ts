@@ -1,9 +1,19 @@
 import { $api } from '@/shared/api';
 import { TService } from '../model/types';
+import {
+  PaginationParams,
+  WithPagination,
+} from '@/shared/types';
 
 export class ServicesService {
-  static getServices = () => {
-    return $api.get<TService[]>('/services');
+  static getServices = (params: PaginationParams) => {
+    const { page = 0, limit = 10 } = params;
+    return $api.get<{ items: TService[] } & WithPagination>(
+      '/services',
+      {
+        params: { page, limit },
+      }
+    );
   };
 
   static deleteService = (params: {

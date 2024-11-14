@@ -1,22 +1,21 @@
 'use client';
 import {
-  GET_SERVICES_QUERY,
   ServicesTable,
   TService,
+  useGetServices,
 } from '@/entities/service';
 import { CreateServiceModal } from '@/features/services/create-service';
 import { DeleteServiceModal } from '@/features/services/delete-service';
 import Loader from '@/shared/ui/loader';
-import { useQuery } from '@tanstack/react-query';
 
 const getDeleteServiceButton = (
   serviceId: TService['id']
 ) => <DeleteServiceModal serviceId={serviceId} />;
 
 export const ServicesList = () => {
-  const { data, isLoading } = useQuery(GET_SERVICES_QUERY);
+  const { data, isLoading } = useGetServices({});
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <Loader />;
   }
 
@@ -28,7 +27,7 @@ export const ServicesList = () => {
       </div>
       <ServicesTable
         getRemoveServiceButton={getDeleteServiceButton}
-        services={data!.data}
+        services={data.data.items}
       />
     </div>
   );

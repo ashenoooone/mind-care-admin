@@ -39,7 +39,7 @@ export const CreateServiceForm = (
   const onSubmit = (formData: TFormState) => {
     const data: Omit<Partial<TService>, 'id'> = {
       ...formData,
-      cost: parseHourRate(formData.cost) ?? undefined,
+      price: parseHourRate(formData.cost) ?? undefined,
       after_pause:
         parseMins(formData.after_pause) ?? undefined,
       duration: parseMins(formData.duration) ?? undefined,

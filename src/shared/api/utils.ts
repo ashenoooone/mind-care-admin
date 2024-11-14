@@ -14,7 +14,7 @@ export const handlerApiErrors = (
   if (axios.isAxiosError(error)) {
     const statusCode = error.response?.status;
     switch (statusCode) {
-      case 401:
+      case 403:
         handleLogout();
         break;
       default:

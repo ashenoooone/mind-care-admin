@@ -21,18 +21,20 @@ type ServicesTableProps = {
 
 const TABLE_HEADS: (keyof TService)[] = [
   'id',
-  'title',
+  'name',
+  'description',
   'duration',
   'after_pause',
-  'cost',
+  'price',
 ];
 
 const MAPPER: Record<keyof TService, string> = {
   id: 'ID',
-  title: 'Название',
+  name: 'Название',
+  description: 'Описание',
   duration: 'Длительность (в мин)',
   after_pause: 'Пауза после услуги (в мин)',
-  cost: 'Стоимость',
+  price: 'Стоимость',
 };
 
 export const ServicesTable = (
@@ -57,7 +59,8 @@ export const ServicesTable = (
         {services.map((service) => (
           <TableRow key={service.id}>
             <TableCell>{service.id}</TableCell>
-            <TableCell>{service.title}</TableCell>
+            <TableCell>{service.name}</TableCell>
+            <TableCell>{service.description}</TableCell>
             <TableCell>
               {formatToMinutes(service.duration)}
             </TableCell>
@@ -65,7 +68,7 @@ export const ServicesTable = (
               {formatToMinutes(service.after_pause)}
             </TableCell>
             <TableCell>
-              {formatToHourRate(service.cost)}
+              {formatToHourRate(service.price)}
             </TableCell>
             {getEditServiceButton && (
               <TableCell>

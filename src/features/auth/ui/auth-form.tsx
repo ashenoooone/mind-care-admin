@@ -20,10 +20,11 @@ import { mapLoginErrorToText } from '../model/utils';
 import { LocalStorageManager } from '@/shared/lib/local-storage-manager';
 
 export default function AuthForm() {
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const login = useMutation({
+  const loginMutation = useMutation({
     ...LOGIN_MUTATION_OPTIONS,
     onSuccess: (response) => {
       LocalStorageManager.setItem(
@@ -35,8 +36,9 @@ export default function AuthForm() {
   });
 
   const onLoginClick = () => {
-    login.mutate({
+    loginMutation.mutate({
       password,
+      login,
     });
   };
 
@@ -45,10 +47,14 @@ export default function AuthForm() {
       <CardHeader>
         <CardTitle>Авторизация</CardTitle>
         <CardDescription>
-          Введите пароль для авторизации
+          Введите логин и пароль для авторизации
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
+        <Input
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+        />
         <Input
           type="password"
           value={password}
@@ -62,11 +68,13 @@ export default function AuthForm() {
           className="w-full"
         >
           {getFormButtonText({
-            state: login.status,
+            state: loginMutation.status,
             mapper: {
               idle: 'Авторизоваться',
-              error: login.isError
-                ? mapLoginErrorToText(login.error.message)
+              error: loginMutation.isError
+                ? mapLoginErrorToText(
+                    loginMutation.error.message
+                  )
                 : 'Ошибка',
             },
           })}
