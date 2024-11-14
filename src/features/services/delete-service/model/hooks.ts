@@ -18,9 +18,7 @@ export const DELETE_SERVICE_MUTATION = mutationOptions<
     ServicesService.deleteService(params),
 });
 
-export const useDeleteServiceMutation = (param?: {
-  onSuccess?: () => void;
-}) => {
+export const useDeleteServiceMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -32,20 +30,23 @@ export const useDeleteServiceMutation = (param?: {
       });
 
       const prevServices:
-        | AxiosResponse<TService[]>
+        | AxiosResponse<{ items: TService[] }>
         | undefined = queryClient.getQueryData([
         SERVICES_BASE_KEY,
       ]);
 
       queryClient.setQueryData(
         [SERVICES_BASE_KEY],
-        (old: AxiosResponse<TService[]>) => ({
+        (old: AxiosResponse<{ items: TService[] }>) => ({
           ...old,
-          data: [
-            ...old.data.filter(
-              (service) => service.id !== params.id
-            ),
-          ],
+          data: {
+            ...old.data,
+            items: [
+              ...old.data.items.filter(
+                (service) => service.id !== params.id
+              ),
+            ],
+          },
         })
       );
 
@@ -58,8 +59,9 @@ export const useDeleteServiceMutation = (param?: {
       );
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries(GET_SERVICES_QUERY);
-      param?.onSuccess?.();
+      queryClient.invalidateQueries({
+        queryKey: GET_SERVICES_QUERY.queryKey,
+      });
     },
   });
 

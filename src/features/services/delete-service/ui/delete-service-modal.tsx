@@ -24,9 +24,18 @@ export const DeleteServiceModal = (
   const [isOpen, setIsOpen] = useState(false);
 
   const onDeleteClick = () => {
-    deleteServiceMutation.mutate({
-      id: serviceId,
-    });
+    try {
+      deleteServiceMutation.mutateAsync(
+        {
+          id: serviceId,
+        },
+        {
+          onSuccess: () => setIsOpen(false),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -51,7 +60,12 @@ export const DeleteServiceModal = (
           >
             Удалить
           </Button>
-          <Button variant={'outline'}>Отменить</Button>
+          <Button
+            onClick={() => setIsOpen(false)}
+            variant={'outline'}
+          >
+            Отменить
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

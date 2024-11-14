@@ -1,16 +1,14 @@
 'use client';
 import {
   ServicesTable,
-  TService,
+  TableHeader,
+  TableRow,
   useGetServices,
 } from '@/entities/service';
 import { CreateServiceModal } from '@/features/services/create-service';
 import { DeleteServiceModal } from '@/features/services/delete-service';
 import Loader from '@/shared/ui/loader';
-
-const getDeleteServiceButton = (
-  serviceId: TService['id']
-) => <DeleteServiceModal serviceId={serviceId} />;
+import { TableCell } from '@/shared/ui/table';
 
 export const ServicesList = () => {
   const { data, isLoading } = useGetServices({});
@@ -26,8 +24,20 @@ export const ServicesList = () => {
         <CreateServiceModal />
       </div>
       <ServicesTable
-        getRemoveServiceButton={getDeleteServiceButton}
-        services={data.data.items}
+        header={<TableHeader />}
+        services={data.data.items.map((service) => (
+          <TableRow
+            service={service}
+            key={service.id}
+            removeButton={
+              <TableCell>
+                <DeleteServiceModal
+                  serviceId={service.id}
+                />
+              </TableCell>
+            }
+          />
+        ))}
       />
     </div>
   );
