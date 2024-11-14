@@ -1,9 +1,16 @@
 import { $api } from '@/shared/api';
 import { TClient } from './types';
+import {
+  PaginationParams,
+  WithPagination,
+} from '@/shared/types';
 export class UsersService {
-  static getUsers = (params: WithPaginationParams) => {
-    return $api.get<PaginatedResult<TClient[]>>('clients', {
-      params,
-    });
+  static getUsers = (params: PaginationParams) => {
+    return $api.get<{ items: TClient[] } & WithPagination>(
+      'users',
+      {
+        params,
+      }
+    );
   };
 }

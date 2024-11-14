@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
-import { useGetUsers, UsersTable } from '@/entities/users';
+import {
+  TableHeader,
+  TableRow,
+  useGetUsers,
+  UsersTable,
+} from '@/entities/users';
 import Loader from '@/shared/ui/loader';
 
 export const UsersList = () => {
   const { data, isLoading } = useGetUsers({
-    page: 1,
-    count: 10,
+    page: 0,
+    limit: 10,
   });
 
   if (isLoading) {
@@ -15,9 +20,12 @@ export const UsersList = () => {
 
   return (
     <div>
-      {/* TODO fixme */}
-      {/* @ts-expect-error */}
-      <UsersTable users={data?.data.clients ?? []} />
+      <UsersTable
+        header={<TableHeader />}
+        users={data?.data.items.map((user) => (
+          <TableRow user={user} key={user.id} />
+        ))}
+      />
     </div>
   );
 };

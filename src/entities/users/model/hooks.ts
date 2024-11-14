@@ -7,7 +7,7 @@ export const useGetUsers = (
   params: FuncFirstParameter<typeof UsersService.getUsers>
 ) => {
   return useQuery({
-    queryKey: [USERS_BASE_KEY, params.count, params.page],
+    queryKey: [USERS_BASE_KEY, params.limit, params.page],
     queryFn: () => UsersService.getUsers(params),
   });
 };
