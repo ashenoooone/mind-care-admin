@@ -1,3 +1,4 @@
+import { AuthFacade } from '@/features/auth';
 import { Sidebar } from '@/shared/ui/sidebar';
 
 export default function AuthLayout({
@@ -6,9 +7,11 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex gap-2">
-      <Sidebar />
-      {children}
-    </section>
+    <AuthFacade>
+      <section className="flex gap-2">
+        <Sidebar />
+        {children}
+      </section>
+    </AuthFacade>
   );
 }

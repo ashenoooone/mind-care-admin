@@ -1,5 +1,6 @@
-import { AuthFacade } from '@/features/auth';
+import { ROUTES } from '@/shared/config/router-config';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return <AuthFacade>123</AuthFacade>;
+  redirect(ROUTES.appointments);
 }

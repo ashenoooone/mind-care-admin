@@ -3,6 +3,6 @@ export const ROUTES = {
   main: '/',
   users: '/users',
   services: 'services',
-  records: '/records',
+  appointments: '/appointments',
   settings: '/settings',
 } as const;

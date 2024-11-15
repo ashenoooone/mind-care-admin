@@ -28,7 +28,7 @@ const NAV_ITEMS = [
   {
     text: 'Записи',
     icon: <Calendar />,
-    href: ROUTES.records,
+    href: ROUTES.appointments,
   },
   {
     text: 'Услуги',
