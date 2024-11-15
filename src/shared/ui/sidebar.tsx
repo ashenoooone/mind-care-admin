@@ -9,6 +9,7 @@ import {
   Settings,
   Sidebar as SidebarIcon,
   Users,
+  MessageCircleQuestion,
 } from 'lucide-react';
 import Link from 'next/link';
 import { ROUTES } from '../config/router-config';
@@ -39,6 +40,11 @@ const NAV_ITEMS = [
     text: 'Настройки',
     icon: <Settings />,
     href: ROUTES.settings,
+  },
+  {
+    text: 'Обращения',
+    icon: <MessageCircleQuestion />,
+    href: ROUTES.reports,
   },
 ];
 
