@@ -1,14 +1,19 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { cn } from '../lib/utils';
 
 export type BadgeProps = {
   className?: string;
   children?: ReactNode;
   color?: 'yellow' | 'red' | 'green' | 'blue';
-};
+} & React.ComponentProps<'div'>;
 
 export const Badge = (props: BadgeProps) => {
-  const { className, children, color = 'green' } = props;
+  const {
+    className,
+    children,
+    color = 'green',
+    ...rest
+  } = props;
   return (
     <div
       className={cn(
@@ -23,6 +28,7 @@ export const Badge = (props: BadgeProps) => {
             color === 'yellow',
         }
       )}
+      {...rest}
     >
       {children}
     </div>

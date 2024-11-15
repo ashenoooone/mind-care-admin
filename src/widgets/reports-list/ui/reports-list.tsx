@@ -1,29 +1,29 @@
 'use client';
-import {
-  Table,
-  TableHeader,
-  TableRow,
-} from '@/entities/reports';
-import { useGetReportsQuery } from '@/entities/reports/model/hooks';
-import Loader from '@/shared/ui/loader';
+import { ChangeReportStatus } from '@/features/reports/change-report-status';
+import { ReportsTable } from './table';
+import { useUnit } from 'effector-react';
+import { changeReportStatusModel } from '../model/models';
 
 export const ReportsList = () => {
-  const { data, isError, isLoading } = useGetReportsQuery(
-    {}
-  );
-
-  if (isLoading || isError || !data?.data) {
-    return <Loader />;
-  }
+  const [report, openChangeReportModal] = useUnit([
+    changeReportStatusModel.$report,
+    changeReportStatusModel.openChangeReportModal,
+  ]);
 
   return (
     <div>
-      <Table
-        header={<TableHeader />}
-        reports={data?.data.items.map((report) => (
-          <TableRow report={report} key={report.id} />
-        ))}
-      />
+      <ReportsTable />
+      {report && (
+        <ChangeReportStatus
+          open={!!report}
+          report={report}
+          onOpenChange={(open) => {
+            if (!open) {
+              openChangeReportModal(null);
+            }
+          }}
+        />
+      )}
     </div>
   );
 };
