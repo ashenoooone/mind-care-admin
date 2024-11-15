@@ -1,24 +1,8 @@
 import { ReportStatus, TReport } from '@/entities/reports';
 import { REPORT_STATUS_MAPPER } from '@/entities/reports/model/lib';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-} from '@/shared/ui/dropdown-menu';
+
 import { useChangeReportStatus } from '../model/hooks';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/shared/ui/dialog';
-import { Button } from '@/shared/ui/button';
-import { Label } from '@radix-ui/react-label';
-import { Input } from 'postcss';
+import { Dialog, DialogContent } from '@/shared/ui/dialog';
 import { Badge } from '@/shared/ui/badge';
 
 type Props = {
