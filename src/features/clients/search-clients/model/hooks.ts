@@ -6,7 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 export const useInfinityUsers = (
   params: PaginationParams & { name?: string }
 ) => {
-  const { limit = 10, page = 0, name = '' } = params;
+  const { limit = 10, page = 0, name } = params;
   return useInfiniteQuery({
     queryKey: [
       USERS_BASE_KEY,

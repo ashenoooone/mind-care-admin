@@ -7,13 +7,20 @@ export const createSearchClientsModel = (settings: {
   const { debounceTiming = 500 } = settings;
 
   const $name = createStore('');
-
+  const $debouncedName = createStore('');
   const setNameEv = createEvent<string>();
 
-  debounce(setNameEv, debounceTiming);
+  $name.on(setNameEv, (_, v) => v);
+
+  debounce({
+    source: setNameEv,
+    timeout: debounceTiming,
+    target: $debouncedName,
+  });
 
   return {
     $name,
+    $debouncedName,
     setNameEv,
   };
 };

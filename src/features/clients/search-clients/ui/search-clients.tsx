@@ -7,7 +7,7 @@ import {
   Option,
   SearchableSelect,
 } from '@/shared/ui/search-input';
-import { useMemo } from 'react';
+import { cn } from '@/shared/lib/utils';
 
 type Props = {
   className?: string;
@@ -18,30 +18,36 @@ type Props = {
 export const SearchClients = (props: Props) => {
   const { className, model } = props;
 
-  const [name] = useUnit([model.$name]);
+  const { $name, $debouncedName, setNameEv } =
+    useUnit(model);
 
   const {
     data,
-    fetchNextPage,
-    isFetchNextPageError,
     isFetchingNextPage,
-  } = useInfinityUsers({ name });
+    isLoading,
+    isFetching,
+  } = useInfinityUsers({ name: $debouncedName, limit: 50 });
 
-  const usersOptions = useMemo<Option[]>(() => {
-    return (
-      data?.map((user) => ({
-        label: user.name,
-        value: user.name,
-      })) ?? []
-    );
-  }, [data]);
+  const usersOptions: Option[] =
+    data?.map((item) => ({
+      value: item.name,
+      label: item.name,
+    })) ?? [];
 
-  console.log(usersOptions);
+  const isLoadingCombined =
+    isFetchingNextPage || isFetching || isLoading;
 
   return (
     <SearchableSelect
+      className={cn(
+        className,
+        'max-h-[200px] overflow-auto'
+      )}
+      isLoading={isLoadingCombined}
       placeholder="Пользователь"
       options={usersOptions}
+      searchValue={$name}
+      onValueChange={(value) => setNameEv(value)}
     />
   );
 };

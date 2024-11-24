@@ -6,6 +6,8 @@ import { Label } from './label';
 
 export type InputProps = {
   label?: string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const PasswordEye = ({
@@ -66,63 +68,84 @@ const PasswordEye = ({
 const Input = React.forwardRef<
   HTMLInputElement,
   InputProps
->(({ className, type, label, ...props }, ref) => {
-  const [inputType, setInputType] =
-    React.useState<React.ComponentProps<'input'>['type']>(
-      type
-    );
+>(
+  (
+    {
+      className,
+      type,
+      label,
+      startIcon,
+      endIcon,
+      ...props
+    },
+    ref
+  ) => {
+    const [inputType, setInputType] =
+      React.useState<React.ComponentProps<'input'>['type']>(
+        type
+      );
 
-  const toggleVisibility = () => {
-    setInputType((prev) => {
-      return prev === 'password' ? 'text' : 'password';
-    });
-  };
+    const toggleVisibility = () => {
+      setInputType((prev) => {
+        return prev === 'password' ? 'text' : 'password';
+      });
+    };
 
-  const input = (
-    <input
-      type={inputType}
-      className={cn(
-        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
-
-  if (type === 'password') {
-    return (
-      <div className="relative">
-        {input}
-        <Button
-          variant={'ghost'}
-          onClick={toggleVisibility}
-          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-          aria-label={
-            inputType === 'password'
-              ? 'Скрыть пароль'
-              : 'Показать пароль'
-          }
-        >
-          <PasswordEye
-            isVisible={inputType !== 'password'}
-          />
-        </Button>
+    const input = (
+      <div className="relative flex items-center">
+        {startIcon && (
+          <span className="absolute left-2">
+            {startIcon}
+          </span>
+        )}
+        <input
+          type={inputType}
+          className={cn(
+            'flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+            startIcon ? 'pl-8' : '',
+            endIcon ? 'pr-8' : '',
+            className
+          )}
+          ref={ref}
+          {...props}
+        />
+        {type === 'password' ? (
+          <Button
+            variant={'ghost'}
+            onClick={toggleVisibility}
+            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+            aria-label={
+              inputType === 'password'
+                ? 'Показать пароль'
+                : 'Скрыть пароль'
+            }
+          >
+            <PasswordEye
+              isVisible={inputType !== 'password'}
+            />
+          </Button>
+        ) : (
+          endIcon && (
+            <span className="absolute right-2">
+              {endIcon}
+            </span>
+          )
+        )}
       </div>
     );
-  }
 
-  if (label !== undefined) {
-    return (
-      <Label className="flex flex-col gap-2">
-        {label}
-        {input}
-      </Label>
-    );
-  }
+    if (label !== undefined) {
+      return (
+        <Label className="flex flex-col gap-2">
+          {label}
+          {input}
+        </Label>
+      );
+    }
 
-  return input;
-});
+    return input;
+  }
+);
 
 Input.displayName = 'Input';
 

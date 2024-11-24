@@ -11,14 +11,13 @@ import {
 import { cn } from '../lib/utils';
 import { Button } from './button';
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from './command';
-import { CommandList } from 'cmdk';
-import { Check, ChevronsUpDown } from 'lucide-react';
+  Check,
+  ChevronsUpDown,
+  CircleX,
+  Search,
+} from 'lucide-react';
+import Loader from './loader';
+import { Input } from './input';
 
 export interface Option {
   value: string;
@@ -30,6 +29,9 @@ interface SearchableSelectProps {
   placeholder?: string;
   onSelect?: (value: string) => void;
   className?: string;
+  isLoading?: boolean;
+  searchValue?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export function SearchableSelect({
@@ -37,6 +39,9 @@ export function SearchableSelect({
   placeholder = '',
   onSelect,
   className = '',
+  isLoading,
+  searchValue,
+  onValueChange,
 }: SearchableSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
@@ -74,33 +79,41 @@ export function SearchableSelect({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandList>
-            <CommandInput placeholder="Поиск..." />
-            <CommandEmpty>Не найдено</CommandEmpty>
-            <CommandGroup heading="">
-              {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  onSelect={() =>
-                    handleSelect(option.value)
-                  }
+      <PopoverContent className="w-[200px] p-3">
+        <Input
+          startIcon={<Search className="w-4 h-4" />}
+          value={searchValue}
+          onChange={(e) => onValueChange?.(e.target.value)}
+        />
+        <div
+          className={cn(
+            className,
+            'flex justify-center w-full align-center flex-col gap-1 mt-2'
+          )}
+        >
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <Button
+                onClick={() => handleSelect('')}
+                variant={'destructive'}
+              >
+                <CircleX />
+              </Button>
+              {options.map((o) => (
+                <Button
+                  onClick={() => handleSelect(o.value)}
+                  variant={'ghost'}
+                  key={o.value}
                 >
-                  <Check
-                    className={cn(
-                      'mr-2 h-4 w-4',
-                      value === option.value
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    )}
-                  />
-                  {option.label}
-                </CommandItem>
+                  {o.value === value && <Check />}
+                  {o.label}
+                </Button>
               ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+            </>
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   );
