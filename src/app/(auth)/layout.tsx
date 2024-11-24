@@ -1,5 +1,16 @@
 import { AuthFacade } from '@/features/auth';
-import { Sidebar } from '@/shared/ui/sidebar';
+import dynamic from 'next/dynamic';
+
+// TODO fix
+const Sidebar = dynamic(
+  () =>
+    import('@/shared/ui/sidebar').then(
+      (mod) => mod.Sidebar
+    ),
+  {
+    ssr: false,
+  }
+);
 
 export default function AuthLayout({
   children,

@@ -6,6 +6,7 @@ export class LocalStorageManager {
   static getItem = <T>(
     key: TLocalStorageManagerKeys
   ): T | null => {
+    if (typeof window === 'undefined') return null;
     const result = localStorage?.getItem(key);
     if (result) {
       return JSON.parse(result) as T;
@@ -17,6 +18,7 @@ export class LocalStorageManager {
     key: TLocalStorageManagerKeys,
     value: unknown
   ): void => {
+    if (typeof window === 'undefined') return;
     localStorage?.setItem(key, JSON.stringify(value));
   };
 }
