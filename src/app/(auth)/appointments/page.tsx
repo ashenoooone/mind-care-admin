@@ -1,5 +1,10 @@
 import Page from '@/shared/ui/page';
+import { AppointmentsList } from '@/widgets/appointments-list';
 
 export default function AppointmentPage() {
-  return <Page>123</Page>;
+  return (
+    <Page className="w-full">
+      <AppointmentsList />
+    </Page>
+  );
 }

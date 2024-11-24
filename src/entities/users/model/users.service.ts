@@ -5,7 +5,9 @@ import {
   WithPagination,
 } from '@/shared/types';
 export class UsersService {
-  static getUsers = (params: PaginationParams) => {
+  static getUsers = (
+    params: { name?: string } & PaginationParams
+  ) => {
     return $api.get<{ items: TClient[] } & WithPagination>(
       'users',
       {
