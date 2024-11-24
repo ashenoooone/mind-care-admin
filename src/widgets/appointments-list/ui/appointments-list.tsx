@@ -8,6 +8,10 @@ import {
   createSearchClientsModel,
   SearchClients,
 } from '@/features/clients/search-clients';
+import {
+  createSearchServiceModel,
+  SearchServices,
+} from '@/features/services/search-service';
 import { cn } from '@/shared/lib/utils';
 
 type Props = {
@@ -17,6 +21,10 @@ type Props = {
 const filtersModel = createAppointmentsFiltersModel();
 
 const searchClientsModel = createSearchClientsModel({
+  debounceTiming: 500,
+});
+
+const searchServicesModel = createSearchServiceModel({
   debounceTiming: 500,
 });
 
@@ -30,7 +38,9 @@ export const AppointmentsList = (props: Props) => {
         clientsSearch={
           <SearchClients model={searchClientsModel} />
         }
-        servicesSearch={undefined}
+        servicesSearch={
+          <SearchServices model={searchServicesModel} />
+        }
       />
     </div>
   );

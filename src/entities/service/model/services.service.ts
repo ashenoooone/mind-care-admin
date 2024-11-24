@@ -6,12 +6,14 @@ import {
 } from '@/shared/types';
 
 export class ServicesService {
-  static getServices = (params: PaginationParams) => {
-    const { page = 0, limit = 10 } = params;
+  static getServices = (
+    params: { name?: string } & PaginationParams
+  ) => {
+    const { page = 0, limit = 10, name } = params;
     return $api.get<{ items: TService[] } & WithPagination>(
       '/services',
       {
-        params: { page, limit },
+        params: { page, limit, name },
       }
     );
   };

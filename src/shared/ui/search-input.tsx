@@ -79,7 +79,7 @@ export function SearchableSelect({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-3">
+      <PopoverContent className="w-max p-3">
         <Input
           startIcon={<Search className="w-4 h-4" />}
           value={searchValue}

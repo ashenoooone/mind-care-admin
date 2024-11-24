@@ -14,7 +14,12 @@ export const useGetServices = (
   >
 ) => {
   return useQuery({
-    queryKey: [SERVICES_BASE_KEY],
+    queryKey: [
+      SERVICES_BASE_KEY,
+      params.limit,
+      params.name,
+      params.page,
+    ],
     queryFn: () => ServicesService.getServices(params),
   });
 };
