@@ -5,15 +5,19 @@ import {
   SearchableSelect,
 } from '@/shared/ui/search-input';
 import { cn } from '@/shared/lib/utils';
-import { useGetServices } from '@/entities/service';
+import {
+  TService,
+  useGetServices,
+} from '@/entities/service';
 
 type Props = {
   className?: string;
   model: ReturnType<typeof createSearchServiceModel>;
+  onServiceClick?: (service: TService | null) => void;
 };
 
 export const SearchServices = (props: Props) => {
-  const { className, model } = props;
+  const { className, model, onServiceClick } = props;
 
   const { $name, setNameEv, $debouncedName } =
     useUnit(model);
@@ -31,6 +35,12 @@ export const SearchServices = (props: Props) => {
       value: service.name,
     })) ?? [];
 
+  const handleChangeService = (name: string) => {
+    const item =
+      data?.data.items.find((s) => s.name === name) ?? null;
+    onServiceClick?.(item);
+  };
+
   return (
     <SearchableSelect
       className={cn(
@@ -41,6 +51,7 @@ export const SearchServices = (props: Props) => {
       placeholder="Услуга"
       options={servicesOptions}
       searchValue={$name}
+      onSelect={handleChangeService}
       onValueChange={(value) => setNameEv(value)}
     />
   );

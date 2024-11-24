@@ -68,7 +68,7 @@ export function SearchableSelect({
           aria-expanded={open}
           className={cn(
             className,
-            'w-[200px] justify-between'
+            'min-w-[200px] justify-between'
           )}
         >
           {value

@@ -1,5 +1,7 @@
 'use client';
 
+import { TService } from '@/entities/service';
+import { TClient } from '@/entities/users';
 import {
   createAppointmentsFiltersModel,
   Filters,
@@ -31,15 +33,29 @@ const searchServicesModel = createSearchServiceModel({
 export const AppointmentsList = (props: Props) => {
   const { className } = props;
 
+  const onSetClient = (client: TClient | null) => {
+    filtersModel.actions.setClientIdEv(client);
+  };
+
+  const onSetService = (service: TService | null) => {
+    filtersModel.actions.setServiceIdEv(service);
+  };
+
   return (
     <div className={cn(className, 'w-full')}>
       <Filters
         model={filtersModel}
         clientsSearch={
-          <SearchClients model={searchClientsModel} />
+          <SearchClients
+            onClientClick={onSetClient}
+            model={searchClientsModel}
+          />
         }
         servicesSearch={
-          <SearchServices model={searchServicesModel} />
+          <SearchServices
+            onServiceClick={onSetService}
+            model={searchServicesModel}
+          />
         }
       />
     </div>

@@ -1,3 +1,5 @@
+import { TService } from '@/entities/service';
+import { TClient } from '@/entities/users';
 import {
   combine,
   createEvent,
@@ -28,8 +30,8 @@ export const createAppointmentsFiltersModel = () => {
 
   const resetFiltersEv = createEvent();
   const setSortDirectionEv = createEvent<'asc' | 'desc'>();
-  const setClientIdEv = createEvent<number>();
-  const setServiceIdEv = createEvent<number>();
+  const setClientIdEv = createEvent<TClient | null>();
+  const setServiceIdEv = createEvent<TService | null>();
   const setDateEv = createEvent<Date>();
   const setDateFromEv = createEvent<Date>();
   const setDateToEv = createEvent<Date>();
@@ -40,10 +42,10 @@ export const createAppointmentsFiltersModel = () => {
     .on(setSortDirectionEv, (_, s) => s)
     .reset(resetFiltersEv);
   $clientId
-    .on(setClientIdEv, (_, n) => n)
+    .on(setClientIdEv, (_, n) => (n === null ? n : n.id))
     .reset(resetFiltersEv);
   $serviceId
-    .on(setServiceIdEv, (_, n) => n)
+    .on(setServiceIdEv, (_, n) => (n === null ? n : n.id))
     .reset(resetFiltersEv);
   $date
     .on(setDateEv, (_, n) => n)

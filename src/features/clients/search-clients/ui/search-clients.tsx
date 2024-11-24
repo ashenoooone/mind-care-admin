@@ -11,12 +11,12 @@ import { cn } from '@/shared/lib/utils';
 
 type Props = {
   className?: string;
-  onClientClick?: (client: TClient) => void;
+  onClientClick?: (client: TClient | null) => void;
   model: ReturnType<typeof createSearchClientsModel>;
 };
 
 export const SearchClients = (props: Props) => {
-  const { className, model } = props;
+  const { className, model, onClientClick } = props;
 
   const { $name, $debouncedName, setNameEv } =
     useUnit(model);
@@ -37,6 +37,11 @@ export const SearchClients = (props: Props) => {
   const isLoadingCombined =
     isFetchingNextPage || isFetching || isLoading;
 
+  const handleChangeClient = (name: string) => {
+    const item = data?.find((u) => u.name === name) ?? null;
+    onClientClick?.(item);
+  };
+
   return (
     <SearchableSelect
       className={cn(
@@ -46,6 +51,7 @@ export const SearchClients = (props: Props) => {
       isLoading={isLoadingCombined}
       placeholder="Пользователь"
       options={usersOptions}
+      onSelect={handleChangeClient}
       searchValue={$name}
       onValueChange={(value) => setNameEv(value)}
     />
