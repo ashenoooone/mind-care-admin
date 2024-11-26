@@ -1,6 +1,11 @@
 'use client';
 
-import { List } from '@/entities/appointments';
+import {
+  Appointment,
+  List,
+  Status,
+  useGetAppointments,
+} from '@/entities/appointments';
 import { TService } from '@/entities/service';
 import { TClient } from '@/entities/users';
 import {
@@ -16,6 +21,8 @@ import {
   SearchServices,
 } from '@/features/services/search-service';
 import { cn } from '@/shared/lib/utils';
+import Loader from '@/shared/ui/loader';
+import Pagination from '@/shared/ui/pagination';
 import { useUnit } from 'effector-react';
 
 type Props = {
@@ -45,6 +52,9 @@ export const AppointmentsList = (props: Props) => {
     filtersModel.actions.setServiceIdEv(service);
   };
 
+  const { data, isLoading, isError } =
+    useGetAppointments(filters);
+
   return (
     <div
       className={cn(
@@ -67,7 +77,36 @@ export const AppointmentsList = (props: Props) => {
           />
         }
       />
-      <List params={filters} />
+      <List
+        appointments={
+          !(isLoading || isError) ? (
+            data?.data.items.map((ap) => (
+              <Appointment
+                appointment={ap}
+                key={ap.id}
+                className="relative"
+                status={
+                  <Status
+                    className="absolute top-1 right-1"
+                    status={ap.status}
+                  />
+                }
+              />
+            ))
+          ) : (
+            <Loader />
+          )
+        }
+      />
+      {/* TODO фикс */}
+      {data && (
+        <Pagination
+          onPageChange={(page) =>
+            filtersModel.actions.setPageEv(page)
+          }
+          meta={data?.data.meta}
+        />
+      )}
     </div>
   );
 };

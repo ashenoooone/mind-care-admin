@@ -40,8 +40,14 @@ export const Appointment = (props: Props) => {
         </p>
       </div>
       <div className="mt-auto">
-        {formatDate(appointment.startTime)} -{' '}
-        {formatDate(appointment.endTime)}
+        <div>
+          {formatDate(appointment.startTime)} -{' '}
+          {formatDate(appointment.endTime)}
+        </div>
+        <span></span>
+        {new Date(
+          appointment.startTime
+        ).toLocaleDateString()}
       </div>
     </Card>
   );

@@ -31,6 +31,13 @@ export const Filters = (props: Props) => {
     string[] | undefined
   >(['item']);
 
+  const fromDate =
+    filters?.dateFrom?.toISOString().split('T')[0] ?? '';
+  const toDate =
+    filters.dateTo?.toISOString().split('T')[0] ?? '';
+  const date =
+    filters.date?.toISOString().split('T')[0] ?? '';
+
   return (
     <Accordion
       type="multiple"
@@ -49,18 +56,39 @@ export const Filters = (props: Props) => {
             <Input
               type="date"
               label="Дата"
-              value={filters.date?.toLocaleDateString()}
+              value={date}
+              onChange={(e) =>
+                model.actions.setDateEv(
+                  e.target.value
+                    ? new Date(e.target.value)
+                    : null
+                )
+              }
             />
             <div className="flex gap-2">
               <Input
                 label="Дата с"
                 type="date"
-                value={filters.dateFrom?.toLocaleDateString()}
+                value={fromDate}
+                onChange={(e) =>
+                  model.actions.setDateFromEv(
+                    e.target.value
+                      ? new Date(e.target.value)
+                      : null
+                  )
+                }
               />
               <Input
                 label="Дата по"
                 type="date"
-                value={filters.dateTo?.toLocaleDateString()}
+                value={toDate}
+                onChange={(e) =>
+                  model.actions.setDateToEv(
+                    e.target.value
+                      ? new Date(e.target.value)
+                      : null
+                  )
+                }
               />
             </div>
           </div>

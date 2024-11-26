@@ -32,9 +32,9 @@ export const createAppointmentsFiltersModel = () => {
   const setSortDirectionEv = createEvent<'asc' | 'desc'>();
   const setClientIdEv = createEvent<TClient | null>();
   const setServiceIdEv = createEvent<TService | null>();
-  const setDateEv = createEvent<Date>();
-  const setDateFromEv = createEvent<Date>();
-  const setDateToEv = createEvent<Date>();
+  const setDateEv = createEvent<Date | null>();
+  const setDateFromEv = createEvent<Date | null>();
+  const setDateToEv = createEvent<Date | null>();
   const setPageEv = createEvent<number>();
 
   $page.on(setPageEv, (_, n) => n);
