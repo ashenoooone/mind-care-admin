@@ -3,7 +3,7 @@ export type PaginationParams = {
   limit?: number;
 };
 
-export type WithPagination = {
+export type WithPaginationMeta = {
   meta: {
     currentPage: number;
     nextPage: number;

@@ -2,7 +2,7 @@ import { $api } from '@/shared/api';
 import { TService } from '../model/types';
 import {
   PaginationParams,
-  WithPagination,
+  WithPaginationMeta,
 } from '@/shared/types';
 
 export class ServicesService {
@@ -10,7 +10,7 @@ export class ServicesService {
     params: { name?: string } & PaginationParams
   ) => {
     const { page = 0, limit = 10, name } = params;
-    return $api.get<{ items: TService[] } & WithPagination>(
+    return $api.get<{ items: TService[] } & WithPaginationMeta>(
       '/services',
       {
         params: { page, limit, name },

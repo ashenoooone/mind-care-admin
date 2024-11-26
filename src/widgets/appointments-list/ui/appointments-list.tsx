@@ -1,5 +1,6 @@
 'use client';
 
+import { List } from '@/entities/appointments';
 import { TService } from '@/entities/service';
 import { TClient } from '@/entities/users';
 import {
@@ -15,6 +16,7 @@ import {
   SearchServices,
 } from '@/features/services/search-service';
 import { cn } from '@/shared/lib/utils';
+import { useUnit } from 'effector-react';
 
 type Props = {
   className?: string;
@@ -33,6 +35,8 @@ const searchServicesModel = createSearchServiceModel({
 export const AppointmentsList = (props: Props) => {
   const { className } = props;
 
+  const [filters] = useUnit(filtersModel.filters);
+
   const onSetClient = (client: TClient | null) => {
     filtersModel.actions.setClientIdEv(client);
   };
@@ -42,7 +46,12 @@ export const AppointmentsList = (props: Props) => {
   };
 
   return (
-    <div className={cn(className, 'w-full')}>
+    <div
+      className={cn(
+        className,
+        'w-full flex flex-col gap-4'
+      )}
+    >
       <Filters
         model={filtersModel}
         clientsSearch={
@@ -58,6 +67,7 @@ export const AppointmentsList = (props: Props) => {
           />
         }
       />
+      <List params={filters} />
     </div>
   );
 };
