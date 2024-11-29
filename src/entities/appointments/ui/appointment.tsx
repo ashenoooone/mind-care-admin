@@ -1,5 +1,8 @@
 import { cn } from '@/shared/lib/utils';
-import { TAppointment } from '../model/types';
+import {
+  AppointmentStatus,
+  TAppointment,
+} from '../model/types';
 
 import { ReactNode } from 'react';
 import { Card } from '@/shared/ui/card';
@@ -9,6 +12,7 @@ type Props = {
   className?: string;
   appointment: TAppointment;
   status?: ReactNode;
+  actions?: ReactNode;
 };
 
 const formatDate = (date: Date) => {
@@ -16,13 +20,21 @@ const formatDate = (date: Date) => {
 };
 
 export const Appointment = (props: Props) => {
-  const { className, appointment, status } = props;
+  const { className, appointment, status, actions } = props;
 
   return (
     <Card
       className={cn(
         className,
-        'w-full mx-auto bg-white shadow-md rounded-lg p-3 flex flex-col text-sm'
+        'w-full mx-auto bg-white rounded-lg p-3 flex flex-col text-sm shadow-sm shadow-blue-400 border-blue-700',
+        {
+          'shadow-green-400 border-green-700':
+            appointment.status ===
+            AppointmentStatus.COMPLETED,
+          'shadow-red-400 border-red-700':
+            appointment.status ===
+            AppointmentStatus.CANCELLED,
+        }
       )}
     >
       {status}
@@ -49,6 +61,7 @@ export const Appointment = (props: Props) => {
           appointment.startTime
         ).toLocaleDateString()}
       </div>
+      {actions}
     </Card>
   );
 };

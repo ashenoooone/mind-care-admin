@@ -77,9 +77,7 @@ const Pagination: React.FC<PaginationProps> = ({
               ? 'default'
               : 'ghost'
           }
-          className={cn('shrink-0 px-2', {
-            'font-bold': Number(page) === meta.currentPage,
-          })}
+          className={cn('shrink-0 px-2')}
           onClick={() =>
             typeof page === 'number' &&
             handlePageChange(page - 1)

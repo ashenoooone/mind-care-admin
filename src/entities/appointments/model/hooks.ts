@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppointmentsService } from './appointments.service';
+import { mutationOptions } from '@/shared/lib/mutation-options';
 
-const APPOINTMENTS_BASE_KEY = 'appointments';
+export const APPOINTMENTS_BASE_KEY = 'appointments';
 
 export const useGetAppointments = (
   params: FuncFirstParameter<
@@ -15,4 +16,13 @@ export const useGetAppointments = (
     ],
     queryFn: () =>
       AppointmentsService.getAppointments(params),
+  });
+
+export const PATCH_APPOINTMENTS_MUTATION_OPTIONS =
+  mutationOptions<
+    typeof AppointmentsService.patchAppointment
+  >({
+    mutationKey: ['patch-appointments'],
+    mutationFn: (params) =>
+      AppointmentsService.patchAppointment(params),
   });

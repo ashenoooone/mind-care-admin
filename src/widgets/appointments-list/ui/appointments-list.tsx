@@ -2,6 +2,9 @@
 
 import {
   Appointment,
+  AppointmentStatus,
+  CancelAppointment,
+  ConfirmAppointment,
   List,
   Status,
   useGetAppointments,
@@ -85,6 +88,20 @@ export const AppointmentsList = (props: Props) => {
                 appointment={ap}
                 key={ap.id}
                 className="relative"
+                actions={
+                  <div className="flex gap-1">
+                    {ap.status ===
+                      AppointmentStatus.SCHEDULED && (
+                      <ConfirmAppointment
+                        appointment={ap}
+                      />
+                    )}
+                    {ap.status ===
+                      AppointmentStatus.SCHEDULED && (
+                      <CancelAppointment appointment={ap} />
+                    )}
+                  </div>
+                }
                 status={
                   <Status
                     className="absolute top-1 right-1"

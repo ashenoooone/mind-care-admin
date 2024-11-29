@@ -1,12 +1,13 @@
+import { Button, ButtonProps } from './button';
 import {
-  Dialog,
+  DialogHeader,
+  DialogFooter,
   DialogTrigger,
+  Dialog,
   DialogContent,
   DialogTitle,
   DialogDescription,
-} from '@radix-ui/react-dialog';
-import { Button, ButtonProps } from './button';
-import { DialogHeader, DialogFooter } from './dialog';
+} from './dialog';
 import { ReactNode } from 'react';
 
 export type ConfirmationModalProps = {
@@ -16,7 +17,7 @@ export type ConfirmationModalProps = {
   cancelButtonProps: ButtonProps;
   title?: ReactNode;
   description?: ReactNode;
-  trigger: ReactNode;
+  trigger?: ReactNode;
 };
 
 export const ConfirmationModal = (

@@ -15,4 +15,15 @@ export class AppointmentsService {
       params,
     });
   }
+
+  static patchAppointment(
+    params: { id: number } & Partial<TAppointment>
+  ) {
+    const { client, service, ...rest } = params;
+
+    return $api.patch<TAppointment>(
+      `appointments/${params.id}`,
+      rest
+    );
+  }
 }
