@@ -37,7 +37,14 @@ export const createAppointmentsFiltersModel = () => {
   const setDateToEv = createEvent<Date | null>();
   const setPageEv = createEvent<number>();
 
-  $page.on(setPageEv, (_, n) => n);
+  $page
+    .on(setPageEv, (_, n) => n)
+    .reset(setSortDirectionEv)
+    .reset(setClientIdEv)
+    .reset(setServiceIdEv)
+    .reset(setDateEv)
+    .reset(setDateFromEv)
+    .reset(setDateToEv);
   $sortDirection
     .on(setSortDirectionEv, (_, s) => s)
     .reset(resetFiltersEv);

@@ -104,12 +104,16 @@ export const Sidebar = (props: SidebarProps) => {
           </Button>
         ))}
         <Button
-          className="w-full mt-auto"
+          className="w-full"
           size={'sm'}
           variant={'destructive'}
           onClick={() => handleLogout()}
         >
-          {isOpen ? 'Выйти' : <LogOut />}
+          {isOpen ? (
+            'Выйти'
+          ) : (
+            <LogOut className="w-3 h-3" />
+          )}
         </Button>
       </div>
     </nav>

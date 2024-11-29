@@ -99,7 +99,7 @@ export const AppointmentsList = (props: Props) => {
         }
       />
       {/* TODO фикс */}
-      {data && (
+      {data && data.data.meta.totalPages > 1 && (
         <Pagination
           onPageChange={(page) =>
             filtersModel.actions.setPageEv(page)

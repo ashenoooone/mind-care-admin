@@ -15,11 +15,11 @@ type Props = {
 };
 
 const statusIcons = {
-  SCHEDULED: <Calendar className="w-5 h-5 text-blue-500" />,
+  SCHEDULED: <Calendar className="w-4 h-4 text-blue-500" />,
   COMPLETED: (
-    <CheckCircle className="w-5 h-5 text-green-500" />
+    <CheckCircle className="w-4 h-4 text-green-500" />
   ),
-  CANCELLED: <XCircle className="w-5 h-5 text-red-500" />,
+  CANCELLED: <XCircle className="w-4 h-4 text-red-500" />,
 };
 
 const statusColors = {
@@ -35,11 +35,11 @@ export const Status = (props: Props) => {
       className={cn(
         statusColors[status],
         className,
-        'px-3 py-1 text-sm font-medium rounded-full group flex gap-1'
+        'px-2 py-1 select-none items-center text-sm font-medium rounded-full group flex'
       )}
     >
       {statusIcons[status]}
-      <span className="overflow-hidden max-w-0 group-hover:max-w-[150px] transition-all duration-300 ease-in-out whitespace-nowrap">
+      <span className="overflow-hidden max-w-0 group-hover:ml-1 group-hover:max-w-[150px] transition-all duration-300 ease-in-out whitespace-nowrap">
         {appointmentStatusMapper[status]}
       </span>
     </div>

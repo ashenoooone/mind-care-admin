@@ -72,11 +72,17 @@ const Pagination: React.FC<PaginationProps> = ({
       {pages.map((page, index) => (
         <Button
           key={index}
-          variant={'ghost'}
-          className={cn('shrink-0 px-2')}
+          variant={
+            Number(page) - 1 === meta.currentPage
+              ? 'default'
+              : 'ghost'
+          }
+          className={cn('shrink-0 px-2', {
+            'font-bold': Number(page) === meta.currentPage,
+          })}
           onClick={() =>
             typeof page === 'number' &&
-            handlePageChange(page)
+            handlePageChange(page - 1)
           }
           disabled={typeof page !== 'number'}
         >
