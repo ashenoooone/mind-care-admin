@@ -1,29 +1,36 @@
-"use client"
+import React from 'react';
 
-import * as React from "react"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
+export type SwitchOption = {
+  label: string;
+  value: string;
+};
 
-import { cn } from "@/shared/lib/utils"
+type Props = {
+  options: SwitchOption[];
+  selectedValue: string;
+  onChange: (value: string) => void;
+};
 
-const Switch = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
-  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => (
-  <SwitchPrimitives.Root
-    className={cn(
-      "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
-      className
-    )}
-    {...props}
-    ref={ref}
-  >
-    <SwitchPrimitives.Thumb
-      className={cn(
-        "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
-      )}
-    />
-  </SwitchPrimitives.Root>
-))
-Switch.displayName = SwitchPrimitives.Root.displayName
-
-export { Switch }
+export const Switch = ({
+  options,
+  selectedValue,
+  onChange,
+}: Props) => {
+  return (
+    <div className="flex bg-gray-100 rounded-lg shadow-sm">
+      {options.map((option) => (
+        <button
+          key={option.value}
+          className={`px-4 py-2 w-full text-sm font-medium rounded-lg transition ${
+            selectedValue === option.value
+              ? 'bg-white shadow text-black'
+              : 'text-gray-500'
+          }`}
+          onClick={() => onChange(option.value)}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+};

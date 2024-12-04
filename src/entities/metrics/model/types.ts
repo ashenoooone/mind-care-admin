@@ -7,6 +7,29 @@ export type GetMetricDto = {
   clientId?: number;
 };
 
+export type IntervalTypeDayWeek = 'day' | 'week';
+export type IntervalTypeWeekMonth = 'week' | 'month';
+
+export const INTERVAL_TYPE_DAY_WEEK_VALUES: IntervalTypeDayWeek[] =
+  ['day', 'week'];
+
+export const INTERVAL_TYPE_WEEK_MONTH_VALUES: IntervalTypeWeekMonth[] =
+  ['month', 'week'];
+
+export type IntervalsCommonType =
+  | IntervalTypeDayWeek
+  | IntervalTypeWeekMonth;
+
+export type Intervals =
+  | {
+      type: 'day-week';
+      value: IntervalTypeDayWeek;
+    }
+  | {
+      type: 'week-month';
+      value: IntervalTypeWeekMonth;
+    };
+
 export enum MetricType {
   Appointments = 'appointments', // Общий отчет по записям
   AllReports = 'reports', // Сводный отчет

@@ -1,4 +1,8 @@
-import { MetricType } from './types';
+import {
+  IntervalTypeDayWeek,
+  IntervalTypeWeekMonth,
+  MetricType,
+} from './types';
 
 const metricTypeToRussianMap: Record<MetricType, string> = {
   [MetricType.Appointments]: 'Общий отчет по записям',
@@ -28,5 +32,24 @@ export function mapMetricTypeToRussian(
   return (
     metricTypeToRussianMap[metricType] ||
     'Неизвестный тип метрики'
+  );
+}
+
+export const intervalTypeToRussianMap: Record<
+  IntervalTypeDayWeek | IntervalTypeWeekMonth,
+  string
+> = {
+  day: 'День',
+  week: 'Неделя',
+  month: 'Месяц',
+};
+
+// Функция для получения значения на русском
+export function mapIntervalTypeToRussian(
+  interval: IntervalTypeDayWeek | IntervalTypeWeekMonth
+): string {
+  return (
+    intervalTypeToRussianMap[interval] ||
+    'Неизвестный интервал'
   );
 }
