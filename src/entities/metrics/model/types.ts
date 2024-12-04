@@ -7,7 +7,7 @@ export type GetMetricDto = {
   clientId?: number;
 };
 
-export enum ReportType {
+export enum MetricType {
   Appointments = 'appointments', // Общий отчет по записям
   AllReports = 'reports', // Сводный отчет
   RevenueShareByService = 'revenue-by-service', // Соотношение выручки по услугам
