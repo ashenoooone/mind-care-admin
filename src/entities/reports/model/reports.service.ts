@@ -16,14 +16,13 @@ export class ReportsService {
 
   static async getReports(params: PaginationParams) {
     const { limit = 10, page = 0 } = params;
-    return $api.get<{ items: TReport[] } & WithPaginationMeta>(
-      'reports',
-      {
-        params: {
-          limit,
-          page,
-        },
-      }
-    );
+    return $api.get<
+      { items: TReport[] } & WithPaginationMeta
+    >('reports', {
+      params: {
+        limit,
+        page,
+      },
+    });
   }
 }

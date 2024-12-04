@@ -7,6 +7,7 @@ import {
 import { ReactNode } from 'react';
 import { Card } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
+import { Money } from '@/shared/ui/money';
 
 type Props = {
   className?: string;
@@ -44,9 +45,7 @@ export const Appointment = (props: Props) => {
       <Separator className="my-2" />
       <div className="flex gap-2 font-bold">
         <p className="text-sm">{appointment.client.name}</p>
-        <p className="text-sm font-bold text-green-600">
-          {appointment.service.price} ₽
-        </p>
+        <Money>{appointment.service.price}</Money>
         <p className="text-sm">
           {appointment.service.duration} мин.
         </p>
