@@ -1,9 +1,9 @@
-import { calculateAppointmentMetrics } from '../model/appointments-metrics';
 import { Money } from '@/shared/ui/money';
+import { AppointmentsMetrics } from '../model/types';
 
 type Props = {
   className?: string;
-  metrics: ReturnType<typeof calculateAppointmentMetrics>;
+  metrics: AppointmentsMetrics;
 };
 
 export const AppointmentsListMetrics = (props: Props) => {

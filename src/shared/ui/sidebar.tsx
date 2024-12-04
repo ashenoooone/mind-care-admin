@@ -11,6 +11,7 @@ import {
   Sidebar as SidebarIcon,
   Users,
   MessageCircleQuestion,
+  StickyNote,
 } from 'lucide-react';
 import Link from 'next/link';
 import { ROUTES } from '../config/router-config';
@@ -46,6 +47,11 @@ const NAV_ITEMS = [
     text: 'Обращения',
     icon: <MessageCircleQuestion />,
     href: ROUTES.reports,
+  },
+  {
+    text: 'Отчеты',
+    icon: <StickyNote />,
+    href: ROUTES.metrics,
   },
 ];
 

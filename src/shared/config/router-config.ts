@@ -6,4 +6,5 @@ export const ROUTES = {
   appointments: '/appointments',
   settings: '/settings',
   reports: '/reports',
+  metrics: '/metrics',
 } as const;
