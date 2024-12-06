@@ -5,8 +5,8 @@ import {
   INTERVAL_TYPE_DAY_WEEK_VALUES,
   INTERVAL_TYPE_WEEK_MONTH_VALUES,
   Intervals,
-  IntervalTypeDayWeek,
-  IntervalTypeWeekMonth,
+  TIntervalTypeDayWeek,
+  TIntervalTypeWeekMonth,
 } from '../model/types';
 import { mapIntervalTypeToRussian } from '../model/lib';
 import { Input } from '@/shared/ui/input';
@@ -67,12 +67,12 @@ export const MetricParams = (props: Props) => {
             if ($interval.type === 'day-week') {
               updateIntervalEv({
                 ...$interval,
-                value: value as IntervalTypeDayWeek,
+                value: value as TIntervalTypeDayWeek,
               });
             } else {
               updateIntervalEv({
                 ...$interval,
-                value: value as IntervalTypeWeekMonth,
+                value: value as TIntervalTypeWeekMonth,
               });
             }
           }}

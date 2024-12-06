@@ -8,28 +8,24 @@ export type GetMetricDto = {
   clientId?: number;
 };
 
-export type IntervalTypeDayWeek = 'day' | 'week';
-export type IntervalTypeWeekMonth = 'week' | 'month';
+export type TIntervalTypeDayWeek = {
+  type: 'day-week';
+  value: 'day' | 'week';
+};
+export type TIntervalTypeWeekMonth = {
+  type: 'week-month';
+  value: 'week' | 'month';
+};
 
-export const INTERVAL_TYPE_DAY_WEEK_VALUES: IntervalTypeDayWeek[] =
+export const INTERVAL_TYPE_DAY_WEEK_VALUES: TIntervalTypeDayWeek['value'][] =
   ['day', 'week'];
 
-export const INTERVAL_TYPE_WEEK_MONTH_VALUES: IntervalTypeWeekMonth[] =
+export const INTERVAL_TYPE_WEEK_MONTH_VALUES: TIntervalTypeWeekMonth['value'][] =
   ['month', 'week'];
 
-export type IntervalsCommonType =
-  | IntervalTypeDayWeek
-  | IntervalTypeWeekMonth;
-
 export type Intervals =
-  | {
-      type: 'day-week';
-      value: IntervalTypeDayWeek;
-    }
-  | {
-      type: 'week-month';
-      value: IntervalTypeWeekMonth;
-    };
+  | TIntervalTypeDayWeek
+  | TIntervalTypeWeekMonth;
 
 export enum MetricType {
   Appointments = 'appointments', // Общий отчет по записям

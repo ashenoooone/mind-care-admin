@@ -3,8 +3,8 @@ import {
   GetAverageCostByTime,
   GetLoadByWeekDay,
   GetMetricDto,
-  IntervalTypeDayWeek,
-  IntervalTypeWeekMonth,
+  TIntervalTypeDayWeek,
+  TIntervalTypeWeekMonth,
 } from './types';
 import {
   AppointmentsMetrics,
@@ -51,14 +51,14 @@ export class MetricsService {
   // Уникальные клиенты по времени
   static async getUniqueClientsOverTime(
     params: GetMetricDto,
-    interval: IntervalTypeWeekMonth
+    interval: TIntervalTypeWeekMonth
   ) {
     return $api.get<UniqueClientsOverTime[]>(
       'metrics/unique-clients-over-time',
       {
         params: {
           ...params,
-          interval,
+          interval: interval.value,
         },
       }
     );
@@ -67,7 +67,7 @@ export class MetricsService {
   // Динамика отмен
   static async getCancellationTrends(
     params: GetMetricDto,
-    interval: IntervalTypeDayWeek
+    interval: TIntervalTypeDayWeek
   ) {
     return $api.get<CancellationTrends[]>(
       'metrics/cancellation-trends',
@@ -104,14 +104,14 @@ export class MetricsService {
   // Средняя стоимость записи
   static async getAverageCostByTime(
     params: GetMetricDto,
-    interval: IntervalTypeDayWeek
+    interval: TIntervalTypeDayWeek
   ) {
     return $api.get<GetAverageCostByTime>(
       'metrics/average-cost-over-time',
       {
         params: {
           ...params,
-          interval,
+          interval: interval.value,
         },
       }
     );
@@ -140,14 +140,14 @@ export class MetricsService {
   // Выручка по дням или неделям
   static async getRevenueOverTime(
     params: GetMetricDto,
-    interval: IntervalTypeDayWeek
+    interval: TIntervalTypeDayWeek
   ) {
     return $api.get<RevenueOverTime[]>(
       'metrics/revenue-over-time',
       {
         params: {
           ...params,
-          interval,
+          interval: interval.value,
         },
       }
     );
@@ -156,14 +156,14 @@ export class MetricsService {
   // Динамика количества записей
   static async getAppointmentTrends(
     params: GetMetricDto,
-    interval: IntervalTypeDayWeek
+    interval: TIntervalTypeDayWeek
   ) {
     return $api.get<AppointmentTrends[]>(
       'metrics/appointment-trends',
       {
         params: {
           ...params,
-          interval,
+          interval: interval.value,
         },
       }
     );

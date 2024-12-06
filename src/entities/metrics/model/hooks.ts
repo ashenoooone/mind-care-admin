@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { MetricsService } from './metrics.service';
-import { GetMetricDto } from './types';
+import {
+  GetMetricDto,
+  TIntervalTypeDayWeek,
+  TIntervalTypeWeekMonth,
+} from './types';
 
 // ====== ОБЩИЙ ОТЧЕТ ПО ЗАПИСЯМ =======
 const APPOINTMENTS_REPORT_QUERY_KEY = 'appointments_report';
@@ -49,7 +53,7 @@ const UNIQUE_CLIENTS_OVER_TIME_QUERY_KEY =
   'unique_clients_over_time';
 export const useUniqueClientsOverTime = (
   params: GetMetricDto,
-  interval: 'week' | 'month'
+  interval: TIntervalTypeWeekMonth
 ) => {
   return useQuery({
     queryKey: [
@@ -68,7 +72,7 @@ export const useUniqueClientsOverTime = (
 const CANCELLATION_TRENDS_QUERY_KEY = 'cancellation_trends';
 export const useCancellationTrends = (
   params: GetMetricDto,
-  interval: 'day' | 'week'
+  interval: TIntervalTypeDayWeek
 ) => {
   return useQuery({
     queryKey: [
@@ -116,7 +120,7 @@ const AVERAGE_COST_BY_TIME_QUERY_KEY =
   'average_cost_by_time';
 export const useAverageCostByTime = (
   params: GetMetricDto,
-  interval: 'day' | 'week'
+  interval: TIntervalTypeDayWeek
 ) => {
   return useQuery({
     queryKey: [
@@ -163,7 +167,7 @@ export const useStatusPercentage = (
 const REVENUE_OVER_TIME_QUERY_KEY = 'revenue_over_time';
 export const useRevenueOverTime = (
   params: GetMetricDto,
-  interval: 'day' | 'week'
+  interval: TIntervalTypeDayWeek
 ) => {
   return useQuery({
     queryKey: [
@@ -179,7 +183,7 @@ export const useRevenueOverTime = (
 const APPOINTMENT_TRENDS_QUERY_KEY = 'appointment_trends';
 export const useAppointmentTrends = (
   params: GetMetricDto,
-  interval: 'day' | 'week'
+  interval: TIntervalTypeDayWeek
 ) => {
   return useQuery({
     queryKey: [
