@@ -1,5 +1,6 @@
-import { AllReports } from '../ui/all-reports';
-import { AppointmentsMetrics } from '../ui/appointments-metrics';
+import { AllReports } from '../ui/reports/all-reports';
+import { AppointmentsMetrics } from '../ui/reports/appointments-metrics';
+import { RevenueByService } from '../ui/reports/revenue-by-service';
 import { createMetricsParamsModel } from './metrics-params.model';
 import { MetricType } from './types';
 
@@ -14,7 +15,7 @@ export const METRIC_STRATEGY_MAPPER: Record<
 > = {
   [MetricType.Appointments]: AppointmentsMetrics,
   [MetricType.AllReports]: AllReports,
-  [MetricType.RevenueShareByService]: AppointmentsMetrics,
+  [MetricType.RevenueShareByService]: RevenueByService,
   [MetricType.UniqueClientsOverTime]: AppointmentsMetrics,
   [MetricType.CancellationTrends]: AppointmentsMetrics,
   [MetricType.DailyLoad]: AppointmentsMetrics,

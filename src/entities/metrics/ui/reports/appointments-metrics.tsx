@@ -6,11 +6,11 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { useAppointmentsReport } from '../model/hooks';
 import Loader from '@/shared/ui/loader';
 import { useUnit } from 'effector-react';
 import { Money } from '@/shared/ui/money';
-import { MetricProps } from '../model/metric-strategy';
+import { MetricProps } from '../../model/metric-strategy';
+import { useAppointmentsReport } from '../../model/hooks';
 
 const COLORS = ['#4caf50', '#f44336', '#2196f3']; // Зеленый, красный, синий
 

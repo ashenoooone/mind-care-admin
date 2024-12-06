@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react';
-import { useAllReports } from '../model/hooks';
-import { MetricProps } from '../model/metric-strategy';
+import { useAllReports } from '../../model/hooks';
+import { MetricProps } from '../../model/metric-strategy';
 import Loader from '@/shared/ui/loader';
 
 export const AllReports = (props: MetricProps) => {
