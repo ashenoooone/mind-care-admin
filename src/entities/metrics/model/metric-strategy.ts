@@ -3,6 +3,7 @@ import { AppointmentsMetrics } from '../ui/reports/appointments-metrics';
 import { CancellationTrends } from '../ui/reports/cancelation-trends';
 import { DailyLoad } from '../ui/reports/daily-load';
 import { RevenueByService } from '../ui/reports/revenue-by-service';
+import { TopCancelingClients } from '../ui/reports/top-canceling-clients';
 import { UniqueClientsOverTime } from '../ui/reports/unique-clients-over-time';
 import { createMetricsParamsModel } from './metrics-params.model';
 import { MetricType } from './types';
@@ -22,7 +23,7 @@ export const METRIC_STRATEGY_MAPPER: Record<
   [MetricType.UniqueClientsOverTime]: UniqueClientsOverTime,
   [MetricType.CancellationTrends]: CancellationTrends,
   [MetricType.DailyLoad]: DailyLoad,
-  [MetricType.TopCancellingClients]: AppointmentsMetrics,
+  [MetricType.TopCancellingClients]: TopCancelingClients,
   [MetricType.AverageCostByTime]: AppointmentsMetrics,
   [MetricType.LoadByWeekday]: AppointmentsMetrics,
   [MetricType.StatusPercentage]: AppointmentsMetrics,
