@@ -8,21 +8,16 @@ import {
 } from 'recharts';
 import { useAppointmentsReport } from '../model/hooks';
 import Loader from '@/shared/ui/loader';
-import { createMetricsParamsModel } from '../model/metrics-params.model';
 import { useUnit } from 'effector-react';
 import { Money } from '@/shared/ui/money';
-
-type Props = {
-  className?: string;
-  params: ReturnType<typeof createMetricsParamsModel>;
-};
+import { MetricProps } from '../model/metric-strategy';
 
 const COLORS = ['#4caf50', '#f44336', '#2196f3']; // Зеленый, красный, синий
 
 export const AppointmentsMetrics = ({
   className,
   params,
-}: Props) => {
+}: MetricProps) => {
   const { $metricsParams } = useUnit(params);
   const { data, isLoading } =
     useAppointmentsReport($metricsParams);

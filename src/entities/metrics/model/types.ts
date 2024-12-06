@@ -1,5 +1,6 @@
 import { AppointmentStatus } from '@/entities/appointments/@x/statistic';
-
+import type { TService } from '@/entities/service/@x/metrics';
+import { TClient } from '@/entities/users/@x/appointments/index';
 export type GetMetricDto = {
   dateFrom?: string;
   dateTo?: string;
@@ -59,7 +60,7 @@ export interface AppointmentsMetrics {
 export interface AllReports {
   averageDuration: number;
   mostPopularService: {
-    serviceId: number;
+    service: TService;
     count: number;
   } | null;
   busiestTime: {
@@ -69,11 +70,9 @@ export interface AllReports {
   uniqueClients: number;
   averageAppointmentCost: number;
   appointmentsByWeekday: Record<string, number>;
-  topCancelingClients: {
-    clientId: number;
+  topCancelingClients: (TClient & {
     cancelledCount: number;
-  }[];
-  totalSupportedClients: number;
+  })[];
   averageDailyLoad: number;
 }
 

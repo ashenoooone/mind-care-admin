@@ -6,37 +6,13 @@ import { useMemo } from 'react';
 import { createMetricsParamsModel } from '../model/metrics-params.model';
 import { MetricParams } from './metric-params';
 import { cn } from '@/shared/lib/utils';
-import { MetricType } from '../model/types';
-import { AppointmentsMetrics } from './appointments-metrics';
+import { METRIC_STRATEGY_MAPPER } from '../model/metric-strategy';
 
 type Props = {
   className?: string;
 };
 
 const chooseMetricsModel = createChooseMetricsModel();
-
-type ReportProps = {
-  className?: string;
-  params: ReturnType<typeof createMetricsParamsModel>;
-};
-
-const METRIC_STRATEGY_MAPPER: Record<
-  MetricType,
-  React.ComponentType<ReportProps>
-> = {
-  [MetricType.Appointments]: AppointmentsMetrics,
-  [MetricType.AllReports]: AppointmentsMetrics,
-  [MetricType.RevenueShareByService]: AppointmentsMetrics,
-  [MetricType.UniqueClientsOverTime]: AppointmentsMetrics,
-  [MetricType.CancellationTrends]: AppointmentsMetrics,
-  [MetricType.DailyLoad]: AppointmentsMetrics,
-  [MetricType.TopCancellingClients]: AppointmentsMetrics,
-  [MetricType.AverageCostByTime]: AppointmentsMetrics,
-  [MetricType.LoadByWeekday]: AppointmentsMetrics,
-  [MetricType.StatusPercentage]: AppointmentsMetrics,
-  [MetricType.RevenueOverTime]: AppointmentsMetrics,
-  [MetricType.AppointmentTrends]: AppointmentsMetrics,
-};
 
 export const Metrics = (props: Props) => {
   const { className } = props;
