@@ -1,5 +1,6 @@
 import { AllReports } from '../ui/reports/all-reports';
 import { AppointmentsMetrics } from '../ui/reports/appointments-metrics';
+import { CancellationTrends } from '../ui/reports/cancelation-trends';
 import { RevenueByService } from '../ui/reports/revenue-by-service';
 import { UniqueClientsOverTime } from '../ui/reports/unique-clients-over-time';
 import { createMetricsParamsModel } from './metrics-params.model';
@@ -18,7 +19,7 @@ export const METRIC_STRATEGY_MAPPER: Record<
   [MetricType.AllReports]: AllReports,
   [MetricType.RevenueShareByService]: RevenueByService,
   [MetricType.UniqueClientsOverTime]: UniqueClientsOverTime,
-  [MetricType.CancellationTrends]: AppointmentsMetrics,
+  [MetricType.CancellationTrends]: CancellationTrends,
   [MetricType.DailyLoad]: AppointmentsMetrics,
   [MetricType.TopCancellingClients]: AppointmentsMetrics,
   [MetricType.AverageCostByTime]: AppointmentsMetrics,
