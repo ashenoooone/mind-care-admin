@@ -32,6 +32,7 @@ export const ChooseMetrics = (props: Props) => {
 
   return (
     <SelectComponent
+      label="Вид отчета"
       className={className}
       options={options}
       onValueChange={onValueChange}

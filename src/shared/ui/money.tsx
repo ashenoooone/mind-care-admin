@@ -12,7 +12,7 @@ export const Money = (props: Props) => {
   return (
     <span
       className={cn(
-        'font-bold text-green-700 bg-green-400/20 rounded-2xl px-1',
+        'font-bold text-green-700 bg-green-400/20 rounded-md px-3',
         {
           'text-red-700 bg-red-400/20': variant === 'red',
           'text-blue-700 bg-blue-400/20':

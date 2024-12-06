@@ -19,11 +19,11 @@ import {
 import {
   createSearchClientsModel,
   SearchClients,
-} from '@/features/clients/search-clients';
+} from '@/entities/users/@x/search-clients';
 import {
   createSearchServiceModel,
   SearchServices,
-} from '@/features/services/search-service';
+} from '@/entities/service/@x/search-service';
 import { cn } from '@/shared/lib/utils';
 import Loader from '@/shared/ui/loader';
 import Pagination from '@/shared/ui/pagination';

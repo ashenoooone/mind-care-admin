@@ -9,11 +9,28 @@ import {
   IntervalTypeWeekMonth,
 } from '../model/types';
 import { mapIntervalTypeToRussian } from '../model/lib';
+import { Input } from '@/shared/ui/input';
+import {
+  createSearchClientsModel,
+  SearchClients,
+} from '@/entities/users/@x/search-clients';
+import {
+  createSearchServiceModel,
+  SearchServices,
+} from '@/entities/service/@x/search-service';
 
 type Props = {
   className?: string;
   model: ReturnType<typeof createMetricsParamsModel>;
 };
+
+const searchClientsModel = createSearchClientsModel({
+  debounceTiming: 500,
+});
+
+const searchServicesModel = createSearchServiceModel({
+  debounceTiming: 500,
+});
 
 const getSwitchOptions = (
   interval: Intervals
@@ -61,6 +78,50 @@ export const MetricParams = (props: Props) => {
           }}
         />
       )}
+      <div className="flex gap-2">
+        <Input
+          label="Дата с"
+          type="date"
+          value={$metricsParams.dateFrom}
+          onChange={(e) =>
+            updateMetricsParams({
+              dateFrom: e.target.value
+                ? e.target.value
+                : undefined,
+            })
+          }
+        />
+        <Input
+          label="Дата по"
+          type="date"
+          value={$metricsParams.dateTo}
+          onChange={(e) =>
+            updateMetricsParams({
+              dateTo: e.target.value
+                ? e.target.value
+                : undefined,
+            })
+          }
+        />
+      </div>
+      <div className="mt-4 flex gap-2">
+        <SearchClients
+          onClientClick={(client) =>
+            updateMetricsParams({
+              clientId: client?.id,
+            })
+          }
+          model={searchClientsModel}
+        />
+        <SearchServices
+          onServiceClick={(service) =>
+            updateMetricsParams({
+              serviceId: service?.id ?? undefined,
+            })
+          }
+          model={searchServicesModel}
+        />
+      </div>
     </div>
   );
 };
