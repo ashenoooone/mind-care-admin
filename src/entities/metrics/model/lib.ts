@@ -36,7 +36,8 @@ export function mapMetricTypeToRussian(
 }
 
 export const intervalTypeToRussianMap: Record<
-  TIntervalTypeDayWeek | TIntervalTypeWeekMonth,
+  | TIntervalTypeDayWeek['value']
+  | TIntervalTypeWeekMonth['value'],
   string
 > = {
   day: 'День',
@@ -46,7 +47,9 @@ export const intervalTypeToRussianMap: Record<
 
 // Функция для получения значения на русском
 export function mapIntervalTypeToRussian(
-  interval: TIntervalTypeDayWeek | TIntervalTypeWeekMonth
+  interval:
+    | TIntervalTypeDayWeek['value']
+    | TIntervalTypeWeekMonth['value']
 ): string {
   return (
     intervalTypeToRussianMap[interval] ||

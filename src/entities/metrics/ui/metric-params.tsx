@@ -18,6 +18,7 @@ import {
   createSearchServiceModel,
   SearchServices,
 } from '@/entities/service/@x/search-service';
+import { cn } from '@/shared/lib/utils';
 
 type Props = {
   className?: string;
@@ -58,7 +59,7 @@ export const MetricParams = (props: Props) => {
   } = useUnit(model);
 
   return (
-    <div className={className}>
+    <div className={cn(className, 'flex flex-col gap-5')}>
       {$interval && (
         <Switch
           options={getSwitchOptions($interval)}
@@ -67,12 +68,14 @@ export const MetricParams = (props: Props) => {
             if ($interval.type === 'day-week') {
               updateIntervalEv({
                 ...$interval,
-                value: value as TIntervalTypeDayWeek,
+                value:
+                  value as TIntervalTypeDayWeek['value'],
               });
             } else {
               updateIntervalEv({
                 ...$interval,
-                value: value as TIntervalTypeWeekMonth,
+                value:
+                  value as TIntervalTypeWeekMonth['value'],
               });
             }
           }}

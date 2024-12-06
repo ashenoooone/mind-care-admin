@@ -27,7 +27,7 @@ export const Metrics = (props: Props) => {
   }, [$currentMetric]);
 
   return (
-    <div className={cn('flex flex-col gap-2', className)}>
+    <div className={cn('flex flex-col gap-5', className)}>
       <ChooseMetrics model={chooseMetricsModel} />
       <MetricParams model={metricsParamsModel} />
       <Metric params={metricsParamsModel} />
