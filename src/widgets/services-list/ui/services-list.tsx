@@ -1,5 +1,6 @@
 'use client';
 import {
+  createServiceListParamsModel,
   ServicesTable,
   TableHeader,
   TableRow,
@@ -8,16 +9,26 @@ import {
 import { CreateServiceModal } from '@/features/services/create-service';
 import { DeleteServiceModal } from '@/features/services/delete-service';
 import Loader from '@/shared/ui/loader';
+import Pagination from '@/shared/ui/pagination';
 import { TableCell } from '@/shared/ui/table';
+import { useUnit } from 'effector-react';
+
+const servicesListParamsModel =
+  createServiceListParamsModel();
 
 export const ServicesList = () => {
-  const { data, isLoading } = useGetServices({});
+  const { $page, changePageEv } = useUnit(
+    servicesListParamsModel
+  );
+  const { data, isLoading } = useGetServices({
+    page: $page,
+    limit: 50,
+  });
 
   if (isLoading || !data) {
     return <Loader />;
   }
 
-  //   TODO обработка ошибок
   return (
     <div className="flex flex-col gap-2">
       <div>
@@ -39,6 +50,12 @@ export const ServicesList = () => {
           />
         ))}
       />
+      {data.data.meta.totalPages > 1 && (
+        <Pagination
+          meta={data.data.meta}
+          onPageChange={(page) => changePageEv(page)}
+        />
+      )}
     </div>
   );
 };
