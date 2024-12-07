@@ -35,9 +35,6 @@ export enum MetricType {
   CancellationTrends = 'cancellation-trends', // Динамика отмен
   DailyLoad = 'daily-load', // Средняя загрузка рабочего дня
   TopCancellingClients = 'top-cancelling-clients', // Отмены по клиентам
-  AverageCostByTime = 'average-cost-over-time', // Средняя стоимость записи
-  LoadByWeekday = 'load-by-weekday', // Загруженность по дням недели
-  StatusPercentage = 'status-percentage', // Процент записей по статусам
   RevenueOverTime = 'revenue-over-time', // Выручка по дням или неделям
   AppointmentTrends = 'appointment-trends', // Динамика количества записей
 }
@@ -71,16 +68,6 @@ export interface AllReports {
   })[];
   averageDailyLoad: number;
 }
-
-export type GetAverageCostByTime = {
-  period: string;
-  averageCost: number;
-}[];
-
-export type GetLoadByWeekDay = Record<
-  string,
-  Record<number, number>
->;
 
 export interface RevenueShareByService {
   serviceId: number;

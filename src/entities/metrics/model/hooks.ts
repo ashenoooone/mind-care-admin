@@ -115,54 +115,6 @@ export const useTopCancellingClients = (
   });
 };
 
-// ====== СРЕДНЯЯ СТОИМОСТЬ ЗАПИСИ =======
-const AVERAGE_COST_BY_TIME_QUERY_KEY =
-  'average_cost_by_time';
-export const useAverageCostByTime = (
-  params: GetMetricDto,
-  interval: TIntervalTypeDayWeek
-) => {
-  return useQuery({
-    queryKey: [
-      AVERAGE_COST_BY_TIME_QUERY_KEY,
-      [...Object.values(params), interval],
-    ],
-    queryFn: () =>
-      MetricsService.getAverageCostByTime(params, interval),
-  });
-};
-
-// ====== ЗАГРУЖЕННОСТЬ ПО ДНЯМ НЕДЕЛИ =======
-const LOAD_BY_WEEKDAY_QUERY_KEY = 'load_by_weekday';
-export const useLoadByWeekday = (
-  params: FuncFirstParameter<
-    typeof MetricsService.getLoadByWeekday
-  >
-) => {
-  return useQuery({
-    queryKey: [
-      LOAD_BY_WEEKDAY_QUERY_KEY,
-      [...Object.values(params)],
-    ],
-    queryFn: () => MetricsService.getLoadByWeekday(params),
-  });
-};
-
-// ====== ПРОЦЕНТ ЗАПИСЕЙ ПО СТАТУСАМ =======
-const STATUS_PERCENTAGE_QUERY_KEY = 'status_percentage';
-export const useStatusPercentage = (
-  params: GetMetricDto
-) => {
-  return useQuery({
-    queryKey: [
-      STATUS_PERCENTAGE_QUERY_KEY,
-      [...Object.values(params)],
-    ],
-    queryFn: () =>
-      MetricsService.getStatusPercentage(params),
-  });
-};
-
 // ====== ВЫРУЧКА ПО ДНЯМ ИЛИ НЕДЕЛЯМ =======
 const REVENUE_OVER_TIME_QUERY_KEY = 'revenue_over_time';
 export const useRevenueOverTime = (

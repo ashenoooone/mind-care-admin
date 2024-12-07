@@ -1,7 +1,5 @@
 import { $api } from '@/shared/api';
 import {
-  GetAverageCostByTime,
-  GetLoadByWeekDay,
   GetMetricDto,
   TIntervalTypeDayWeek,
   TIntervalTypeWeekMonth,
@@ -13,7 +11,6 @@ import {
   UniqueClientsOverTime,
   CancellationTrends,
   DailyLoad,
-  StatusPercentage,
   RevenueOverTime,
   AppointmentTrends,
 } from './types';
@@ -99,42 +96,6 @@ export class MetricsService {
     >('metrics/top-cancelling-clients', {
       params,
     });
-  }
-
-  // Средняя стоимость записи
-  static async getAverageCostByTime(
-    params: GetMetricDto,
-    interval: TIntervalTypeDayWeek
-  ) {
-    return $api.get<GetAverageCostByTime>(
-      'metrics/average-cost-over-time',
-      {
-        params: {
-          ...params,
-          interval: interval.value,
-        },
-      }
-    );
-  }
-
-  // Загруженность по дням недели
-  static async getLoadByWeekday(params: GetMetricDto) {
-    return $api.get<GetLoadByWeekDay>(
-      'metrics/load-by-weekday',
-      {
-        params,
-      }
-    );
-  }
-
-  // Процент записей по статусам
-  static async getStatusPercentage(params: GetMetricDto) {
-    return $api.get<StatusPercentage[]>(
-      'metrics/status-percentage',
-      {
-        params,
-      }
-    );
   }
 
   // Выручка по дням или неделям
