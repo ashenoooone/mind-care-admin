@@ -43,7 +43,7 @@ export const Appointment = (props: Props) => {
         {appointment.service.name}
       </p>
       <Separator className="my-2" />
-      <div className="flex gap-2 font-bold">
+      <div className="flex gap-2 font-bold flex-wrap">
         <p className="text-sm">{appointment.client.name}</p>
         <Money>{appointment.service.price}</Money>
         <p className="text-sm">

@@ -59,6 +59,9 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
+  const nextButtonDisabled =
+    meta.currentPage === meta.totalPages - 1;
+
   return (
     <div className="flex items-center justify-center space-x-2 p-4 bg-gray-100 rounded-lg">
       <Button
@@ -90,7 +93,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
       <Button
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={meta.nextPage === meta.currentPage}
+        disabled={nextButtonDisabled}
         className={cn('shrink-0 px-2')}
       >
         Следующая
