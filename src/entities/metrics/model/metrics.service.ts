@@ -12,7 +12,6 @@ import {
   CancellationTrends,
   DailyLoad,
   RevenueOverTime,
-  AppointmentTrends,
 } from './types';
 
 export class MetricsService {
@@ -105,22 +104,6 @@ export class MetricsService {
   ) {
     return $api.get<RevenueOverTime[]>(
       'metrics/revenue-over-time',
-      {
-        params: {
-          ...params,
-          interval: interval.value,
-        },
-      }
-    );
-  }
-
-  // Динамика количества записей
-  static async getAppointmentTrends(
-    params: GetMetricDto,
-    interval: TIntervalTypeDayWeek
-  ) {
-    return $api.get<AppointmentTrends[]>(
-      'metrics/appointment-trends',
       {
         params: {
           ...params,

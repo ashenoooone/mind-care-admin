@@ -26,5 +26,4 @@ export const METRIC_STRATEGY_MAPPER: Record<
   [MetricType.DailyLoad]: DailyLoad,
   [MetricType.TopCancellingClients]: TopCancelingClients,
   [MetricType.RevenueOverTime]: RevenueOverTime,
-  [MetricType.AppointmentTrends]: AppointmentsMetrics,
 };

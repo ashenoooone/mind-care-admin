@@ -36,7 +36,6 @@ export enum MetricType {
   DailyLoad = 'daily-load', // Средняя загрузка рабочего дня
   TopCancellingClients = 'top-cancelling-clients', // Отмены по клиентам
   RevenueOverTime = 'revenue-over-time', // Выручка по дням или неделям
-  AppointmentTrends = 'appointment-trends', // Динамика количества записей
 }
 
 export interface AppointmentsMetrics {

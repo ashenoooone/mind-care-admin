@@ -33,9 +33,7 @@ export const createMetricsParamsModel = (
       break;
 
     case MetricType.CancellationTrends:
-    case MetricType.AverageCostByTime:
     case MetricType.RevenueOverTime:
-    case MetricType.AppointmentTrends:
       updateIntervalEv({
         type: 'day-week',
         value: 'day',
