@@ -95,11 +95,6 @@ export interface AppointmentTrends {
   count: number;
 }
 
-export interface StatusPercentage {
-  status: AppointmentStatus;
-  percentage: number;
-}
-
 export interface RevenueOverTime {
   period: string;
   revenue: number;
