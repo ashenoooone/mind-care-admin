@@ -17,7 +17,10 @@ type Props = {
 };
 
 const formatDate = (date: Date) => {
-  return new Date(date).toLocaleTimeString();
+  return new Date(date)
+    .toISOString()
+    .split('T')[1]
+    .split('.')[0];
 };
 
 export const Appointment = (props: Props) => {
