@@ -3,6 +3,7 @@
     "browser": true,
     "es2021": true
   },
+  "ignorePatterns": ["jest.config.js", "jest.setup.js"],
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals",

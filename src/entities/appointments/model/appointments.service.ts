@@ -3,7 +3,10 @@ import {
   PaginationParams,
   WithPaginationMeta,
 } from '@/shared/types';
-import { TAppointment } from './types';
+import {
+  TAppointment,
+  TAppointmentCalendar,
+} from './types';
 
 export class AppointmentsService {
   static getAppointments(
@@ -24,6 +27,18 @@ export class AppointmentsService {
     return $api.patch<TAppointment>(
       `appointments/${params.id}`,
       rest
+    );
+  }
+
+  static getAppointmentsCalendar(params: {
+    dateFrom: string;
+    dateTo: string;
+  }) {
+    return $api.get<TAppointmentCalendar>(
+      'appointments/calendar',
+      {
+        params,
+      }
     );
   }
 }

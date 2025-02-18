@@ -26,3 +26,7 @@ export const appointmentStatusMapper: Record<
   [AppointmentStatus.COMPLETED]: 'Завершено',
   [AppointmentStatus.SCHEDULED]: 'Запланированно',
 };
+
+export type TAppointmentCalendar = {
+  [key: string]: TAppointment[];
+};

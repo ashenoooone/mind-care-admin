@@ -1,18 +1,5 @@
 import { AuthFacade } from '@/features/auth';
-import { Skeleton } from '@/shared/ui/skeleton';
-import dynamic from 'next/dynamic';
-
-// TODO fix
-const Sidebar = dynamic(
-  () =>
-    import('@/shared/ui/sidebar').then(
-      (mod) => mod.Sidebar
-    ),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="w-10 h-screen" />,
-  }
-);
+import { Sidebar } from '@/shared/ui/sidebar';
 
 export default function AuthLayout({
   children,

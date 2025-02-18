@@ -26,3 +26,18 @@ export const PATCH_APPOINTMENTS_MUTATION_OPTIONS =
     mutationFn: (params) =>
       AppointmentsService.patchAppointment(params),
   });
+
+export const useGetAppointmentsCalendar = (
+  params: FuncFirstParameter<
+    typeof AppointmentsService.getAppointmentsCalendar
+  >
+) =>
+  useQuery({
+    queryKey: [
+      APPOINTMENTS_BASE_KEY,
+      ...Object.values(params),
+    ],
+    select: (data) => data.data,
+    queryFn: () =>
+      AppointmentsService.getAppointmentsCalendar(params),
+  });

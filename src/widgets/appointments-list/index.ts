@@ -1,1 +1,1 @@
-export * from './ui/appointments-list';
+export { Appointments } from './compose/appointments';
