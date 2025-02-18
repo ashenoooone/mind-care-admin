@@ -71,7 +71,7 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <nav
       className={cn(
-        'w-10 bg-gray-200/70 transition-all border-r-2 min-h-screen p-2 flex flex-col',
+        'w-10 bg-gray-100 transition-all border-r-2 min-h-screen p-2 flex flex-col z-50',
         className,
         {
           'w-40': isOpen,

@@ -5,6 +5,7 @@ import {
 } from 'effector';
 import {
   getPeriodForTable,
+  getTitleForTable,
   TableShowMode,
   TableUnitIndex,
 } from '../domain';
@@ -19,6 +20,10 @@ const createUnitModel = () => {
   const increaseUnitIndex = createEvent();
   const decreaseUnitIndex = createEvent();
   const dropUnitIndex = createEvent();
+
+  $unitIndex.on(increaseUnitIndex, (state) => state + 1);
+  $unitIndex.on(decreaseUnitIndex, (state) => state - 1);
+  $unitIndex.on(dropUnitIndex, () => 0);
 
   return {
     $unitIndex,
@@ -50,9 +55,17 @@ export const createTableModel = () => {
       getPeriodForTable({ showMode, unitIndex })
   );
 
+  $showMode.on(setShowMode, (_, showMode) => showMode);
+
+  const $title = $tableState.map(
+    ({ showMode, unitIndex }) =>
+      getTitleForTable({ showMode, unitIndex })
+  );
+
   return {
     $tableState,
     $currentPeriod,
+    $title,
     setShowMode,
     increaseUnitIndex,
     decreaseUnitIndex,

@@ -8,6 +8,7 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 export type TableShowMode = 'week' | 'day' | 'month';
 
@@ -56,4 +57,36 @@ export const getPeriodForTable = ({
     ),
     toDate: format(endOfMonth(currentDate), 'yyyy-MM-dd'),
   };
+};
+
+export const getTitleForTable = ({
+  showMode,
+  unitIndex,
+}: {
+  showMode: TableShowMode;
+  unitIndex: TableUnitIndex;
+}) => {
+  let currentDate = new Date();
+
+  if (showMode === 'day') {
+    currentDate = addDays(currentDate, unitIndex);
+    const dayName = format(currentDate, 'EEEE', {
+      locale: ru,
+    });
+    return `${dayName.charAt(0).toUpperCase()}${dayName.slice(1)} ${format(currentDate, 'd')}`;
+  }
+
+  if (showMode === 'week') {
+    currentDate = addWeeks(currentDate, unitIndex);
+    const monthName = format(currentDate, 'LLLL', {
+      locale: ru,
+    });
+    return `${monthName.charAt(0).toUpperCase()}${monthName.slice(1)}, ${format(currentDate, 'yyyy')}`;
+  }
+
+  currentDate = addMonths(currentDate, unitIndex);
+  const monthName = format(currentDate, 'LLLL', {
+    locale: ru,
+  });
+  return `${monthName.charAt(0).toUpperCase()}${monthName.slice(1)}, ${format(currentDate, 'yyyy')}`;
 };

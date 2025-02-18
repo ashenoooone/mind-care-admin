@@ -1,10 +1,36 @@
 import { useGetAppointmentsCalendar } from '@/entities/appointments';
+import { useAppointmentsTable } from '../model/use-appointments-table';
+import { TableLayout } from '../ui/table-layout';
+import { TableHeader } from '../ui/table-header';
+import { TableTitle } from '../ui/table-title';
 
 export const AppointmentsTable = () => {
-  const { data } = useGetAppointmentsCalendar({
-    dateFrom: '2025-01-01',
-    dateTo: '2025-01-31',
-  });
+  const {
+    $currentPeriod,
+    $tableState,
+    setShowMode,
+    $title,
+    controls,
+  } = useAppointmentsTable();
 
-  return <div>{JSON.stringify(data)}</div>;
+  const { data, isLoading, isFetching, isPending } =
+    useGetAppointmentsCalendar({
+      dateFrom: $currentPeriod.fromDate,
+      dateTo: $currentPeriod.toDate,
+    });
+
+  return (
+    <TableLayout
+      header={
+        <TableHeader
+          value={$tableState.showMode}
+          onChange={setShowMode}
+        />
+      }
+      title={
+        <TableTitle title={$title} controls={controls} />
+      }
+      content={null}
+    />
+  );
 };

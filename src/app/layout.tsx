@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Manrope } from 'next/font/google';
 import './globals.css';
 import { ReactQueryProvider } from '@/shared/providers/react-query-provider';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const manrope = Manrope({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col gap-1 min-h-screen`}
+        className={`${manrope.className} antialiased flex flex-col gap-1 min-h-screen`}
       >
         <main className="flex-grow">
           <ReactQueryProvider>

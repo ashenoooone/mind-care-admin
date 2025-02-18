@@ -9,7 +9,12 @@ type Props = {
 export const AppointmentsLayout = (props: Props) => {
   const { className, content, header } = props;
   return (
-    <div className={cn('w-full', className)}>
+    <div
+      className={cn(
+        'w-full flex flex-col gap-5',
+        className
+      )}
+    >
       <header>{header}</header>
       {content}
     </div>
