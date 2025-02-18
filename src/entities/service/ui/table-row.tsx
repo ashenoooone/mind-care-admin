@@ -26,9 +26,6 @@ export const TableRow = (props: Props) => {
         {formatToMinutes(service.duration)}
       </TableCell>
       <TableCell>
-        {formatToMinutes(service.after_pause)}
-      </TableCell>
-      <TableCell>
         {formatToHourRate(service.price)}
       </TableCell>
       {removeButton}

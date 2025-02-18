@@ -8,6 +8,7 @@ import { Input } from '@/shared/ui/input';
 import { Controller, useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
 import { usePostCreateService } from '../model/hooks';
+import { Label } from '@/shared/ui/label';
 
 type CreateServiceFormProps = {
   className?: string;
@@ -16,7 +17,7 @@ type CreateServiceFormProps = {
 
 type TFormState = Omit<
   TService,
-  'id' | 'cost' | 'duration' | 'after_pause'
+  'id' | 'cost' | 'duration'
 > & {
   cost: string;
   duration: string;
@@ -40,8 +41,6 @@ export const CreateServiceForm = (
     const data: Omit<Partial<TService>, 'id'> = {
       ...formData,
       price: parseHourRate(formData.cost) ?? undefined,
-      after_pause:
-        parseMins(formData.after_pause) ?? undefined,
       duration: parseMins(formData.duration) ?? undefined,
     };
 
@@ -51,32 +50,38 @@ export const CreateServiceForm = (
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn('grid grid-cols-2 gap-4', className)}
+      className={cn('flex flex-col gap-4', className)}
     >
+      <div className="grid grid-cols-2 gap-4">
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <Input label="Название" {...field} />
+          )}
+        />
+        <Input
+          label="Длительность"
+          {...registerWithMask('duration', ['9{1,} мин'], {
+            required: true,
+          })}
+        />
+        <Input
+          label="Стоимость"
+          {...registerWithMask('cost', ['9{1,} руб/час'], {
+            required: true,
+          })}
+        />
+      </div>
       <Controller
-        name="title"
+        name="description"
         control={control}
         render={({ field }) => (
-          <Input label="Название" {...field} />
+          <Label className="flex flex-col gap-2">
+            Описание
+            <textarea className="border p-2" {...field} />
+          </Label>
         )}
-      />
-      <Input
-        label="Длительность"
-        {...registerWithMask('duration', ['9{1,} мин'], {
-          required: true,
-        })}
-      />
-      <Input
-        label="Пауза после услуги"
-        {...registerWithMask('after_pause', ['9{1,} мин'], {
-          required: true,
-        })}
-      />
-      <Input
-        label="Стоимость"
-        {...registerWithMask('cost', ['9{1,} руб/час'], {
-          required: true,
-        })}
       />
       <Button className="col-span-2">
         {getFormButtonText({

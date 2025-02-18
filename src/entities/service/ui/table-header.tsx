@@ -14,7 +14,6 @@ const TABLE_HEADS: (keyof TService)[] = [
   'name',
   'description',
   'duration',
-  'after_pause',
   'price',
 ];
 
@@ -23,7 +22,6 @@ const MAPPER: Record<keyof TService, string> = {
   name: 'Название',
   description: 'Описание',
   duration: 'Длительность (в мин)',
-  after_pause: 'Пауза после услуги (в мин)',
   price: 'Стоимость',
 };
 

@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { ROUTES } from '../config/router-config';
 import { handleLogout } from '../api/utils';
 import { LocalStorageManager } from '../lib/local-storage-manager';
+import { usePathname, useRouter } from 'next/navigation';
 
 type SidebarProps = {
   className?: string;
@@ -57,6 +58,7 @@ const NAV_ITEMS = [
 
 export const Sidebar = (props: SidebarProps) => {
   const { className } = props;
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(
     LocalStorageManager.getItem('sidebar-open') ?? false
   );
@@ -89,7 +91,9 @@ export const Sidebar = (props: SidebarProps) => {
         {NAV_ITEMS.map((item) => (
           <Button
             title={item.text}
-            className="w-full justify-start"
+            className={cn('w-full justify-start', {
+              'text-blue-500': pathname === item.href,
+            })}
             key={item.text}
             variant={'ghost'}
             asChild
