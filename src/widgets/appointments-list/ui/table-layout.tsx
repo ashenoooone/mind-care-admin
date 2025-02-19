@@ -10,7 +10,7 @@ export const TableLayout = (props: Props) => {
   return (
     <div className={'flex flex-col'}>
       <header>{header}</header>
-      <div className={'flex flex-col'}>
+      <div className={'flex flex-col gap-4'}>
         {title}
         {content}
       </div>

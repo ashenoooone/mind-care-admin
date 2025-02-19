@@ -14,6 +14,12 @@ export type TableShowMode = 'week' | 'day' | 'month';
 
 export type TableUnitIndex = number;
 
+/**
+ * Возвращает период для таблицы в зависимости от режима отображения
+ * @param showMode - Режим отображения (день/неделя/месяц)
+ * @param unitIndex - Индекс смещения от текущей даты
+ * @returns Объект с датами начала и конца периода в формате 'yyyy-MM-dd'
+ */
 export const getPeriodForTable = ({
   showMode,
   unitIndex,
@@ -59,6 +65,16 @@ export const getPeriodForTable = ({
   };
 };
 
+/**
+ * Возвращает заголовок для таблицы в зависимости от режима отображения
+ * @param showMode - Режим отображения (день/неделя/месяц)
+ * @param unitIndex - Индекс смещения от текущей даты
+ * @returns Форматированная строка с заголовком
+ *
+ * День: Понедельник 1 (название дня с заглавной буквы и число)
+ * Неделя: Январь, 2024 (название месяца с заглавной буквы и год)
+ * Месяц: Январь, 2024 (название месяца с заглавной буквы и год)
+ */
 export const getTitleForTable = ({
   showMode,
   unitIndex,
@@ -89,4 +105,11 @@ export const getTitleForTable = ({
     locale: ru,
   });
   return `${monthName.charAt(0).toUpperCase()}${monthName.slice(1)}, ${format(currentDate, 'yyyy')}`;
+};
+
+export const getTableColumnTitle = (date: string) => {
+  const dayName = format(new Date(date), 'EEEE', {
+    locale: ru,
+  });
+  return `${dayName.charAt(0).toUpperCase()}${dayName.slice(1)} ${format(new Date(date), 'd')}`;
 };

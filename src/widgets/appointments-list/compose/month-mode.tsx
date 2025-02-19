@@ -2,7 +2,7 @@ type Props = {
   className?: string;
 };
 
-export const TableCard = (props: Props) => {
+export const MonthMode = (props: Props) => {
   const { className } = props;
   return <div className={className}></div>;
 };
