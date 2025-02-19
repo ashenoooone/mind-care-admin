@@ -1,3 +1,5 @@
+'use client';
+
 import { useGetAppointmentsCalendar } from '@/entities/appointments';
 import { useAppointmentsTable } from '../model/use-appointments-table';
 import { TableLayout } from '../ui/table-layout';

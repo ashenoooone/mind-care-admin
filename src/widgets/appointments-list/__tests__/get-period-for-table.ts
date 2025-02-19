@@ -1,4 +1,4 @@
-import { getPeriodForTable } from '../domain';
+import { getPeriodForTable } from '../domain/domain';
 
 describe('getPeriodForTable', () => {
   beforeEach(() => {

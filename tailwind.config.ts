@@ -10,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        sidebar_closed: '2.5rem',
+        sidebar_open: '10rem',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

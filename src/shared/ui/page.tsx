@@ -11,7 +11,7 @@ export default function Page({
 }: PageProps) {
   return (
     <div
-      className={`flex justify-center p-4 max-w-[1280px] ${className}`}
+      className={`flex justify-center p-4 max-w-[1440px] ${className}`}
     >
       {children}
     </div>

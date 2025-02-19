@@ -2,7 +2,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from '@/shared/ui/toggle-group';
-import { TableShowMode } from '../domain';
+import { TableShowMode } from '../domain/domain';
 import { cn } from '@/shared/lib/utils';
 
 type Props = {

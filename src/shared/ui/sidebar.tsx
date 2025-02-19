@@ -60,7 +60,7 @@ export const SIDEBAR_COOKIE_NAME = 'sidebar_open';
 export const Sidebar = (props: SidebarProps) => {
   const { className } = props;
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => {
@@ -71,10 +71,11 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <nav
       className={cn(
-        'w-10 bg-gray-100 transition-all border-r-2 min-h-screen p-2 flex flex-col z-50',
+        'bg-gray-100 transition-all border-r-2 min-h-screen p-2 flex flex-col z-50',
         className,
         {
-          'w-40': isOpen,
+          'w-sidebar_open': isOpen,
+          'w-sidebar_closed': !isOpen,
         }
       )}
     >

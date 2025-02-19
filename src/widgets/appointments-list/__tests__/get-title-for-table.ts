@@ -1,4 +1,4 @@
-import { getTitleForTable } from '../domain';
+import { getTitleForTable } from '../domain/domain';
 
 describe('getTitleForTable', () => {
   beforeEach(() => {

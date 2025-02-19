@@ -8,7 +8,7 @@ import {
   getTitleForTable,
   TableShowMode,
   TableUnitIndex,
-} from '../domain';
+} from '../domain/table';
 
 // 0 - текущая единица времени (неделя, день, месяц)
 // 1 - +1 единица времени (следующая неделя, день, месяц)

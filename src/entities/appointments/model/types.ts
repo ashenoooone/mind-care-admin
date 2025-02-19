@@ -7,8 +7,8 @@ export type TAppointment = {
   client: TClient;
   serviceId: number;
   service: TService;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
   status: AppointmentStatus;
 };
 
