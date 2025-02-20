@@ -1,6 +1,10 @@
 import { TAppointmentCalendar } from '@/entities/appointments';
-import { getTableColumnTitle } from '../domain/table';
 import { TimeGrid } from '../ui/time-grid';
+import { Column } from '../ui/column';
+import { getTableColumnTitle } from '../domain/table';
+import { cn } from '@/shared/lib/utils';
+import { Cell } from '../ui/cell';
+import { Event } from '../ui/event';
 
 type Props = {
   calendar: TAppointmentCalendar;
@@ -9,20 +13,44 @@ type Props = {
 export const WeekMode = (props: Props) => {
   const { calendar } = props;
 
-  const days = Object.keys(calendar);
-
   return (
     <TimeGrid
-      events={calendar}
-      days={days}
-      renderDay={getTableColumnTitle}
-      renderEvent={(event) => {
-        return (
-          <div className="flex flex-col text-sm">
-            <div>{event.service.name}</div>
-          </div>
-        );
-      }}
+      mode="week"
+      columns={Object.keys(calendar).map((day) => (
+        <Column
+          key={day}
+          events={calendar[day]}
+          renderEvent={(event, hour) => (
+            <Event event={event} hour={hour} />
+          )}
+        />
+      ))}
     />
+  );
+};
+
+export const WeekModeHeader = (props: Props) => {
+  const { calendar } = props;
+
+  const columns = Object.keys(calendar).map(
+    getTableColumnTitle
+  );
+
+  return (
+    <div
+      className={cn(
+        'w-full grid text-center font-bold grid-cols-5'
+      )}
+    >
+      {columns.map((column) => (
+        <Cell
+          key={column}
+          border={false}
+          className="h-auto"
+        >
+          {column}
+        </Cell>
+      ))}
+    </div>
   );
 };

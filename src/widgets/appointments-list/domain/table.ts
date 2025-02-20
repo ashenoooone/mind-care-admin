@@ -107,6 +107,11 @@ export const getTitleForTable = ({
   return `${monthName.charAt(0).toUpperCase()}${monthName.slice(1)}, ${format(currentDate, 'yyyy')}`;
 };
 
+/**
+ * Возвращает заголовок колонки таблицы в формате "День недели Число"
+ * Например: "Понедельник 1"
+ * @param date - Дата в формате строки
+ */
 export const getTableColumnTitle = (date: string) => {
   const dayName = format(new Date(date), 'EEEE', {
     locale: ru,

@@ -1,14 +1,11 @@
 'use client';
 
 import { useGetAppointmentsCalendar } from '@/entities/appointments';
-import { useAppointmentsTable } from '../model/use-appointments-table';
+import { useAppointmentsTable } from '../model/use-table';
 import { TableLayout } from '../ui/table-layout';
 import { TableHeader } from '../ui/table-header';
 import { TableTitle } from '../ui/table-title';
-import { useMemo } from 'react';
-import { DayMode } from './day-mode';
-import { WeekMode } from './week-mode';
-import { MonthMode } from './month-mode';
+import { useTableContent } from '../model/use-table-content';
 
 export const AppointmentsTable = () => {
   const {
@@ -30,31 +27,12 @@ export const AppointmentsTable = () => {
     dateTo: $currentPeriod.toDate,
   });
 
-  const content = useMemo(() => {
-    if (isLoading || isFetching || isPending) {
-      return <div>Loading...</div>;
-    }
-
-    if (isError) {
-      return <div>Error</div>;
-    }
-
-    switch ($tableState.showMode) {
-      case 'day':
-        return <DayMode />;
-      case 'week':
-        return <WeekMode calendar={data} />;
-      case 'month':
-        return <MonthMode />;
-    }
-  }, [
-    $tableState.showMode,
-    data,
-    isFetching,
-    isLoading,
-    isPending,
+  const { columns, content } = useTableContent({
+    calendar: data,
     isError,
-  ]);
+    isLoading: isLoading || isFetching || isPending,
+    mode: $tableState.showMode,
+  });
 
   return (
     <TableLayout
@@ -67,6 +45,7 @@ export const AppointmentsTable = () => {
       title={
         <TableTitle title={$title} controls={controls} />
       }
+      columns={columns}
       content={content}
     />
   );
