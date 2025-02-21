@@ -71,7 +71,7 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <nav
       className={cn(
-        'bg-gray-100 transition-all border-r-2 min-h-screen p-2 flex flex-col z-50',
+        'bg-gray-100 transition-all shrink-0 relative border-r-2 min-h-screen flex flex-col z-50',
         className,
         {
           'w-sidebar_open': isOpen,
@@ -79,51 +79,61 @@ export const Sidebar = (props: SidebarProps) => {
         }
       )}
     >
-      <Button
-        onClick={toggleSidebar}
-        className="p-1 mb-4 bg-gray-400/30 hover:opacity-80 transition-all"
-        variant={'ghost'}
+      <div
+        className={cn(
+          'fixed transition-all min-h-screen p-2 flex flex-col z-50',
+          {
+            'w-sidebar_open': isOpen,
+            'w-sidebar_closed': !isOpen,
+          }
+        )}
       >
-        <SidebarIcon />
-      </Button>
-      <div className="flex flex-col gap-1 items-start h-full">
-        {NAV_ITEMS.map((item) => (
-          <Button
-            title={item.text}
-            className={cn('w-full justify-start', {
-              'text-blue-500': pathname === item.href,
-            })}
-            key={item.text}
-            variant={'ghost'}
-            asChild
-          >
-            <Link href={item.href}>
-              {item.icon}
-              <span
-                className={cn(
-                  'opacity-0 invisible transition-all',
-                  {
-                    'opacity-100 visible': isOpen,
-                  }
-                )}
-              >
-                {item.text}
-              </span>
-            </Link>
-          </Button>
-        ))}
         <Button
-          className="w-full"
-          size={'sm'}
-          variant={'destructive'}
-          onClick={() => handleLogout()}
+          onClick={toggleSidebar}
+          className="p-1 mb-4 bg-gray-400/30 hover:opacity-80 transition-all"
+          variant={'ghost'}
         >
-          {isOpen ? (
-            'Выйти'
-          ) : (
-            <LogOut className="w-3 h-3" />
-          )}
+          <SidebarIcon />
         </Button>
+        <div className="flex flex-col gap-1 items-start h-full">
+          {NAV_ITEMS.map((item) => (
+            <Button
+              title={item.text}
+              className={cn('w-full justify-start', {
+                'text-blue-500': pathname === item.href,
+              })}
+              key={item.text}
+              variant={'ghost'}
+              asChild
+            >
+              <Link href={item.href}>
+                {item.icon}
+                <span
+                  className={cn(
+                    'opacity-0 invisible transition-all',
+                    {
+                      'opacity-100 visible': isOpen,
+                    }
+                  )}
+                >
+                  {item.text}
+                </span>
+              </Link>
+            </Button>
+          ))}
+          <Button
+            className="w-full"
+            size={'sm'}
+            variant={'destructive'}
+            onClick={() => handleLogout()}
+          >
+            {isOpen ? (
+              'Выйти'
+            ) : (
+              <LogOut className="w-3 h-3" />
+            )}
+          </Button>
+        </div>
       </div>
     </nav>
   );
