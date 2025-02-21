@@ -6,10 +6,12 @@ type Props = {
   className?: string;
   event: TAppointment;
   hour: number;
+  isActive?: boolean;
 } & ComponentProps<'div'>;
 
 export const Event = (props: Props) => {
-  const { className, event, hour, ...rest } = props;
+  const { className, event, hour, isActive, ...rest } =
+    props;
   return (
     <div
       className={cn(
@@ -26,8 +28,10 @@ export const Event = (props: Props) => {
             hour % 6 === 3,
           'bg-yellow-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-yellow-500/50 hover:bg-yellow-500/60 hover:after:bg-yellow-500/60':
             hour % 6 === 4,
-          'bg-orange-500/50 hover:bg-orange-500/60 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-orange-500/50':
+          'bg-orange-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-orange-500/50 hover:bg-orange-500/60 hover:after:bg-orange-500/60':
             hour % 6 === 5,
+          'animate-pulse border-4 border-dashed border-white/40 shadow-inner transform rotate-1':
+            isActive,
         },
         {}
       )}

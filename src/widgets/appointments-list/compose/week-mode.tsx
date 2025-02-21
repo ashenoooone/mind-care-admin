@@ -5,6 +5,7 @@ import { getTableColumnTitle } from '../domain/table';
 import { cn } from '@/shared/lib/utils';
 import { Cell } from '../ui/cell';
 import { Event } from '../ui/event';
+import { useAppointmentModalOpen } from '../appointment-modal/model';
 
 type Props = {
   calendar: TAppointmentCalendar;
@@ -12,6 +13,9 @@ type Props = {
 
 export const WeekMode = (props: Props) => {
   const { calendar } = props;
+
+  const { open, isAppointmentActive } =
+    useAppointmentModalOpen();
 
   return (
     <TimeGrid
@@ -21,7 +25,12 @@ export const WeekMode = (props: Props) => {
           key={day}
           events={calendar[day]}
           renderEvent={(event, hour) => (
-            <Event event={event} hour={hour} />
+            <Event
+              onClick={() => open(event)}
+              event={event}
+              hour={hour}
+              isActive={isAppointmentActive(event)}
+            />
           )}
         />
       ))}

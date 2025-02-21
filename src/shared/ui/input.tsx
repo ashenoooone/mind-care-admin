@@ -8,6 +8,7 @@ export type InputProps = {
   label?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  error?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const PasswordEye = ({
@@ -76,6 +77,7 @@ const Input = React.forwardRef<
       label,
       startIcon,
       endIcon,
+      error,
       ...props
     },
     ref
@@ -92,44 +94,52 @@ const Input = React.forwardRef<
     };
 
     const input = (
-      <div className="relative flex items-center">
-        {startIcon && (
-          <span className="absolute left-2">
-            {startIcon}
-          </span>
-        )}
-        <input
-          type={inputType}
-          className={cn(
-            'flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-            startIcon ? 'pl-8' : '',
-            endIcon ? 'pr-8' : '',
-            className
-          )}
-          ref={ref}
-          {...props}
-        />
-        {type === 'password' ? (
-          <Button
-            variant={'ghost'}
-            onClick={toggleVisibility}
-            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-            aria-label={
-              inputType === 'password'
-                ? 'Показать пароль'
-                : 'Скрыть пароль'
-            }
-          >
-            <PasswordEye
-              isVisible={inputType !== 'password'}
-            />
-          </Button>
-        ) : (
-          endIcon && (
-            <span className="absolute right-2">
-              {endIcon}
+      <div className="relative flex flex-col gap-1">
+        <div className="relative flex items-center">
+          {startIcon && (
+            <span className="absolute left-2">
+              {startIcon}
             </span>
-          )
+          )}
+          <input
+            type={inputType}
+            className={cn(
+              'flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+              startIcon ? 'pl-8' : '',
+              endIcon ? 'pr-8' : '',
+              error ? 'border-destructive' : '',
+              className
+            )}
+            ref={ref}
+            {...props}
+          />
+          {type === 'password' ? (
+            <Button
+              variant={'ghost'}
+              onClick={toggleVisibility}
+              className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+              aria-label={
+                inputType === 'password'
+                  ? 'Показать пароль'
+                  : 'Скрыть пароль'
+              }
+            >
+              <PasswordEye
+                isVisible={inputType !== 'password'}
+              />
+            </Button>
+          ) : (
+            endIcon && (
+              <span className="absolute right-2">
+                {endIcon}
+              </span>
+            )
+          )}
+        </div>
+        {error && (
+          <span className="text-sm text-destructive">
+            {error}
+          </span>
         )}
       </div>
     );

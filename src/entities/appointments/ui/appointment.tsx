@@ -16,7 +16,7 @@ type Props = {
   actions?: ReactNode;
 };
 
-const formatDate = (date: Date) => {
+const formatDate = (date: string) => {
   return new Date(date)
     .toISOString()
     .split('T')[1]

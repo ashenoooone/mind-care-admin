@@ -12,6 +12,15 @@ export type TAppointment = {
   status: AppointmentStatus;
 };
 
+export type TAppointmentForm = Pick<
+  TAppointment,
+  | 'clientId'
+  | 'serviceId'
+  | 'startTime'
+  | 'endTime'
+  | 'status'
+>;
+
 export enum AppointmentStatus {
   SCHEDULED = 'SCHEDULED',
   COMPLETED = 'COMPLETED',

@@ -3,10 +3,11 @@ type Props = {
   title: React.ReactNode;
   content: React.ReactNode;
   columns: React.ReactNode;
+  modals: React.ReactNode;
 };
 
 export const TableLayout = (props: Props) => {
-  const { header, title, content, columns } = props;
+  const { header, title, content, columns, modals } = props;
 
   return (
     <div className="flex flex-col w-full h-full gap-5">
@@ -18,6 +19,7 @@ export const TableLayout = (props: Props) => {
         </div>
       </header>
       <div className="flex flex-col gap-4">{content}</div>
+      {modals}
     </div>
   );
 };
