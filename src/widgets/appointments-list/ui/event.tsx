@@ -26,7 +26,7 @@ export const Event = (props: Props) => {
             hour % 6 === 3,
           'bg-yellow-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-yellow-500/50 hover:bg-yellow-500/60 hover:after:bg-yellow-500/60':
             hour % 6 === 4,
-          'bg-orange-500/50 hover:bg-orange-500/60':
+          'bg-orange-500/50 hover:bg-orange-500/60 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-orange-500/50':
             hour % 6 === 5,
         },
         {}
