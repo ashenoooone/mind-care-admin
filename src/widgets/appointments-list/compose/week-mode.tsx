@@ -38,17 +38,11 @@ export const WeekModeHeader = (props: Props) => {
       new Date().toDateString();
     const title = getTableColumnTitle(day);
 
-    if (isToday) {
-      const [dayName, date] = title.split(' ');
-      return {
-        dayName,
-        date,
-        isToday,
-      };
-    }
+    const [dayName, date] = title.split(' ');
 
     return {
-      dayName: title,
+      dayName,
+      date,
       isToday,
     };
   });
@@ -61,16 +55,19 @@ export const WeekModeHeader = (props: Props) => {
     >
       {columns.map((column) => (
         <Cell key={column.dayName} border={false}>
-          {column.isToday ? (
-            <div>
-              <div>{column.dayName}</div>
-              <div className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mx-auto">
-                {column.date}
-              </div>
+          <div>
+            <div>{column.dayName}</div>
+            <div
+              className={cn(
+                'w-8 h-8 rounded-full flex items-center justify-center mx-auto',
+                {
+                  'bg-red-500 text-white': column.isToday,
+                }
+              )}
+            >
+              {column.date}
             </div>
-          ) : (
-            column.dayName
-          )}
+          </div>
         </Cell>
       ))}
     </div>

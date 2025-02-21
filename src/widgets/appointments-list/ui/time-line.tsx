@@ -7,8 +7,9 @@ function calculateTimeIndicatorPosition() {
   const minutes = now.getMinutes();
   return {
     position: (hours - START_HOUR + 1) * 60 + minutes,
-    minutes,
-    hours,
+    time: `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`,
   };
 }
 
@@ -28,16 +29,16 @@ export const TimeIndicator = () => {
   return (
     <div className="absolute top-0 -left-3 right-0 pointer-events-none">
       <div
-        className="absolute left-0 right-0 h-[2px] bg-red-500 z-50"
+        className="absolute left-0 right-0 h-[2px] bg-red-500 z-50 transition-all duration-300"
         style={{ top: `${position.position}px` }}
       />
       <div
-        className="absolute text-white font-bold px-2 py-1 text-sm bg-red-500 rounded-full z-50 -left-2"
+        className="absolute text-white font-bold px-2 py-1 text-sm bg-red-500 rounded-full z-50 -left-2 transition-all duration-300"
         style={{
           top: `${position.position - 12}px`,
         }}
       >
-        {position.hours}:{position.minutes}
+        {position.time}
       </div>
     </div>
   );
