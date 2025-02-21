@@ -1,13 +1,10 @@
-import { useForm } from 'react-hook-form';
-import {
-  TAppointment,
-  TAppointmentForm,
-} from '../model/types';
-import { Input } from '@/shared/ui/input';
+import { Controller, useForm } from 'react-hook-form';
+import { TAppointmentForm } from '../model/types';
+import { ServiceSelect } from '@/entities/service/ui/service-select';
 
 type Props = {
   className?: string;
-  defaultValues?: TAppointmentForm;
+  defaultValues?: TAppointmentForm | null;
   onSubmit: (data: TAppointmentForm) => void;
 };
 
@@ -15,11 +12,11 @@ export const AppointmentForm = (props: Props) => {
   const { className, defaultValues, onSubmit } = props;
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<TAppointmentForm>({
-    defaultValues,
+    defaultValues: defaultValues ?? undefined,
   });
 
   return (
@@ -27,7 +24,17 @@ export const AppointmentForm = (props: Props) => {
       className={className}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Input error="test" />
+      <Controller
+        name="serviceId"
+        control={control}
+        render={({ field }) => (
+          <ServiceSelect
+            error={errors.serviceId?.message}
+            defaultValue={field.value.toString()}
+            onChange={field.onChange}
+          />
+        )}
+      />
     </form>
   );
 };

@@ -17,7 +17,7 @@ export const TimeGrid = (props: Props) => {
       <Hours />
       <div
         className={cn(
-          `w-full grid overflow-auto`,
+          `w-full grid`,
           {
             'grid-cols-5': mode === 'week',
             'grid-cols-1': mode === 'day',

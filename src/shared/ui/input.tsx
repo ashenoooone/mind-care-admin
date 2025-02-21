@@ -137,7 +137,7 @@ const Input = React.forwardRef<
           )}
         </div>
         {error && (
-          <span className="text-sm text-destructive">
+          <span className="text-sm font-bold select-none text-destructive">
             {error}
           </span>
         )}

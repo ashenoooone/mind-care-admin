@@ -6,7 +6,7 @@ import { TableLayout } from '../ui/table-layout';
 import { TableHeader } from '../ui/table-header';
 import { TableTitle } from '../ui/table-title';
 import { useTableContent } from '../model/use-table-content';
-import { AppointmentModal } from '../appointment-modal';
+import { EditModal, AddModal } from '../appointment-modal';
 
 export const AppointmentsTable = () => {
   const {
@@ -48,7 +48,12 @@ export const AppointmentsTable = () => {
       }
       columns={columns}
       content={content}
-      modals={<AppointmentModal />}
+      modals={
+        <>
+          <EditModal />
+          <AddModal />
+        </>
+      }
     />
   );
 };

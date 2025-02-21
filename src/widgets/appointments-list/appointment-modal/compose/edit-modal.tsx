@@ -4,24 +4,23 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/ui/dialog';
-import { useAppointmentModal } from './model';
+import { useEditAppointmentModal } from '../model/edit-modal';
 
-export const AppointmentModal = () => {
-  const { $appointment, $open, setOpen } =
-    useAppointmentModal();
+export const EditModal = () => {
+  const { $open, $appointment, setOpen } =
+    useEditAppointmentModal();
 
   const onOpenChange = (open: boolean) => {
-    setOpen({
-      open: false,
-      appointment: open ? $appointment : null,
-    });
+    setOpen(open);
   };
 
   return (
     <Dialog open={$open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle></DialogTitle>
+          <DialogTitle>
+            {$appointment?.service.name}
+          </DialogTitle>
         </DialogHeader>
       </DialogContent>
     </Dialog>

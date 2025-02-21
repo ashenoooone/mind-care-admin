@@ -5,7 +5,7 @@ import { getTableColumnTitle } from '../domain/table';
 import { cn } from '@/shared/lib/utils';
 import { Cell } from '../ui/cell';
 import { Event } from '../ui/event';
-import { useAppointmentModalOpen } from '../appointment-modal/model';
+import { useAppointmentModalOpen } from '../appointment-modal';
 
 type Props = {
   calendar: TAppointmentCalendar;
@@ -14,7 +14,7 @@ type Props = {
 export const WeekMode = (props: Props) => {
   const { calendar } = props;
 
-  const { open, isAppointmentActive } =
+  const { isAppointmentActive, openEditModal } =
     useAppointmentModalOpen();
 
   return (
@@ -26,7 +26,7 @@ export const WeekMode = (props: Props) => {
           events={calendar[day]}
           renderEvent={(event, hour) => (
             <Event
-              onClick={() => open(event)}
+              onClick={() => openEditModal(event)}
               event={event}
               hour={hour}
               isActive={isAppointmentActive(event)}

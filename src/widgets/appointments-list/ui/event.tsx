@@ -15,7 +15,7 @@ export const Event = (props: Props) => {
   return (
     <div
       className={cn(
-        'cursor-pointer z-40 pl-4 rounded-md transition-all hover:shadow-lg relative',
+        'cursor-pointer z-40 pl-2 rounded-md transition-all hover:shadow-lg relative',
         className,
         {
           'bg-red-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-red-500/50 hover:bg-red-500/60 hover:after:bg-red-500/60':
