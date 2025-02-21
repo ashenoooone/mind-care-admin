@@ -27,7 +27,6 @@ export const calculateTimeGridEventStyles = <
     height: heightMultiplier * GRID_CELL_HEIGHT,
     top: top,
     position: 'absolute',
-    zIndex: 100,
     width: '100%',
   };
 };

@@ -13,20 +13,21 @@ export const Event = (props: Props) => {
   return (
     <div
       className={cn(
-        'cursor-pointer p-1 pl-4 rounded-md',
+        'cursor-pointer z-40 pl-4 rounded-md transition-all hover:shadow-lg relative',
         className,
         {
-          'bg-red-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-red-500/50':
+          'bg-red-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-red-500/50 hover:bg-red-500/60 hover:after:bg-red-500/60':
             hour % 6 === 0,
-          'bg-blue-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-blue-500/50':
+          'bg-blue-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-blue-500/50 hover:bg-blue-500/60 hover:after:bg-blue-500/60':
             hour % 6 === 1,
-          'bg-green-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-green-500/50':
+          'bg-green-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-green-500/50 hover:bg-green-500/60 hover:after:bg-green-500/60':
             hour % 6 === 2,
-          'bg-purple-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-purple-500/50':
+          'bg-purple-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-purple-500/50 hover:bg-purple-500/60 hover:after:bg-purple-500/60':
             hour % 6 === 3,
-          'bg-yellow-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-yellow-500/50':
+          'bg-yellow-500/50 after:content-[""] after:absolute after:left-0 after:top-0 after:w-1 after:h-full after:bg-yellow-500/50 hover:bg-yellow-500/60 hover:after:bg-yellow-500/60':
             hour % 6 === 4,
-          'bg-orange-500/50': hour % 6 === 5,
+          'bg-orange-500/50 hover:bg-orange-500/60':
+            hour % 6 === 5,
         },
         {}
       )}

@@ -32,9 +32,26 @@ export const WeekMode = (props: Props) => {
 export const WeekModeHeader = (props: Props) => {
   const { calendar } = props;
 
-  const columns = Object.keys(calendar).map(
-    getTableColumnTitle
-  );
+  const columns = Object.keys(calendar).map((day) => {
+    const isToday =
+      new Date(day).toDateString() ===
+      new Date().toDateString();
+    const title = getTableColumnTitle(day);
+
+    if (isToday) {
+      const [dayName, date] = title.split(' ');
+      return {
+        dayName,
+        date,
+        isToday,
+      };
+    }
+
+    return {
+      dayName: title,
+      isToday,
+    };
+  });
 
   return (
     <div
@@ -43,12 +60,17 @@ export const WeekModeHeader = (props: Props) => {
       )}
     >
       {columns.map((column) => (
-        <Cell
-          key={column}
-          border={false}
-          className="h-auto"
-        >
-          {column}
+        <Cell key={column.dayName} border={false}>
+          {column.isToday ? (
+            <div>
+              <div>{column.dayName}</div>
+              <div className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mx-auto">
+                {column.date}
+              </div>
+            </div>
+          ) : (
+            column.dayName
+          )}
         </Cell>
       ))}
     </div>

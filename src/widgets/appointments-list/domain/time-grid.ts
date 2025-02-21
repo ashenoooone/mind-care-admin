@@ -3,8 +3,9 @@ export type TimeGridEvent = {
   endTime: string;
 };
 
-const START_HOUR = 8;
-const TOTAL_HOURS = 24;
+// TODO: в идеале с бека получать эти значения
+export const START_HOUR = 8;
+export const TOTAL_HOURS = 24;
 
 export const HOURS = Array.from(
   { length: TOTAL_HOURS - START_HOUR },
@@ -26,7 +27,7 @@ export const findEventStartingAtHour = <
   const { events, hour } = params;
   return events.find((event) => {
     const startDate = new Date(event.startTime);
-    const hours = startDate.getHours();
+    const hours = startDate.getHours() + 1;
     return hours === hour;
   });
 };

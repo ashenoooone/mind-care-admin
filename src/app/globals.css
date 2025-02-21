@@ -6,6 +6,19 @@
   box-sizing: border-box;
 }
 
+@keyframes move-line {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(1440px); /* 24 часа * 60 минут = 1440px */
+  }
+}
+
+.animate-move-line {
+  animation: move-line 86400s linear infinite; /* 24 часа = 86400 секунд */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
