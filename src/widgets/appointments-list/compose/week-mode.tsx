@@ -50,7 +50,7 @@ export const WeekModeHeader = (props: Props) => {
   return (
     <div
       className={cn(
-        'w-full grid text-center font-bold grid-cols-5'
+        'pl-16 w-full grid text-center font-bold grid-cols-5'
       )}
     >
       {columns.map((column) => (
