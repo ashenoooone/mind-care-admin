@@ -17,6 +17,7 @@ import {
   useGetAppointment,
   usePatchAppointment,
 } from '@/entities/appointments';
+import { AiSection } from '../ui/ai';
 
 export const EditModal = () => {
   const { $open, appointmentId, onOpenChange } =
@@ -74,6 +75,7 @@ export const EditModal = () => {
               initialNote={appointment?.note}
             />
           }
+          aiSection={<AiSection />}
         />
       </DialogContent>
     </Dialog>
