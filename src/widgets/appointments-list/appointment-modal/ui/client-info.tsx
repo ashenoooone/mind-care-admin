@@ -16,8 +16,8 @@ type Props = {
 export const ClientInfo = (props: Props) => {
   const { isLoading, className, client, isError } = props;
 
-  if (isLoading) {
-    return <Skeleton className="w-full h-full" />;
+  if (isLoading || !client) {
+    return <Skeleton className="h-24 w-full" />;
   }
 
   if (isError) {

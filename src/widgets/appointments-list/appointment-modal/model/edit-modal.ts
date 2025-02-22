@@ -29,7 +29,7 @@ export const useEditAppointmentModal = () => {
     },
     onOpenChange: (open: boolean) => {
       setOpen(open);
-      if (!open) setAppointmentId(null);
+      setAppointmentId(null);
     },
   };
 };

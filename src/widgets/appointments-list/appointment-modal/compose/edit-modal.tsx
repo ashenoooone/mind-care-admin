@@ -18,18 +18,19 @@ import {
   usePatchAppointment,
 } from '@/entities/appointments';
 import { AiSection } from '../ui/ai';
+import { Skeleton } from '@/shared/ui/skeleton';
 
 export const EditModal = () => {
   const { $open, appointmentId, onOpenChange } =
     useEditAppointmentModal();
 
-  const { data: appointment } = useGetAppointment(
-    Number(appointmentId)
-  );
+  const {
+    data: appointment,
+    isLoading: isLoadingAppointment,
+  } = useGetAppointment(Number(appointmentId));
 
-  const { data: user } = useGetUserExtended(
-    appointment?.client.id
-  );
+  const { data: user, isLoading: isLoadingUser } =
+    useGetUserExtended(appointment?.client.id);
 
   const updateAppointment = usePatchAppointment();
 
@@ -42,28 +43,37 @@ export const EditModal = () => {
     });
   };
 
+  const open = $open || appointmentId !== undefined;
+
   // TODO: обработка состония загрузки и ошибки
   return (
-    <Dialog
-      open={$open || Boolean(appointmentId)}
-      onOpenChange={onOpenChange}
-    >
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         fullscreen
         className="flex overflow-y-auto flex-col"
       >
         <DialogHeader>
           <DialogTitle>
-            {appointment?.service.name}
+            {isLoadingAppointment ? (
+              <Skeleton className="h-6 w-full" />
+            ) : (
+              appointment?.service.name
+            )}
           </DialogTitle>
         </DialogHeader>
         <ModalLayout
-          userSection={<ClientInfo client={user} />}
+          userSection={
+            <ClientInfo
+              client={user}
+              isLoading={isLoadingUser}
+            />
+          }
           appointmentSection={
             <AppointmentInfo appointment={appointment} />
           }
           notesSection={
             <Notes
+              isLoading={isLoadingAppointment}
               notes={notes}
               renderNote={(note) => <Note note={note} />}
             />

@@ -6,9 +6,11 @@ import {
 import { cn } from '@/shared/lib/utils';
 import { List, ListItem } from '@/shared/ui/list';
 import { Skeleton } from '@/shared/ui/skeleton';
+import { Error } from '@/shared/ui/error';
 type Props = {
   appointment?: TAppointment;
   isLoading?: boolean;
+  isError?: boolean;
 };
 
 const formatTime = (date: string) => {
@@ -20,10 +22,19 @@ const formatTime = (date: string) => {
 };
 
 export const AppointmentInfo = (props: Props) => {
-  const { appointment, isLoading } = props;
+  const { appointment, isLoading, isError } = props;
 
   if (isLoading || !appointment) {
-    return <Skeleton className="h-24" />;
+    return <Skeleton className="h-24 w-full" />;
+  }
+
+  if (isError) {
+    return (
+      <Error
+        title="Ошибка при загрузке информации о записи"
+        description="Попробуйте обновить страницу"
+      />
+    );
   }
 
   return (

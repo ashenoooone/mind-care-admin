@@ -1,4 +1,3 @@
-import { Separator } from '@/shared/ui/separator';
 import { cn } from '@/shared/lib/utils';
 
 type Props = {
@@ -21,17 +20,9 @@ export const ModalLayout = (props: Props) => {
   } = props;
   return (
     <div className={cn('flex flex-col gap-4', className)}>
-      <div className="flex gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {userSection}
-        <Separator
-          orientation="vertical"
-          className="mx-4"
-        />
         {appointmentSection}
-        <Separator
-          orientation="vertical"
-          className="mx-4"
-        />
         {aiSection}
       </div>
       <div className="flex flex-col gap-4">

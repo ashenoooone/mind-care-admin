@@ -10,7 +10,11 @@ export const AiSection = (props: Props) => {
   const { onGenerateHintsClick } = props;
 
   return (
-    <List title={'AI Советы к этой записи'}>
+    <List
+      title={
+        'AI Советы к этой записи на основе Ваших заметок'
+      }
+    >
       <ListItem>
         <Button
           onClick={onGenerateHintsClick}

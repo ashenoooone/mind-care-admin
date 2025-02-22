@@ -9,7 +9,10 @@ import {
 } from './types';
 
 export class AppointmentsService {
-  static getAppointment(id: number) {
+  static async getAppointment(id: number) {
+    await new Promise((resolve) =>
+      setTimeout(resolve, 1000)
+    );
     return $api.get<TAppointment>(`appointments/${id}`);
   }
 
