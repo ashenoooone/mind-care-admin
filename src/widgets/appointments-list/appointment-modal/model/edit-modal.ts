@@ -1,37 +1,35 @@
-import { TAppointment } from '@/entities/appointments';
+import { useQueryState } from '@/shared/hooks/use-query-state';
 import { createEvent, createStore } from 'effector';
 import { useUnit } from 'effector-react';
-import { useMutation } from '@tanstack/react-query';
-import { PATCH_APPOINTMENTS_MUTATION_OPTIONS } from '@/entities/appointments';
 
 export const createEditModalModel = () => {
   const $open = createStore(false);
-  const $appointment = createStore<TAppointment | null>(
-    null
-  );
 
   const setOpen = createEvent<boolean>();
-  const setAppointment = createEvent<TAppointment | null>();
 
   $open.on(setOpen, (_, open) => open);
-  $appointment.on(
-    setAppointment,
-    (_, appointment) => appointment
-  );
 
-  return { $open, $appointment, setOpen, setAppointment };
+  return { $open, setOpen };
 };
 
 const model = createEditModalModel();
 
 export const useEditAppointmentModal = () => {
-  const { $open, $appointment, setOpen, setAppointment } =
-    useUnit(model);
+  const { $open, setOpen } = useUnit(model);
+
+  const [appointmentId, setAppointmentId] =
+    useQueryState('appointmentId');
 
   return {
     $open,
-    $appointment,
-    setOpen,
-    setAppointment,
+    appointmentId,
+    openEditModal: (id: number) => {
+      setAppointmentId(id.toString());
+      setOpen(true);
+    },
+    onOpenChange: (open: boolean) => {
+      setOpen(open);
+      if (!open) setAppointmentId(null);
+    },
   };
 };

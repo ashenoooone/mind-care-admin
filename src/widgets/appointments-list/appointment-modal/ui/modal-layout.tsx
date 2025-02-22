@@ -7,6 +7,7 @@ type Props = {
   appointmentSection?: React.ReactNode;
   notesSection?: React.ReactNode;
   noteSection?: React.ReactNode;
+  aiSection?: React.ReactNode;
 };
 
 export const ModalLayout = (props: Props) => {
@@ -16,6 +17,7 @@ export const ModalLayout = (props: Props) => {
     appointmentSection,
     notesSection,
     noteSection,
+    aiSection,
   } = props;
   return (
     <div className={cn('flex flex-col gap-4', className)}>
@@ -26,6 +28,11 @@ export const ModalLayout = (props: Props) => {
           className="mx-4"
         />
         {appointmentSection}
+        <Separator
+          orientation="vertical"
+          className="mx-4"
+        />
+        {aiSection}
       </div>
       <div className="flex flex-col gap-4">
         {notesSection}

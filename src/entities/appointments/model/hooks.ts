@@ -6,6 +6,7 @@ import {
 import { AppointmentsService } from './appointments.service';
 import { mutationOptions } from '@/shared/lib/mutation-options';
 import { TAppointment } from './types';
+import { USERS_BASE_KEY } from '@/entities/users/@x/appointments';
 
 export const APPOINTMENTS_BASE_KEY = 'appointments';
 
@@ -44,6 +45,9 @@ export const usePatchAppointment = () => {
       queryClient.invalidateQueries({
         queryKey: [APPOINTMENTS_BASE_KEY],
       });
+      queryClient.invalidateQueries({
+        queryKey: [USERS_BASE_KEY],
+      });
     },
   });
 };
@@ -62,3 +66,14 @@ export const useGetAppointmentsCalendar = (
     queryFn: () =>
       AppointmentsService.getAppointmentsCalendar(params),
   });
+
+export const useGetAppointment = (
+  id: number | undefined
+) => {
+  return useQuery({
+    queryKey: [APPOINTMENTS_BASE_KEY, id],
+    queryFn: () => AppointmentsService.getAppointment(id!),
+    select: (data) => data.data,
+    enabled: !!id,
+  });
+};

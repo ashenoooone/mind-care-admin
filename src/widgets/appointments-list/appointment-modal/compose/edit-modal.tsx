@@ -13,21 +13,22 @@ import { Notes } from '../ui/notes';
 import { Note } from '../ui/note';
 import { AppointmentInfo } from '../ui/appointment-info';
 import { EditNote } from '../ui/edit-note';
-import { usePatchAppointment } from '@/entities/appointments';
+import {
+  useGetAppointment,
+  usePatchAppointment,
+} from '@/entities/appointments';
 
 export const EditModal = () => {
-  const { $open, $appointment, setOpen } =
+  const { $open, appointmentId, onOpenChange } =
     useEditAppointmentModal();
 
-  const onOpenChange = (open: boolean) => {
-    setOpen(open);
-  };
+  const { data: appointment } = useGetAppointment(
+    Number(appointmentId)
+  );
 
-  const {
-    data: user,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useGetUserExtended($appointment?.client.id);
+  const { data: user } = useGetUserExtended(
+    appointment?.client.id
+  );
 
   const updateAppointment = usePatchAppointment();
 
@@ -35,34 +36,30 @@ export const EditModal = () => {
 
   const onSubmitEditNote = (note: string) => {
     updateAppointment.mutate({
-      ...$appointment!,
+      ...appointment!,
       note,
     });
   };
 
+  // TODO: обработка состония загрузки и ошибки
   return (
-    <Dialog open={$open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={$open || Boolean(appointmentId)}
+      onOpenChange={onOpenChange}
+    >
       <DialogContent
         fullscreen
         className="flex overflow-y-auto flex-col"
       >
         <DialogHeader>
           <DialogTitle>
-            {$appointment?.service.name}
+            {appointment?.service.name}
           </DialogTitle>
         </DialogHeader>
         <ModalLayout
-          userSection={
-            <ClientInfo
-              client={user}
-              isLoading={isUserLoading}
-              isError={isUserError}
-            />
-          }
+          userSection={<ClientInfo client={user} />}
           appointmentSection={
-            $appointment && (
-              <AppointmentInfo appointment={$appointment} />
-            )
+            <AppointmentInfo appointment={appointment} />
           }
           notesSection={
             <Notes
@@ -74,7 +71,7 @@ export const EditModal = () => {
             <EditNote
               isLoading={updateAppointment.isPending}
               onSubmit={onSubmitEditNote}
-              initialNote={$appointment?.note}
+              initialNote={appointment?.note}
             />
           }
         />

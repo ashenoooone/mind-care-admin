@@ -5,9 +5,10 @@ import {
 } from '@/entities/appointments';
 import { cn } from '@/shared/lib/utils';
 import { List, ListItem } from '@/shared/ui/list';
-
+import { Skeleton } from '@/shared/ui/skeleton';
 type Props = {
-  appointment: TAppointment;
+  appointment?: TAppointment;
+  isLoading?: boolean;
 };
 
 const formatTime = (date: string) => {
@@ -19,7 +20,11 @@ const formatTime = (date: string) => {
 };
 
 export const AppointmentInfo = (props: Props) => {
-  const { appointment } = props;
+  const { appointment, isLoading } = props;
+
+  if (isLoading || !appointment) {
+    return <Skeleton className="h-24" />;
+  }
 
   return (
     <List title="Информация о записи">

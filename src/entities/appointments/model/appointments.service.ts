@@ -9,6 +9,10 @@ import {
 } from './types';
 
 export class AppointmentsService {
+  static getAppointment(id: number) {
+    return $api.get<TAppointment>(`appointments/${id}`);
+  }
+
   static getAppointments(
     params: PaginationParams & object
   ) {

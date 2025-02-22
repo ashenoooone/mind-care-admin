@@ -9,8 +9,8 @@ import { Error } from '@/shared/ui/error';
 type Props = {
   className?: string;
   client?: TClient & { appointments: TAppointment[] };
-  isLoading: boolean;
-  isError: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 };
 
 export const ClientInfo = (props: Props) => {

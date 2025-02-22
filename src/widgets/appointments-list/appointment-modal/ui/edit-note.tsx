@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/button';
-import { Pencil, Save } from 'lucide-react';
+import { Save } from 'lucide-react';
 import MDEditor from '@uiw/react-md-editor';
 import { useState } from 'react';
 type Props = {
@@ -22,8 +22,7 @@ export const EditNote = (props: Props) => {
   return (
     <div className={className}>
       <h2 className="mb-4 text-lg font-semibold flex items-center gap-2">
-        <Pencil className="h-4 w-4" />
-        Добавить заметку
+        Добавить заметку к текущей записи
       </h2>
       <Button
         onClick={() => onSubmit(note ?? initialNote)}
