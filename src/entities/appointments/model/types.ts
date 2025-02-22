@@ -10,6 +10,7 @@ export type TAppointment = {
   startTime: string;
   endTime: string;
   status: AppointmentStatus;
+  note?: string;
 };
 
 export type TAppointmentForm = Pick<

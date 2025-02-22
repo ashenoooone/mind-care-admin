@@ -11,3 +11,23 @@ export const useGetUsers = (
     queryFn: () => UsersService.getUsers(params),
   });
 };
+
+export const useGetUser = (id: number) => {
+  return useQuery({
+    queryKey: [USERS_BASE_KEY, id],
+    enabled: !!id,
+    select: (data) => data.data,
+    queryFn: () => UsersService.getUser(id),
+  });
+};
+
+export const useGetUserExtended = (
+  id: number | undefined
+) => {
+  return useQuery({
+    queryKey: [USERS_BASE_KEY, id],
+    enabled: !!id,
+    select: (data) => data.data,
+    queryFn: () => UsersService.getUserExtended(id!),
+  });
+};

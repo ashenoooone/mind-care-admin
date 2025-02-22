@@ -32,7 +32,7 @@ export const Link = (props: LinkProps) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        'hover:opacity-80 hover:bg-blue-400 p-1 px-2 transition-all rounded-full hover:text-white',
+        'relative transition-all hover:-translate-y-0.5 hover:text-blue-500 hover:underline hover:decoration-wavy hover:underline-offset-4 px-1',
         className
       )}
       {...rest}
