@@ -23,7 +23,7 @@ export const Notes = (props: Props) => {
         <CarouselContent>
           {notes.map((note) => (
             <CarouselItem
-              className="basis-1/2"
+              className="basis-1/2 h-full"
               key={note.appointmentDate}
             >
               <Card>

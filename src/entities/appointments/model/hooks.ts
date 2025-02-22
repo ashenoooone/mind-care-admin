@@ -1,6 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { AppointmentsService } from './appointments.service';
 import { mutationOptions } from '@/shared/lib/mutation-options';
+import { TAppointment } from './types';
 
 export const APPOINTMENTS_BASE_KEY = 'appointments';
 
@@ -26,6 +31,22 @@ export const PATCH_APPOINTMENTS_MUTATION_OPTIONS =
     mutationFn: (params) =>
       AppointmentsService.patchAppointment(params),
   });
+
+export const usePatchAppointment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['patch-appointments'],
+    mutationFn: (
+      params: { id: number } & Partial<TAppointment>
+    ) => AppointmentsService.patchAppointment(params),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [APPOINTMENTS_BASE_KEY],
+      });
+    },
+  });
+};
 
 export const useGetAppointmentsCalendar = (
   params: FuncFirstParameter<

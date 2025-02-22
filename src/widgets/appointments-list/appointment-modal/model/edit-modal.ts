@@ -1,6 +1,8 @@
 import { TAppointment } from '@/entities/appointments';
 import { createEvent, createStore } from 'effector';
 import { useUnit } from 'effector-react';
+import { useMutation } from '@tanstack/react-query';
+import { PATCH_APPOINTMENTS_MUTATION_OPTIONS } from '@/entities/appointments';
 
 export const createEditModalModel = () => {
   const $open = createStore(false);
@@ -26,5 +28,10 @@ export const useEditAppointmentModal = () => {
   const { $open, $appointment, setOpen, setAppointment } =
     useUnit(model);
 
-  return { $open, $appointment, setOpen, setAppointment };
+  return {
+    $open,
+    $appointment,
+    setOpen,
+    setAppointment,
+  };
 };

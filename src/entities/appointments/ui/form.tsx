@@ -6,6 +6,7 @@ type Props = {
   className?: string;
   defaultValues?: TAppointmentForm | null;
   onSubmit: (data: TAppointmentForm) => void;
+  submitButtonText?: string;
 };
 
 export const AppointmentForm = (props: Props) => {
@@ -14,7 +15,7 @@ export const AppointmentForm = (props: Props) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<TAppointmentForm>({
     defaultValues: defaultValues ?? undefined,
   });

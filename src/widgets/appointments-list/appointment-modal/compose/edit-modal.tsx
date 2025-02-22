@@ -11,6 +11,9 @@ import { ClientInfo } from '../ui/client-info';
 import { mapNotes } from '../domain';
 import { Notes } from '../ui/notes';
 import { Note } from '../ui/note';
+import { AppointmentInfo } from '../ui/appointment-info';
+import { EditNote } from '../ui/edit-note';
+import { usePatchAppointment } from '@/entities/appointments';
 
 export const EditModal = () => {
   const { $open, $appointment, setOpen } =
@@ -26,11 +29,23 @@ export const EditModal = () => {
     isError: isUserError,
   } = useGetUserExtended($appointment?.client.id);
 
+  const updateAppointment = usePatchAppointment();
+
   const notes = mapNotes(user?.appointments || []);
+
+  const onSubmitEditNote = (note: string) => {
+    updateAppointment.mutate({
+      ...$appointment!,
+      note,
+    });
+  };
 
   return (
     <Dialog open={$open} onOpenChange={onOpenChange}>
-      <DialogContent fullscreen className="flex flex-col">
+      <DialogContent
+        fullscreen
+        className="flex overflow-y-auto flex-col"
+      >
         <DialogHeader>
           <DialogTitle>
             {$appointment?.service.name}
@@ -44,11 +59,22 @@ export const EditModal = () => {
               isError={isUserError}
             />
           }
-          appointmentSection={undefined}
+          appointmentSection={
+            $appointment && (
+              <AppointmentInfo appointment={$appointment} />
+            )
+          }
           notesSection={
             <Notes
               notes={notes}
               renderNote={(note) => <Note note={note} />}
+            />
+          }
+          noteSection={
+            <EditNote
+              isLoading={updateAppointment.isPending}
+              onSubmit={onSubmitEditNote}
+              initialNote={$appointment?.note}
             />
           }
         />
