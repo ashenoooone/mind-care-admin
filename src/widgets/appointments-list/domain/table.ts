@@ -113,8 +113,13 @@ export const getTitleForTable = ({
  * @param date - Дата в формате строки
  */
 export const getTableColumnTitle = (date: string) => {
-  const dayName = format(new Date(date), 'EEEE', {
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) {
+    return '';
+  }
+
+  const dayName = format(parsedDate, 'EEEE', {
     locale: ru,
   });
-  return `${dayName.charAt(0).toUpperCase()}${dayName.slice(1)} ${format(new Date(date), 'd')}`;
+  return `${dayName.charAt(0).toUpperCase()}${dayName.slice(1)} ${format(parsedDate, 'd')}`;
 };

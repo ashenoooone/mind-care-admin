@@ -4,6 +4,7 @@ import {
   WeekMode,
   WeekModeHeader,
 } from '../compose/week-mode';
+import { DayMode } from '../compose/day-mode';
 import Loader from '@/shared/ui/loader';
 
 export const useTableContent = (params: {
@@ -24,6 +25,13 @@ export const useTableContent = (params: {
     return {
       columns: <WeekModeHeader calendar={calendar} />,
       content: <WeekMode calendar={calendar} />,
+    };
+  }
+
+  if (mode === 'day') {
+    return {
+      columns: null,
+      content: <DayMode calendar={calendar} />,
     };
   }
 

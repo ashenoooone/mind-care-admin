@@ -40,6 +40,9 @@ export const Event = (props: Props) => {
       <h6 className="text-sm font-bold">
         {event.service.name}
       </h6>
+      <h5 className="text-sm text-primary/50">
+        {event.client.name}
+      </h5>
     </div>
   );
 };
