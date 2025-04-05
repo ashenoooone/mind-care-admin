@@ -1,3 +1,4 @@
+import Loader from '@/shared/ui/loader';
 import { Button } from '@/shared/ui/button';
 import { Save } from 'lucide-react';
 import MDEditor from '@uiw/react-md-editor';
@@ -18,6 +19,10 @@ export const EditNote = (props: Props) => {
   } = props;
 
   const [note, setNote] = useState<string>();
+
+  if (isLoading) {
+    return <Loader className="mx-auto" />;
+  }
 
   return (
     <div className={className}>

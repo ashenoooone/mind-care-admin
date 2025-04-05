@@ -4,6 +4,7 @@ import {
   WeekMode,
   WeekModeHeader,
 } from '../compose/week-mode';
+import Loader from '@/shared/ui/loader';
 
 export const useTableContent = (params: {
   calendar: TAppointmentCalendar | undefined;
@@ -15,7 +16,7 @@ export const useTableContent = (params: {
 
   if (isError || isLoading || !calendar) {
     return {
-      columns: [],
+      content: <Loader className="mx-auto" />,
     };
   }
 
@@ -24,6 +25,10 @@ export const useTableContent = (params: {
       columns: <WeekModeHeader calendar={calendar} />,
       content: <WeekMode calendar={calendar} />,
     };
+  }
+
+  if (mode === 'month') {
+    return {};
   }
 
   return {};

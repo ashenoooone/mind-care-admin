@@ -80,7 +80,10 @@ export const EditModal = () => {
           }
           noteSection={
             <EditNote
-              isLoading={updateAppointment.isPending}
+              isLoading={
+                updateAppointment.isPending ||
+                isLoadingAppointment
+              }
               onSubmit={onSubmitEditNote}
               initialNote={appointment?.note}
             />
