@@ -1,4 +1,7 @@
-import { TAppointment } from '@/entities/appointments';
+import {
+  AppointmentStatus,
+  TAppointment,
+} from '@/entities/appointments';
 import { cn } from '@/shared/lib/utils';
 import { ComponentProps } from 'react';
 
@@ -12,6 +15,7 @@ type Props = {
 export const Event = (props: Props) => {
   const { className, event, hour, isActive, ...rest } =
     props;
+
   return (
     <div
       className={cn(
@@ -37,9 +41,27 @@ export const Event = (props: Props) => {
       )}
       {...rest}
     >
-      <h6 className="text-sm font-bold">
-        {event.service.name}
-      </h6>
+      <div className="relative">
+        <h6 className="text-sm font-bold">
+          {event.service.name}
+        </h6>
+        <div
+          className={cn(
+            'w-2 h-3 absolute top-0 rounded-b-full right-0',
+            {
+              'bg-green-700':
+                event.status ===
+                AppointmentStatus.COMPLETED,
+              'bg-blue-700':
+                event.status ===
+                AppointmentStatus.SCHEDULED,
+              'bg-red-700':
+                event.status ===
+                AppointmentStatus.CANCELLED,
+            }
+          )}
+        />
+      </div>
       <h5 className="text-sm text-primary/50">
         {event.client.name}
       </h5>
