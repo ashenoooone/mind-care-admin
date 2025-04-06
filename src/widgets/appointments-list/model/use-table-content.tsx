@@ -5,6 +5,10 @@ import {
   WeekModeHeader,
 } from '../compose/week-mode';
 import { DayMode } from '../compose/day-mode';
+import {
+  MonthMode,
+  MonthModeHeader,
+} from '../compose/month-mode';
 import Loader from '@/shared/ui/loader';
 
 export const useTableContent = (params: {
@@ -36,7 +40,10 @@ export const useTableContent = (params: {
   }
 
   if (mode === 'month') {
-    return {};
+    return {
+      columns: <MonthModeHeader />,
+      content: <MonthMode calendar={calendar} />,
+    };
   }
 
   return {};
