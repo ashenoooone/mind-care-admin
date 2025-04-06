@@ -45,6 +45,8 @@ export const createTableModel = () => {
     dropUnitIndex,
   } = createUnitModel();
 
+  $unitIndex.reset(setShowMode);
+
   const $tableState = combine({
     showMode: $showMode,
     unitIndex: $unitIndex,
