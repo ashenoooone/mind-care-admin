@@ -52,10 +52,12 @@ export default function AuthForm() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Input
+          data-testid="login-input"
           value={login}
           onChange={(e) => setLogin(e.target.value)}
         />
         <Input
+          data-testid="password-input"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -66,6 +68,7 @@ export default function AuthForm() {
           onClick={onLoginClick}
           type="submit"
           className="w-full"
+          data-testid="login-button"
         >
           {getFormButtonText({
             state: loginMutation.status,

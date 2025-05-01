@@ -14,18 +14,20 @@ export const DayCell = ({
   day,
   events,
   renderEvent,
-}: Props) => (
-  <div
-    className={clsx(
-      'h-32 border border-gray-200 p-2 overflow-auto',
-      isToday(day) && 'bg-blue-50'
-    )}
-  >
-    <div className="font-medium text-gray-700">
-      {format(day, 'd', { locale: ru })}
+}: Props) => {
+  return (
+    <div
+      className={clsx(
+        'h-32 border border-gray-200 p-2 overflow-auto',
+        isToday(day) && 'bg-blue-50'
+      )}
+    >
+      <div className="font-medium text-gray-700">
+        {format(day, 'd', { locale: ru })}
+      </div>
+      <div className="mt-1 space-y-1">
+        {events.map((event) => renderEvent(event))}
+      </div>
     </div>
-    <div className="mt-1 space-y-1">
-      {events.map((event) => renderEvent(event))}
-    </div>
-  </div>
-);
+  );
+};
