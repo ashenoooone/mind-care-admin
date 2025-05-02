@@ -3,10 +3,13 @@ import { LoginActions } from '../app-actions/login-actions';
 import { AppointmentsPage } from '../page-objects/appointments-page';
 import { ReportsPage } from '../page-objects/reports-page';
 import { LoginPage } from '../page-objects/login-page';
+import { ReportsActions } from '../app-actions/reports-actions';
+
 export type PageActionsFixture = {
   loginActions: LoginActions;
   appointmentsPage: AppointmentsPage;
   reportsPage: ReportsPage;
+  reportsActions: ReportsActions;
   loginPage: LoginPage;
 };
 
@@ -23,5 +26,8 @@ export const pageActionsFixture =
     },
     loginPage: async ({ page }, use) => {
       await use(new LoginPage(page));
+    },
+    reportsActions: async ({ page }, use) => {
+      await use(new ReportsActions(page));
     },
   });

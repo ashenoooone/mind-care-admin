@@ -26,12 +26,16 @@ export const ChangeReportStatus = (props: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        data-testid="change-report-status-dialog"
+      >
         <div className="grid grid-cols-2 gap-2">
           <Badge
             color="green"
             className="cursor-pointer hover:scale-105 transition-all"
             onClick={handleClickReportStatus('RESOLVED')}
+            data-testid="change-report-status-dialog-resolved"
           >
             {REPORT_STATUS_MAPPER.RESOLVED}
           </Badge>
@@ -39,6 +43,7 @@ export const ChangeReportStatus = (props: Props) => {
             color="blue"
             className="cursor-pointer hover:scale-105 transition-all"
             onClick={handleClickReportStatus('PENDING')}
+            data-testid="change-report-status-dialog-pending"
           >
             {REPORT_STATUS_MAPPER.PENDING}
           </Badge>
@@ -46,6 +51,7 @@ export const ChangeReportStatus = (props: Props) => {
             color="yellow"
             className="cursor-pointer hover:scale-105 transition-all"
             onClick={handleClickReportStatus('IN_PROGRESS')}
+            data-testid="change-report-status-dialog-in_progress"
           >
             {REPORT_STATUS_MAPPER.IN_PROGRESS}
           </Badge>
@@ -53,6 +59,7 @@ export const ChangeReportStatus = (props: Props) => {
             color="red"
             className="cursor-pointer hover:scale-105 transition-all"
             onClick={handleClickReportStatus('CLOSED')}
+            data-testid="change-report-status-dialog-closed"
           >
             {REPORT_STATUS_MAPPER.CLOSED}
           </Badge>

@@ -1,51 +1,67 @@
-import { Route, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { ReportFactory } from './report.factory';
 import { paginate } from '../utils/paginate';
+import { TReport } from '@/entities/reports';
+import { PlaywrightRouter } from '../utils/router';
 
 type MockReportsParams = {
   count?: number;
 };
 
 export class ReportApiMock {
-  private page: Page;
+  private reports: TReport[] = [];
 
-  constructor(page: Page) {
-    this.page = page;
-  }
+  constructor(private page: Page) {}
 
   async mockReportsApi(
-    params: MockReportsParams
+    args: MockReportsParams
   ): Promise<void> {
-    const { count } = params;
-    await this.mockGetReports(count);
-  }
+    const { count = 10 } = args;
+    this.reports = ReportFactory.createReports({ count });
 
-  async mockGetReports(count = 10): Promise<void> {
-    const reports = ReportFactory.createReports({ count });
-
-    await this.page.route(
-      '**/reports?**',
-      async (route: Route) => {
-        const url = new URL(route.request().url());
-        const limit = parseInt(
-          url.searchParams.get('limit') || '10'
-        );
-        const pageIndex = parseInt(
-          url.searchParams.get('page') || '0'
-        );
-
-        const response = paginate(
-          reports,
-          pageIndex,
-          limit
-        );
-
-        await route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify(response),
-        });
-      }
+    const router = new PlaywrightRouter(
+      this.page,
+      '**/api/reports'
     );
+
+    // GET /reports?limit=...&page=...
+    router.addRoute('GET', async ({ req, route }) => {
+      const url = new URL(req.url());
+      const limit = parseInt(
+        url.searchParams.get('limit') || '10'
+      );
+      const page = parseInt(
+        url.searchParams.get('page') || '0'
+      );
+
+      const paged = paginate(this.reports, page, limit);
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(paged),
+      });
+    });
+
+    // PATCH /reports/:id
+    router.addRoute('PATCH', async ({ req, route }) => {
+      const url = new URL(req.url());
+      const id = parseInt(
+        url.pathname.split('/').pop() || '0'
+      );
+      const body = await req.postDataJSON();
+
+      this.reports = this.reports.map((report) =>
+        report.id === id ? { ...report, ...body } : report
+      );
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(body),
+      });
+    });
+
+    await router.build();
   }
 }

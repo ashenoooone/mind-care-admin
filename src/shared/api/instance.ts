@@ -3,7 +3,7 @@ import { handlerApiErrors } from './utils';
 import { LocalStorageManager } from '../lib/local-storage-manager';
 
 export const $api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: `/api`,
 });
 
 $api.interceptors.request.use(

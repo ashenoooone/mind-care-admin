@@ -50,8 +50,10 @@ export const ReportsTable = () => {
           <TableRow
             report={report}
             key={report.id}
+            data-testid={`report-${report.id}`}
             status={
               <Badge
+                data-testid={`report-status-${report.id}`}
                 onClick={() =>
                   openChangeStatusModal(report)
                 }

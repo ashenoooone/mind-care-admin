@@ -29,4 +29,10 @@ test.describe('Reports Page', () => {
     await expect(await reportsPage.isCurrent()).toBe(true);
     expect(await reportsPage.hasReportsTable()).toBe(true);
   });
+
+  test('должен корректно открыть страницу и изменить статус первого элемента', async ({
+    reportsActions,
+  }) => {
+    await reportsActions.openReportsPageAndChangeFirstReportStatus();
+  });
 });

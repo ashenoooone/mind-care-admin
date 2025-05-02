@@ -22,7 +22,7 @@ export const TableRow = (props: Props) => {
 
   return (
     <PTableRow className={className}>
-      <TableCell>
+      <TableCell data-testid={`report-client-${report.id}`}>
         <Link
           rel="noopener noreferer"
           target="_blank"
@@ -33,10 +33,14 @@ export const TableRow = (props: Props) => {
           </span>
         </Link>
       </TableCell>
-      <TableCell>
+      <TableCell data-testid={`report-date-${report.id}`}>
         {reportDateLocal} {reportTime}
       </TableCell>
-      <TableCell>{report.description}</TableCell>
+      <TableCell
+        data-testid={`report-description-${report.id}`}
+      >
+        {report.description}
+      </TableCell>
       <TableCell>{status}</TableCell>
       {actions}
     </PTableRow>
