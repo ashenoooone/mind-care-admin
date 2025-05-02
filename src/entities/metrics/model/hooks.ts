@@ -130,19 +130,3 @@ export const useRevenueOverTime = (
       MetricsService.getRevenueOverTime(params, interval),
   });
 };
-
-// ====== ДИНАМИКА КОЛИЧЕСТВА ЗАПИСЕЙ =======
-const APPOINTMENT_TRENDS_QUERY_KEY = 'appointment_trends';
-export const useAppointmentTrends = (
-  params: GetMetricDto,
-  interval: TIntervalTypeDayWeek
-) => {
-  return useQuery({
-    queryKey: [
-      APPOINTMENT_TRENDS_QUERY_KEY,
-      [...Object.values(params), interval],
-    ],
-    queryFn: () =>
-      MetricsService.getAppointmentTrends(params, interval),
-  });
-};

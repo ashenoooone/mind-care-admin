@@ -14,16 +14,8 @@ const metricTypeToRussianMap: Record<MetricType, string> = {
   [MetricType.CancellationTrends]: 'Динамика отмен',
   [MetricType.DailyLoad]: 'Средняя загрузка рабочего дня',
   [MetricType.TopCancellingClients]: 'Отмены по клиентам',
-  [MetricType.AverageCostByTime]:
-    'Средняя стоимость записи',
-  [MetricType.LoadByWeekday]:
-    'Загруженность по дням недели',
-  [MetricType.StatusPercentage]:
-    'Процент записей по статусам',
   [MetricType.RevenueOverTime]:
     'Выручка по дням или неделям',
-  [MetricType.AppointmentTrends]:
-    'Динамика количества записей',
 };
 
 export function mapMetricTypeToRussian(
