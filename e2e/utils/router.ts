@@ -36,11 +36,6 @@ export class PlaywrightRouter {
 
         for (const r of this.routes) {
           if (r.method === method) {
-            console.log({
-              method,
-              path: request.url(),
-              routes: this.routes,
-            });
             return r.handler({
               req: request,
               route,
