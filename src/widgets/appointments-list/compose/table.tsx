@@ -7,6 +7,7 @@ import { TableHeader } from '../ui/table-header';
 import { TableTitle } from '../ui/table-title';
 import { useTableContent } from '../model/use-table-content';
 import { EditModal, AddModal } from '../appointment-modal';
+import { Suspense } from 'react';
 
 export const AppointmentsTable = () => {
   const {
@@ -49,10 +50,10 @@ export const AppointmentsTable = () => {
       columns={columns}
       content={content}
       modals={
-        <>
+        <Suspense>
           <EditModal />
           <AddModal />
-        </>
+        </Suspense>
       }
     />
   );
