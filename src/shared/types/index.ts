@@ -6,8 +6,8 @@ export type PaginationParams = {
 export type WithPaginationMeta = {
   meta: {
     currentPage: number;
-    nextPage: number;
-    prevPage: number;
+    nextPage: number | null;
+    prevPage: number | null;
     totalItems: number;
     totalPages: number;
   };

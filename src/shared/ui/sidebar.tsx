@@ -27,31 +27,37 @@ const NAV_ITEMS = [
     text: 'Клиенты',
     icon: <Users />,
     href: ROUTES.users,
+    id: 'users',
   },
   {
     text: 'Записи',
     icon: <Calendar />,
     href: ROUTES.appointments,
+    id: 'appointments',
   },
   {
     text: 'Услуги',
     icon: <Briefcase />,
     href: ROUTES.services,
+    id: 'services',
   },
   {
     text: 'Настройки',
     icon: <Settings />,
     href: ROUTES.settings,
+    id: 'settings',
   },
   {
     text: 'Обращения',
     icon: <MessageCircleQuestion />,
     href: ROUTES.reports,
+    id: 'reports',
   },
   {
     text: 'Отчеты',
     icon: <StickyNote />,
     href: ROUTES.metrics,
+    id: 'metrics',
   },
 ];
 
@@ -104,6 +110,7 @@ export const Sidebar = (props: SidebarProps) => {
               })}
               key={item.text}
               variant={'ghost'}
+              data-testid={item.id}
               asChild
             >
               <Link href={item.href}>

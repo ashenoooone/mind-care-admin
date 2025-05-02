@@ -1,5 +1,14 @@
-import { pageActionsFixture as test } from '../fixtures';
-import { expect } from '@playwright/test';
+import {
+  mockApiFixture,
+  pageActionsFixture,
+} from '../fixtures';
+import { expect, mergeTests } from '@playwright/test';
+
+const test = mergeTests(pageActionsFixture, mockApiFixture);
+
+test.beforeEach(async ({ mockAuthApi }) => {
+  await mockAuthApi();
+});
 
 test.describe('Login Page', () => {
   test('должен корректно перейти на страницу и авторизоваться', async ({

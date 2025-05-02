@@ -44,6 +44,7 @@ export const ReportsTable = () => {
   return (
     <div>
       <Table
+        data-testid="reports-table"
         header={<TableHeader />}
         reports={data?.data.items.map((report) => (
           <TableRow
