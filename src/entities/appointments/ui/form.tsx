@@ -15,7 +15,7 @@ export const AppointmentForm = (props: Props) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useForm<TAppointmentForm>({
     defaultValues: defaultValues ?? undefined,
   });

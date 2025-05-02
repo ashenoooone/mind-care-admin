@@ -10,12 +10,11 @@ export class ServicesService {
     params: { name?: string } & PaginationParams
   ) => {
     const { page = 0, limit = 10, name } = params;
-    return $api.get<{ items: TService[] } & WithPaginationMeta>(
-      '/services',
-      {
-        params: { page, limit, name },
-      }
-    );
+    return $api.get<
+      { items: TService[] } & WithPaginationMeta
+    >('/services', {
+      params: { page, limit, name },
+    });
   };
 
   static deleteService = (params: {
