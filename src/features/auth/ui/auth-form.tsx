@@ -26,20 +26,20 @@ export default function AuthForm() {
 
   const loginMutation = useMutation({
     ...LOGIN_MUTATION_OPTIONS,
-    onSuccess: (response) => {
-      LocalStorageManager.setItem(
-        'token',
-        response.data.token
-      );
-      router.push(ROUTES.main);
-    },
   });
 
-  const onLoginClick = () => {
-    loginMutation.mutate({
-      password,
-      login,
-    });
+  const onLoginClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const { data } = await loginMutation.mutateAsync({
+        password,
+        login,
+      });
+      LocalStorageManager.setItem('token', data.token);
+      router.push(ROUTES.main);
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   return (
@@ -66,7 +66,7 @@ export default function AuthForm() {
       <CardFooter>
         <Button
           onClick={onLoginClick}
-          type="submit"
+          type="button"
           className="w-full"
           data-testid="login-button"
         >

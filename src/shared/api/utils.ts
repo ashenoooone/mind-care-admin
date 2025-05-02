@@ -16,12 +16,12 @@ export const handlerApiErrors = (
     switch (statusCode) {
       case 403:
         handleLogout();
-        break;
+        return Promise.reject(error);
       default:
         console.error(
           `Необработанная ошибка ${error.message}`
         );
-        break;
+        return Promise.reject(error);
     }
   }
 };

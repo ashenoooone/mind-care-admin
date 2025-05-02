@@ -23,6 +23,6 @@ $api.interceptors.request.use(
 $api.interceptors.response.use(
   (response) => response,
   (error: AxiosError | Error) => {
-    handlerApiErrors(error);
+    return handlerApiErrors(error);
   }
 );

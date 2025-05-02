@@ -1,5 +1,5 @@
-const ERROR_MAPPER = {
-  'Request failed with status code 409': 'Неверные данные',
+export const ERROR_MAPPER = {
+  'Request failed with status code 401': 'Неверные данные',
 };
 
 export const mapLoginErrorToText = (error: string) => {

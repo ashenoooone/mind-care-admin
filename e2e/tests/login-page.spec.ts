@@ -1,3 +1,4 @@
+import { ERROR_MAPPER } from '@/features/auth';
 import {
   mockApiFixture,
   pageActionsFixture,
@@ -17,5 +18,16 @@ test.describe('Login Page', () => {
   }) => {
     await loginActions.login('root', 'root');
     expect(await appointmentsPage.isCurrent()).toBe(true);
+  });
+
+  test('должен корректно отобразить ошибку при неверном логине', async ({
+    loginActions,
+    loginPage,
+  }) => {
+    await loginActions.login('root', 'wrong-password');
+    expect(await loginPage.isCurrent()).toBe(true);
+    expect(await loginPage.getErrorText()).toBe(
+      ERROR_MAPPER['Request failed with status code 401']
+    );
   });
 });

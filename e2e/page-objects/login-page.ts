@@ -28,4 +28,13 @@ export class LoginPage {
   async clickLoginButton() {
     await this.loginButton.click();
   }
+
+  async getErrorText() {
+    return this.loginButton.textContent();
+  }
+
+  async isCurrent() {
+    await this.page.waitForURL('/login');
+    return this.page.url().includes('/login');
+  }
 }

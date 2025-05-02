@@ -35,7 +35,7 @@ export class AuthApiMock {
           });
         } else {
           await route.fulfill({
-            status: 409,
+            status: 401,
             contentType: 'application/json',
             body: JSON.stringify({
               message: 'Неверные данные',
