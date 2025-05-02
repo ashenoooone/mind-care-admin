@@ -29,7 +29,7 @@ jobs:
         run: npm run build
 
       - name: Start preview server
-        run: npm run preview &
+        run: npm run start &
         env:
           NODE_ENV: production
           NEXT_PUBLIC_API_URL: http://localhost:3000
