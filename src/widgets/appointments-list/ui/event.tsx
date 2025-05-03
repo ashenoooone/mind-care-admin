@@ -62,9 +62,6 @@ export const Event = (props: Props) => {
           )}
         />
       </div>
-      <h5 className="text-sm text-primary/50">
-        {event.client.name}
-      </h5>
     </div>
   );
 };

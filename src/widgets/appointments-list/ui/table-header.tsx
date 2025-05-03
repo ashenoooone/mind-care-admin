@@ -20,7 +20,7 @@ export const TableHeader = (props: Props) => {
       value={value}
       onValueChange={onChange}
       className={cn(
-        'px-2 py-1 rounded-xl',
+        'px-2 py-1 rounded-xl z-50',
         'before:absolute before:z-10 before:left-0 before:right-0 before:h-10 before:bg-gray-500/10',
         className
       )}
