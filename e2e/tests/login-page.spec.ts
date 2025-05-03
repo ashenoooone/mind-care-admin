@@ -7,9 +7,12 @@ import { expect, mergeTests } from '@playwright/test';
 
 const test = mergeTests(pageActionsFixture, mockApiFixture);
 
-test.beforeEach(async ({ mockAuthApi }) => {
-  await mockAuthApi();
-});
+test.beforeEach(
+  async ({ mockAuthApi, mockAppointmentsApi }) => {
+    await mockAuthApi();
+    await mockAppointmentsApi();
+  }
+);
 
 test.describe('Login Page', () => {
   test('должен корректно перейти на страницу и авторизоваться', async ({

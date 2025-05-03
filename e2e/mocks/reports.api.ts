@@ -19,13 +19,13 @@ export class ReportApiMock {
     const { count = 10 } = args;
     this.reports = ReportFactory.createReports({ count });
 
-    const router = new PlaywrightRouter(
+    const getRouter = new PlaywrightRouter(
       this.page,
-      '**/api/reports'
+      '**/api/reports?**'
     );
 
     // GET /reports?limit=...&page=...
-    router.addRoute('GET', async ({ req, route }) => {
+    getRouter.addRoute('GET', async ({ req, route }) => {
       const url = new URL(req.url());
       const limit = parseInt(
         url.searchParams.get('limit') || '10'
@@ -43,25 +43,34 @@ export class ReportApiMock {
       });
     });
 
+    const patchRouter = new PlaywrightRouter(
+      this.page,
+      '**/api/reports/**'
+    );
+
     // PATCH /reports/:id
-    router.addRoute('PATCH', async ({ req, route }) => {
-      const url = new URL(req.url());
-      const id = parseInt(
-        url.pathname.split('/').pop() || '0'
-      );
-      const body = await req.postDataJSON();
+    patchRouter.addRoute(
+      'PATCH',
+      async ({ req, route }) => {
+        const url = new URL(req.url());
+        const id = parseInt(
+          url.pathname.split('/').pop() || '0'
+        );
+        const body = await req.postDataJSON();
 
-      this.reports = this.reports.map((report) =>
-        report.id === id ? { ...report, ...body } : report
-      );
+        this.reports = this.reports.map((report) =>
+          report.id === id ? { ...report, ...body } : report
+        );
 
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(body),
-      });
-    });
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(body),
+        });
+      }
+    );
 
-    await router.build();
+    await getRouter.build();
+    await patchRouter.build();
   }
 }

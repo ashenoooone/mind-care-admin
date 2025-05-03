@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/ru';
 import { TReport } from '@/entities/reports';
 import { ClientFactory } from './client.factory';
 

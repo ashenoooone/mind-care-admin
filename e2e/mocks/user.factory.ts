@@ -1,5 +1,5 @@
 import { TUser } from '@/features/auth/model/types';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/ru';
 
 interface CreateUserParams {
   password?: string;
