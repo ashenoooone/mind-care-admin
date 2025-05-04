@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: Lint and type check
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +30,7 @@ jobs:
         run: npm run type-check
 
   test:
+    name: Run Playwright tests
     runs-on: ubuntu-latest
 
     steps:
