@@ -23,8 +23,8 @@ export const ModalLayout = (props: Props) => {
       <div className="grid grid-cols-3 gap-4">
         {userSection}
         {appointmentSection}
-        {aiSection}
       </div>
+      {aiSection}
       <div className="flex flex-col gap-4">
         {notesSection}
         {noteSection}

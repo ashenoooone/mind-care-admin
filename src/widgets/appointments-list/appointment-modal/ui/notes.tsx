@@ -26,14 +26,14 @@ export const Notes = (props: Props) => {
         <Skeleton className="h-24 w-full" />
       ) : (
         <Carousel>
-          <CarouselContent>
+          <CarouselContent className="items-stretch">
             {notes.map((note) => (
               <CarouselItem
                 className="basis-1/2 h-full"
                 key={note.appointmentDate}
               >
-                <Card>
-                  <CardContent>
+                <Card className="h-full">
+                  <CardContent className="h-full">
                     {renderNote(note)}
                   </CardContent>
                 </Card>

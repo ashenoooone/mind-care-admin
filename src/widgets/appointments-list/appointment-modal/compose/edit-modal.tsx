@@ -19,6 +19,8 @@ import {
 } from '@/entities/appointments';
 import { AiSection } from '../ui/ai';
 import { Skeleton } from '@/shared/ui/skeleton';
+import { useGetAiHints } from '../model/use-get-ai-hints';
+import { toast } from '@/shared/hooks/use-toast';
 
 export const EditModal = () => {
   const { $open, appointmentId, onOpenChange } =
@@ -43,7 +45,27 @@ export const EditModal = () => {
     });
   };
 
+  const {
+    mutateAsync: getAiHints,
+    data: hints,
+    isPending: isLoadingHints,
+  } = useGetAiHints();
+
   const open = $open || appointmentId !== undefined;
+
+  const onGenerateHintsClick = async () => {
+    try {
+      if (!user?.id) {
+        return;
+      }
+      await getAiHints({ userId: user.id });
+    } catch (error) {
+      toast({
+        title: 'Ошибка при генерации совет',
+        description: 'Попробуйте позже',
+      });
+    }
+  };
 
   // TODO: обработка состония загрузки и ошибки
   return (
@@ -88,7 +110,13 @@ export const EditModal = () => {
               initialNote={appointment?.note}
             />
           }
-          aiSection={<AiSection />}
+          aiSection={
+            <AiSection
+              onGenerateHintsClick={onGenerateHintsClick}
+              hints={hints?.data}
+              isLoading={isLoadingHints}
+            />
+          }
         />
       </DialogContent>
     </Dialog>

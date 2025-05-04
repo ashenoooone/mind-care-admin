@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 import './globals.css';
 import { ReactQueryProvider } from '@/shared/providers/react-query-provider';
+import { Toaster } from '@/shared/ui/toaster';
 
 const manrope = Manrope({
   weight: ['400', '500', '700'],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <main className="flex-grow">
           <ReactQueryProvider>
             {children}
+            <Toaster />
           </ReactQueryProvider>
         </main>
       </body>

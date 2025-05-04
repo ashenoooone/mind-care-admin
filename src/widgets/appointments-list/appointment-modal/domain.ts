@@ -26,3 +26,14 @@ export const mapNotes = (
     })
     .filter(Boolean) as Note[];
 };
+
+export type AiHints = Record<
+  string,
+  {
+    problem: string;
+    context: string;
+    confidence: number;
+    level: number;
+    recommendation: string;
+  }[]
+>;
