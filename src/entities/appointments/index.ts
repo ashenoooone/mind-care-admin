@@ -6,3 +6,4 @@ export * from './ui/status';
 export * from './ui/cancel-appointment-button';
 export * from './ui/confirm-appointment-button';
 export * from './ui/form';
+export * from './ui/form';

@@ -1,8 +1,48 @@
-type Props = {
-  className?: string;
-};
+import { useAddAppointmentModal } from '../model/add-modal';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/shared/ui/dialog';
+import { AppointmentForm } from '@/entities/appointments/ui/form';
+import { useCreateAppointment } from '@/entities/appointments/model/hooks';
+import { toast } from '@/shared/hooks/use-toast';
+import { TAppointmentForm } from '@/entities/appointments/model/types';
 
-export const AddModal = (props: Props) => {
-  const { className } = props;
-  return <div className={className}></div>;
+export const AddModal = () => {
+  const { $open, setOpen } = useAddAppointmentModal();
+  const createAppointment = useCreateAppointment();
+
+  const onSubmit = async (data: TAppointmentForm) => {
+    try {
+      await createAppointment.mutateAsync(data);
+      setOpen(false);
+      toast({
+        title: 'Запись создана',
+        description:
+          'Запись успешно добавлена в расписание',
+      });
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Не удалось создать запись',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  return (
+    <Dialog open={$open} onOpenChange={setOpen}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Создание записи</DialogTitle>
+        </DialogHeader>
+        <AppointmentForm
+          onSubmit={onSubmit}
+          submitButtonText="Создать"
+        />
+      </DialogContent>
+    </Dialog>
+  );
 };

@@ -6,6 +6,7 @@ import {
 import {
   TAppointment,
   TAppointmentCalendar,
+  TAppointmentForm,
 } from './types';
 
 export class AppointmentsService {
@@ -35,6 +36,10 @@ export class AppointmentsService {
       `appointments/${params.id}`,
       rest
     );
+  }
+
+  static createAppointment(data: TAppointmentForm) {
+    return $api.post<TAppointment>('appointments', data);
   }
 
   static getAppointmentsCalendar(params: {

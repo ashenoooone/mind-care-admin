@@ -33,6 +33,31 @@ export const PATCH_APPOINTMENTS_MUTATION_OPTIONS =
       AppointmentsService.patchAppointment(params),
   });
 
+export const CREATE_APPOINTMENTS_MUTATION_OPTIONS =
+  mutationOptions<
+    typeof AppointmentsService.createAppointment
+  >({
+    mutationKey: ['create-appointments'],
+    mutationFn: (data) =>
+      AppointmentsService.createAppointment(data),
+  });
+
+export const useCreateAppointment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    ...CREATE_APPOINTMENTS_MUTATION_OPTIONS,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [APPOINTMENTS_BASE_KEY],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [USERS_BASE_KEY],
+      });
+    },
+  });
+};
+
 export const usePatchAppointment = () => {
   const queryClient = useQueryClient();
 

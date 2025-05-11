@@ -4,6 +4,9 @@ import {
 } from '@/shared/ui/toggle-group';
 import { TableShowMode } from '../domain/table';
 import { cn } from '@/shared/lib/utils';
+import { Button } from '@/shared/ui/button';
+import { Plus } from 'lucide-react';
+import { useAppointmentModalOpen } from '../appointment-modal';
 
 type Props = {
   className?: string;
@@ -13,27 +16,33 @@ type Props = {
 
 export const TableHeader = (props: Props) => {
   const { className, value, onChange } = props;
+  const { openAddModal } = useAppointmentModalOpen();
 
   return (
-    <ToggleGroup
-      type="single"
-      value={value}
-      onValueChange={onChange}
-      className={cn(
-        'px-2 py-1 rounded-xl z-50',
-        'before:absolute before:z-10 before:left-0 before:right-0 before:h-10 before:bg-gray-500/10',
-        className
-      )}
-    >
-      <ToggleGroupItem className="z-20" value="day">
-        День
-      </ToggleGroupItem>
-      <ToggleGroupItem className="z-20" value="week">
-        Неделя
-      </ToggleGroupItem>
-      <ToggleGroupItem className="z-20" value="month">
-        Месяц
-      </ToggleGroupItem>
-    </ToggleGroup>
+    <div className="flex items-center justify-between bg-gray-500/10 rounded-xl">
+      <ToggleGroup
+        type="single"
+        value={value}
+        onValueChange={onChange}
+        className={cn(
+          'px-2 py-1 rounded-xl z-50',
+          className
+        )}
+      >
+        <ToggleGroupItem className="z-20" value="day">
+          День
+        </ToggleGroupItem>
+        <ToggleGroupItem className="z-20" value="week">
+          Неделя
+        </ToggleGroupItem>
+        <ToggleGroupItem className="z-20" value="month">
+          Месяц
+        </ToggleGroupItem>
+      </ToggleGroup>
+      <Button onClick={openAddModal} size="sm">
+        <Plus className="w-4 h-4 mr-2" />
+        Создать запись
+      </Button>
+    </div>
   );
 };
