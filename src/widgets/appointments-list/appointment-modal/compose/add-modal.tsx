@@ -5,16 +5,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/ui/dialog';
-import { AppointmentForm } from '@/entities/appointments/ui/form';
+import {
+  AppointmentForm,
+  CreateAppointmentForm,
+} from '@/entities/appointments/ui/form';
 import { useCreateAppointment } from '@/entities/appointments/model/hooks';
 import { toast } from '@/shared/hooks/use-toast';
-import { TAppointmentForm } from '@/entities/appointments/model/types';
 
 export const AddModal = () => {
   const { $open, setOpen } = useAddAppointmentModal();
   const createAppointment = useCreateAppointment();
 
-  const onSubmit = async (data: TAppointmentForm) => {
+  const onSubmit = async (data: CreateAppointmentForm) => {
     try {
       await createAppointment.mutateAsync(data);
       setOpen(false);

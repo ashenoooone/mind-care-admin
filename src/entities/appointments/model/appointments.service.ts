@@ -8,6 +8,7 @@ import {
   TAppointmentCalendar,
   TAppointmentForm,
 } from './types';
+import { CreateAppointmentForm } from '../ui/form';
 
 export class AppointmentsService {
   static async getAppointment(id: number) {
@@ -38,7 +39,7 @@ export class AppointmentsService {
     );
   }
 
-  static createAppointment(data: TAppointmentForm) {
+  static createAppointment(data: CreateAppointmentForm) {
     return $api.post<TAppointment>('appointments', data);
   }
 
