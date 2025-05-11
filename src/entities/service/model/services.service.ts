@@ -17,6 +17,10 @@ export class ServicesService {
     });
   };
 
+  static getService = (params: { id: TService['id'] }) => {
+    return $api.get<TService>(`/services/${params.id}`);
+  };
+
   static deleteService = (params: {
     id: TService['id'];
   }) => {
@@ -27,5 +31,15 @@ export class ServicesService {
     params: Omit<Partial<TService>, 'id'>
   ) => {
     return $api.post('/services', params);
+  };
+
+  static putUpdateService = (params: {
+    id: TService['id'];
+    data: Omit<Partial<TService>, 'id'>;
+  }) => {
+    return $api.patch(
+      `/services/${params.id}`,
+      params.data
+    );
   };
 }

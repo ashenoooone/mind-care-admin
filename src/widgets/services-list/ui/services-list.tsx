@@ -8,6 +8,7 @@ import {
 } from '@/entities/service';
 import { CreateServiceModal } from '@/features/services/create-service';
 import { DeleteServiceModal } from '@/features/services/delete-service';
+import { EditServiceModal } from '@/features/services/edit-service';
 import Loader from '@/shared/ui/loader';
 import Pagination from '@/shared/ui/pagination';
 import { TableCell } from '@/shared/ui/table';
@@ -45,6 +46,11 @@ export const ServicesList = () => {
                 <DeleteServiceModal
                   serviceId={service.id}
                 />
+              </TableCell>
+            }
+            editButton={
+              <TableCell>
+                <EditServiceModal service={service} />
               </TableCell>
             }
           />
