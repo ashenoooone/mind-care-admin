@@ -6,7 +6,6 @@ import {
 import {
   TAppointment,
   TAppointmentCalendar,
-  TAppointmentForm,
 } from './types';
 import { CreateAppointmentForm } from '../ui/form';
 
@@ -37,6 +36,10 @@ export class AppointmentsService {
       `appointments/${params.id}`,
       rest
     );
+  }
+
+  static deleteAppointment(id: number) {
+    return $api.delete<TAppointment>(`appointments/${id}`);
   }
 
   static createAppointment(data: CreateAppointmentForm) {

@@ -11,6 +11,10 @@ type Props = {
   appointment?: TAppointment;
   isLoading?: boolean;
   isError?: boolean;
+  denyButton?: React.ReactNode;
+  confirmButton?: React.ReactNode;
+  editTimeButton?: React.ReactNode;
+  editServiceButton?: React.ReactNode;
 };
 
 const formatTime = (date: string) => {
@@ -22,7 +26,15 @@ const formatTime = (date: string) => {
 };
 
 export const AppointmentInfo = (props: Props) => {
-  const { appointment, isLoading, isError } = props;
+  const {
+    appointment,
+    isLoading,
+    isError,
+    denyButton,
+    confirmButton,
+    editTimeButton,
+    editServiceButton,
+  } = props;
 
   if (isLoading || !appointment) {
     return <Skeleton className="h-24 w-full" />;
@@ -37,12 +49,19 @@ export const AppointmentInfo = (props: Props) => {
     );
   }
 
+  const needToShowButtons =
+    appointment.status === AppointmentStatus.SCHEDULED;
+
   return (
     <List title="Информация о записи">
-      <ListItem>{appointment.service.name}</ListItem>
+      <ListItem>
+        {appointment.service.name}
+        {editServiceButton}
+      </ListItem>
       <ListItem>
         {formatTime(appointment.startTime)} -
         {formatTime(appointment.endTime)}
+        {editTimeButton}
       </ListItem>
       <ListItem
         className={cn('font-bold', {
@@ -59,6 +78,20 @@ export const AppointmentInfo = (props: Props) => {
       >
         {appointmentStatusMapper[appointment.status]}
       </ListItem>
+      {needToShowButtons && (
+        <>
+          {confirmButton && (
+            <ListItem className="mb-2">
+              {confirmButton}
+            </ListItem>
+          )}
+          {denyButton && (
+            <ListItem className="mb-2">
+              {denyButton}
+            </ListItem>
+          )}
+        </>
+      )}
     </List>
   );
 };

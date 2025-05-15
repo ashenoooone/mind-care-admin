@@ -4,6 +4,7 @@ type ListProps = {
   className?: string;
   children: React.ReactNode;
   title?: React.ReactNode;
+  onClick?: () => void;
 };
 
 export const List = ({
@@ -26,9 +27,13 @@ export const List = ({
 export const ListItem = ({
   className,
   children,
+  onClick,
 }: ListProps) => {
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
+      role={onClick ? 'button' : undefined}
+      onClick={onClick}
       className={cn(
         'relative flex items-center gap-2 before:absolute before:left-[-20px] before:top-1/2 before:h-0.5 before:w-4 before:bg-black',
         className

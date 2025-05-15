@@ -21,6 +21,8 @@ import { AiSection } from '../ui/ai';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { useGetAiHints } from '../model/use-get-ai-hints';
 import { toast } from '@/shared/hooks/use-toast';
+import { CircleCheck, CircleX, Edit } from 'lucide-react';
+import { Button } from '@/shared/ui/button';
 
 export const EditModal = () => {
   const { $open, appointmentId, onOpenChange } =
@@ -91,7 +93,29 @@ export const EditModal = () => {
             />
           }
           appointmentSection={
-            <AppointmentInfo appointment={appointment} />
+            <AppointmentInfo
+              appointment={appointment}
+              editServiceButton={
+                <Button variant="outline">
+                  <Edit />
+                </Button>
+              }
+              editTimeButton={
+                <Button variant="outline">
+                  <Edit />
+                </Button>
+              }
+              confirmButton={
+                <Button variant="green">
+                  Подтвердить запись <CircleCheck />
+                </Button>
+              }
+              denyButton={
+                <Button variant="destructive">
+                  Отменить запись <CircleX />
+                </Button>
+              }
+            />
           }
           notesSection={
             <Notes
