@@ -46,6 +46,8 @@ export const AppointmentForm = (props: Props) => {
           rules={{ required: 'Выберите услугу' }}
           render={({ field }) => (
             <ServiceSelect
+              dataTestId="service-select"
+              contentTestId="service-select-content"
               error={errors.serviceId?.message}
               defaultValue={field.value?.toString()}
               onChange={(value) =>
@@ -60,6 +62,8 @@ export const AppointmentForm = (props: Props) => {
           rules={{ required: 'Выберите клиента' }}
           render={({ field }) => (
             <ClientSelect
+              dataTestId="client-select"
+              contentTestId="client-select-content"
               error={errors.clientId?.message}
               defaultValue={field.value?.toString()}
               onChange={(value) =>
@@ -74,6 +78,7 @@ export const AppointmentForm = (props: Props) => {
           rules={{ required: 'Укажите дату и время' }}
           render={({ field }) => (
             <Input
+              data-testid="date-input"
               label="Дата и время"
               type="datetime-local"
               error={errors.date?.message}

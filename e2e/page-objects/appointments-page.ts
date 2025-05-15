@@ -11,6 +11,15 @@ export class AppointmentsPage {
   public weekModeTimeGrid: Locator;
   public dayModeTimeGrid: Locator;
   public monthModeTimeGrid: Locator;
+  public serviceSelect: {
+    trigger: Locator;
+    content: Locator;
+  };
+  public clientSelect: {
+    trigger: Locator;
+    content: Locator;
+  };
+  public dateInput: Locator;
 
   constructor(private page: Page) {
     this.createAppointmentButton = this.page.getByTestId(
@@ -43,6 +52,19 @@ export class AppointmentsPage {
     this.monthModeTimeGrid = this.page.getByTestId(
       'month-mode-time-grid'
     );
+    this.serviceSelect = {
+      trigger: this.page.getByTestId('service-select'),
+      content: this.page.getByTestId(
+        'service-select-content'
+      ),
+    };
+    this.clientSelect = {
+      trigger: this.page.getByTestId('client-select'),
+      content: this.page.getByTestId(
+        'client-select-content'
+      ),
+    };
+    this.dateInput = this.page.getByTestId('date-input');
   }
 
   async isCurrent(): Promise<boolean> {
@@ -52,6 +74,36 @@ export class AppointmentsPage {
 
   async navigate() {
     await this.page.goto('/appointments');
+  }
+
+  async openCreateAppointmentModal() {
+    await this.createAppointmentButton.click();
+  }
+
+  /**
+   * @param params.n - номер услуги
+   */
+  async setService(params: { n: number }) {
+    const { n } = params;
+    await this.serviceSelect.trigger.click();
+    await this.serviceSelect.content
+      .getByRole('option')
+      .nth(n)
+      .click();
+  }
+
+  async setClient(params: { n: number }) {
+    const { n } = params;
+    await this.clientSelect.trigger.click();
+    await this.clientSelect.content
+      .getByRole('option')
+      .nth(n)
+      .click();
+  }
+
+  async setDate(params: { date: string }) {
+    const { date } = params;
+    await this.dateInput.fill(date);
   }
 
   async setShowMode(mode: 'day' | 'week' | 'month') {

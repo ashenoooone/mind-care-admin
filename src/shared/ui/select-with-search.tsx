@@ -24,6 +24,8 @@ type Props<T> = {
   onChange?: (value: T) => void;
   label?: string;
   error?: string;
+  dataTestId?: string;
+  contentTestId?: string;
 };
 
 export const SelectWithSearch = forwardRef(
@@ -39,6 +41,9 @@ export const SelectWithSearch = forwardRef(
       value,
       onChange,
       error,
+      dataTestId,
+      contentTestId,
+      ...rest
     } = props;
 
     const [searchValue, setSearchValue] = useState('');
@@ -57,10 +62,14 @@ export const SelectWithSearch = forwardRef(
             <SelectTrigger
               ref={ref}
               className={cn(error && 'border-destructive')}
+              data-testid={dataTestId}
             >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent
+              data-testid={contentTestId}
+              {...rest}
+            >
               <div className="p-2">
                 <Input
                   startIcon={

@@ -36,6 +36,24 @@ export class AppointmentsApi {
       });
     });
 
+    const postRouter = new PlaywrightRouter(
+      this.page,
+      '**/api/appointments'
+    );
+
+    postRouter.addRoute('POST', async ({ route, req }) => {
+      const body = await req.postDataJSON();
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          appointment: body,
+        }),
+      });
+    });
+
     await router.build();
+    await postRouter.build();
   }
 }

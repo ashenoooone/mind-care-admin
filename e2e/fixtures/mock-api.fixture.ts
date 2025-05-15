@@ -2,6 +2,7 @@ import { test as base } from '@playwright/test';
 import { ReportApiMock } from '../mocks/reports.api';
 import { AuthApiMock } from '../mocks/auth.api';
 import { AppointmentsApi } from '../mocks/appointments.api';
+import { ServicesApi } from '../mocks/services.api';
 
 type MockReportsParams = {
   count?: number;
@@ -13,6 +14,7 @@ type MockApiFixture = {
   ) => Promise<void>;
   mockAuthApi: () => Promise<void>;
   mockAppointmentsApi: AppointmentsApi;
+  mockServicesApi: ServicesApi;
 };
 
 export const mockApiFixture = base.extend<MockApiFixture>({
@@ -29,5 +31,9 @@ export const mockApiFixture = base.extend<MockApiFixture>({
   mockAppointmentsApi: async ({ page }, use) => {
     const appointmentsApiMock = new AppointmentsApi(page);
     await use(appointmentsApiMock);
+  },
+  mockServicesApi: async ({ page }, use) => {
+    const servicesApiMock = new ServicesApi(page);
+    await use(servicesApiMock);
   },
 });

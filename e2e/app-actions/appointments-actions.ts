@@ -11,7 +11,13 @@ export class AppointmentsActions {
   /**
    * заходит на страницу и проверят, что создание записи работает
    */
-  //   async createNewAppointment() {}
+  async createNewAppointment({ date }: { date: string }) {
+    await this.pom.openCreateAppointmentModal();
+    await this.pom.setClient({ n: 0 });
+    await this.pom.setService({ n: 0 });
+    await this.pom.setDate({ date });
+    await this.pom.submitAppointmentButton.click();
+  }
 
   /**
    * заходит на страницу и проверяет, что кнопки в хедере корректно работают
