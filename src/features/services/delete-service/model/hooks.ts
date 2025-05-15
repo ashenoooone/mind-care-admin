@@ -1,15 +1,12 @@
 import {
   GET_SERVICES_QUERY,
-  SERVICES_BASE_KEY,
   ServicesService,
-  TService,
 } from '@/entities/service';
 import { mutationOptions } from '@/shared/lib/mutation-options';
 import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 
 export const DELETE_SERVICE_MUTATION = mutationOptions<
   typeof ServicesService.deleteService
