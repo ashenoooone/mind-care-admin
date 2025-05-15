@@ -62,7 +62,10 @@ export const MonthMode = ({ calendar }: Props) => {
     firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
   return (
-    <div className="grid grid-cols-7 gap-1">
+    <div
+      data-testid="month-mode-time-grid"
+      className="grid grid-cols-7 gap-1"
+    >
       {/* Пустые ячейки до первого дня месяца */}
       {Array.from({ length: startOffset }).map(
         (_, index) => (

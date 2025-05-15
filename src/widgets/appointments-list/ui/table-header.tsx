@@ -29,17 +29,33 @@ export const TableHeader = (props: Props) => {
           className
         )}
       >
-        <ToggleGroupItem className="z-20" value="day">
+        <ToggleGroupItem
+          data-testid="day-toggle-group-item"
+          className="z-20"
+          value="day"
+        >
           День
         </ToggleGroupItem>
-        <ToggleGroupItem className="z-20" value="week">
+        <ToggleGroupItem
+          data-testid="week-toggle-group-item"
+          className="z-20"
+          value="week"
+        >
           Неделя
         </ToggleGroupItem>
-        <ToggleGroupItem className="z-20" value="month">
+        <ToggleGroupItem
+          data-testid="month-toggle-group-item"
+          className="z-20"
+          value="month"
+        >
           Месяц
         </ToggleGroupItem>
       </ToggleGroup>
-      <Button onClick={openAddModal} size="sm">
+      <Button
+        data-testid="create-appointment-button"
+        onClick={openAddModal}
+        size="sm"
+      >
         <Plus className="w-4 h-4 mr-2" />
         Создать запись
       </Button>

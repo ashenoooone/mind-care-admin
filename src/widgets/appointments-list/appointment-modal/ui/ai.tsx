@@ -24,6 +24,7 @@ export const AiSection = (props: Props) => {
       <div className="flex items-center gap-4">
         <h2 className="text-lg font-bold">AI советы</h2>
         <Button
+          data-testid="generate-hints-button"
           onClick={onGenerateHintsClick}
           disabled={isLoading}
           className="relative overflow-hidden text-white border-none rounded-lg shadow-lg"

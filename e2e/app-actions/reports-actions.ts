@@ -21,41 +21,35 @@ const getRandomStatus = (
 };
 
 export class ReportsActions {
-  private reportsPageModel: ReportsPage;
+  private pom: ReportsPage;
 
   constructor(private readonly page: Page) {
-    this.reportsPageModel = new ReportsPage(page);
+    this.pom = new ReportsPage(page);
   }
 
   async openReportsPageAndChangeFirstReportStatus() {
-    await this.reportsPageModel.navigate();
+    await this.pom.navigate();
     const { statusButton: statusButtonBefore } =
-      await this.reportsPageModel.getNthReportTableRow(0);
+      await this.pom.getNthReportTableRow(0);
     const currentStatusText =
       await statusButtonBefore.textContent();
     const currentStatus = this.mapStatusTextToCode(
       currentStatusText?.trim()
     );
     await statusButtonBefore.click();
-    await this.reportsPageModel.checkChangeStatusModalState(
-      {
-        wait: true,
-        state: 'visible',
-      }
-    );
+    await this.pom.checkChangeStatusModalState({
+      wait: true,
+      state: 'visible',
+    });
     const newStatus = getRandomStatus(currentStatus);
-    await this.reportsPageModel.clickChangeStatusButton(
-      newStatus
-    );
-    await this.reportsPageModel.closeChangeStatusModal();
-    await this.reportsPageModel.checkChangeStatusModalState(
-      {
-        wait: true,
-        state: 'hidden',
-      }
-    );
+    await this.pom.clickChangeStatusButton(newStatus);
+    await this.pom.closeChangeStatusModal();
+    await this.pom.checkChangeStatusModalState({
+      wait: true,
+      state: 'hidden',
+    });
     const { statusButton: statusButtonAfter } =
-      await this.reportsPageModel.getNthReportTableRow(0);
+      await this.pom.getNthReportTableRow(0);
     const statusText =
       await statusButtonAfter.textContent();
     expect(

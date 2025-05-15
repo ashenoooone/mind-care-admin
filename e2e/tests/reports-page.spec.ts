@@ -15,7 +15,7 @@ test.beforeEach(
   }) => {
     await mockReportsApi({ count: 50 });
     await mockAuthApi();
-    await mockAppointmentsApi();
+    await mockAppointmentsApi.mockAppointmentsApi();
     await loginActions.login('root', 'root');
     await expect(await appointmentsPage.isCurrent()).toBe(
       true

@@ -23,6 +23,7 @@ export const DayMode = (props: Props) => {
 
   return (
     <TimeGrid
+      data-testid="day-mode-time-grid"
       mode="day"
       columns={
         <Column

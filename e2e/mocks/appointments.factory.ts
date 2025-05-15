@@ -7,6 +7,23 @@ import { ClientFactory } from './client.factory';
 import { ServiceFactory } from './service.factory';
 
 export class AppointmentsFactory {
+  static createCalendarAppointments(
+    count: number
+  ): Record<string, TAppointment> {
+    return Array.from({ length: count }, () =>
+      this.createAppointment()
+    ).reduce(
+      (ac, app) => {
+        const dateWithTime = app.startTime.toString();
+        const [dateWithoutTime] = dateWithTime.split('T');
+        const key = `${dateWithoutTime}T00:00:00.000Z`;
+        ac[key] = app;
+        return ac;
+      },
+      {} as Record<string, TAppointment>
+    );
+  }
+
   static createAppointments(count: number): TAppointment[] {
     return Array.from({ length: count }, () =>
       this.createAppointment()

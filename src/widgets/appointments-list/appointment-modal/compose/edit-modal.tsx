@@ -74,6 +74,7 @@ export const EditModal = () => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         fullscreen
+        data-testid="edit-appointment-modal"
         className="flex overflow-y-auto flex-col"
       >
         <DialogHeader>

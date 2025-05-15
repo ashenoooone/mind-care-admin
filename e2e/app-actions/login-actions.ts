@@ -2,10 +2,10 @@ import { Page } from '@playwright/test';
 import { LoginPage } from '../page-objects/login-page';
 
 export class LoginActions {
-  private loginPageModel: LoginPage;
+  private pom: LoginPage;
 
   constructor(page: Page) {
-    this.loginPageModel = new LoginPage(page);
+    this.pom = new LoginPage(page);
   }
 
   /**
@@ -14,9 +14,9 @@ export class LoginActions {
    * @param password  пароль
    */
   async login(login: string, password: string) {
-    await this.loginPageModel.navigate();
-    await this.loginPageModel.fillLogin(login);
-    await this.loginPageModel.fillPassword(password);
-    await this.loginPageModel.clickLoginButton();
+    await this.pom.navigate();
+    await this.pom.fillLogin(login);
+    await this.pom.fillPassword(password);
+    await this.pom.clickLoginButton();
   }
 }

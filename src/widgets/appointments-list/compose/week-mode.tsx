@@ -19,6 +19,7 @@ export const WeekMode = (props: Props) => {
 
   return (
     <TimeGrid
+      data-testid="week-mode-time-grid"
       mode="week"
       columns={Object.keys(calendar).map((day) => (
         <Column

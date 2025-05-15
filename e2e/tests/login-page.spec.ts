@@ -10,7 +10,7 @@ const test = mergeTests(pageActionsFixture, mockApiFixture);
 test.beforeEach(
   async ({ mockAuthApi, mockAppointmentsApi }) => {
     await mockAuthApi();
-    await mockAppointmentsApi();
+    await mockAppointmentsApi.mockAppointmentsApi();
   }
 );
 

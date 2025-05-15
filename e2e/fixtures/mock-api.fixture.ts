@@ -12,7 +12,7 @@ type MockApiFixture = {
     params: MockReportsParams
   ) => Promise<void>;
   mockAuthApi: () => Promise<void>;
-  mockAppointmentsApi: () => Promise<void>;
+  mockAppointmentsApi: AppointmentsApi;
 };
 
 export const mockApiFixture = base.extend<MockApiFixture>({
@@ -28,10 +28,6 @@ export const mockApiFixture = base.extend<MockApiFixture>({
   },
   mockAppointmentsApi: async ({ page }, use) => {
     const appointmentsApiMock = new AppointmentsApi(page);
-    await use(
-      appointmentsApiMock.mockAppointmentsApi.bind(
-        appointmentsApiMock
-      )
-    );
+    await use(appointmentsApiMock);
   },
 });

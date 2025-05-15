@@ -91,7 +91,11 @@ export const AppointmentForm = (props: Props) => {
           )}
         />
       </div>
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        data-testid="submit-appointment-button"
+        className="w-full"
+      >
         {submitButtonText}
       </Button>
     </form>

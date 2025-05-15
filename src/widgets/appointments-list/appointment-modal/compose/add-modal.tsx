@@ -36,7 +36,7 @@ export const AddModal = () => {
 
   return (
     <Dialog open={$open} onOpenChange={setOpen}>
-      <DialogContent>
+      <DialogContent data-testid="create-appointment-modal">
         <DialogHeader>
           <DialogTitle>Создание записи</DialogTitle>
         </DialogHeader>

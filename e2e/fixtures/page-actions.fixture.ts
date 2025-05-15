@@ -4,6 +4,7 @@ import { AppointmentsPage } from '../page-objects/appointments-page';
 import { ReportsPage } from '../page-objects/reports-page';
 import { LoginPage } from '../page-objects/login-page';
 import { ReportsActions } from '../app-actions/reports-actions';
+import { AppointmentsActions } from '../app-actions/appointments-actions';
 
 export type PageActionsFixture = {
   loginActions: LoginActions;
@@ -11,10 +12,14 @@ export type PageActionsFixture = {
   reportsPage: ReportsPage;
   reportsActions: ReportsActions;
   loginPage: LoginPage;
+  appointmentsActions: AppointmentsActions;
 };
 
 export const pageActionsFixture =
   base.extend<PageActionsFixture>({
+    appointmentsActions: async ({ page }, use) => {
+      await use(new AppointmentsActions(page));
+    },
     loginActions: async ({ page }, use) => {
       await use(new LoginActions(page));
     },
