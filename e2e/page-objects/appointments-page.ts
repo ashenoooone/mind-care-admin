@@ -11,6 +11,7 @@ export class AppointmentsPage {
   public weekModeTimeGrid: Locator;
   public dayModeTimeGrid: Locator;
   public monthModeTimeGrid: Locator;
+
   public serviceSelect: {
     trigger: Locator;
     content: Locator;
@@ -124,6 +125,26 @@ export class AppointmentsPage {
     };
 
     await modeMap[mode].waitFor({
+      state: 'visible',
+      timeout: 10000,
+    });
+  }
+
+  async getEvents() {
+    return this.page.locator('[data-testid^="event-"]');
+  }
+
+  /**
+   * @param params.n - номер события
+   */
+  async openEditAppointmentModal(params: { n: number }) {
+    const { n } = params;
+    const events = await this.getEvents();
+    await events.nth(n).click();
+  }
+
+  async expectEditAppointmentModalIsOpen() {
+    await this.editAppointmentModal.waitFor({
       state: 'visible',
       timeout: 10000,
     });

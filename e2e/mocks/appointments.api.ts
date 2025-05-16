@@ -1,9 +1,11 @@
 import { Page } from '@playwright/test';
 import { PlaywrightRouter } from '../utils/router';
 import { AppointmentsFactory } from './appointments.factory';
+import { AppointmentStatus } from '@/entities/appointments/model/types';
 
 type MockAppointmentsParams = {
   count: number;
+  status?: AppointmentStatus;
 };
 
 export class AppointmentsApi {
@@ -12,26 +14,27 @@ export class AppointmentsApi {
   async mockAppointmentsApi(
     params: MockAppointmentsParams = {
       count: 50,
+      status: undefined,
     }
   ): Promise<void> {
-    const { count } = params;
+    const { count, status } = params;
 
     const router = new PlaywrightRouter(
       this.page,
-      '**/api/appointments/calendar/**'
+      '**/api/appointments/calendar**'
     );
 
     router.addRoute('GET', async ({ route }) => {
       const appointments =
-        AppointmentsFactory.createCalendarAppointments(
-          count
-        );
-
+        AppointmentsFactory.createCalendarAppointments({
+          count,
+          status,
+        });
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
-          appointments,
+          ...appointments,
         }),
       });
     });

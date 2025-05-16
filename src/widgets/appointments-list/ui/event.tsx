@@ -18,6 +18,7 @@ export const Event = (props: Props) => {
 
   return (
     <div
+      data-testid={`event-${event.id}`}
       className={cn(
         'cursor-pointer z-40 pl-2 rounded-md transition-all hover:shadow-lg relative',
         className,

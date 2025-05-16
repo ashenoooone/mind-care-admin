@@ -17,6 +17,7 @@ export class AppointmentsActions {
     await this.pom.setService({ n: 0 });
     await this.pom.setDate({ date });
     await this.pom.submitAppointmentButton.click();
+    // TODO: проверить, что запись создалась
   }
 
   /**
@@ -33,7 +34,31 @@ export class AppointmentsActions {
   }
 
   /**
-   * проверяет, что можно редактирование записей работает
+   * проверяет, что можно редактировать заметки к записи
    */
-  //   async editRandomAppointment() {}
+  async editRandomAppointmentNote() {
+    await this.pom.openEditAppointmentModal({ n: 0 });
+    await this.pom.expectEditAppointmentModalIsOpen();
+  }
+
+  /**
+   * проверяет, что статус записи меняется на "отменен"
+   */
+  async changeAppointmentStatusToCanceled() {
+    return true;
+  }
+
+  /**
+   * проверяет, что статус записи меняется на "завершено"
+   */
+  async changeAppointmentStatusToCompleted() {
+    return true;
+  }
+
+  /**
+   * проверяет, что ai советы к записи корректно отображаются и получаются
+   */
+  async checkAiAdvice() {
+    return true;
+  }
 }

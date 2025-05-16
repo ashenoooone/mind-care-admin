@@ -6,21 +6,33 @@ import { faker } from '@faker-js/faker/locale/ru';
 import { ClientFactory } from './client.factory';
 import { ServiceFactory } from './service.factory';
 
+type CreateAppointmentParams = {
+  count?: number;
+  status?: AppointmentStatus;
+};
 export class AppointmentsFactory {
-  static createCalendarAppointments(
-    count: number
-  ): Record<string, TAppointment> {
+  static createCalendarAppointments({
+    count = 10,
+    status,
+  }: CreateAppointmentParams): Record<
+    string,
+    TAppointment[]
+  > {
     return Array.from({ length: count }, () =>
-      this.createAppointment()
+      this.createAppointment({ status })
     ).reduce(
       (ac, app) => {
         const dateWithTime = app.startTime.toString();
         const [dateWithoutTime] = dateWithTime.split('T');
         const key = `${dateWithoutTime}T00:00:00.000Z`;
-        ac[key] = app;
+        if (ac[key]) {
+          ac[key].push(app);
+        } else {
+          ac[key] = [app];
+        }
         return ac;
       },
-      {} as Record<string, TAppointment>
+      {} as Record<string, TAppointment[]>
     );
   }
 
@@ -30,7 +42,17 @@ export class AppointmentsFactory {
     );
   }
 
-  static createAppointment(): TAppointment {
+  static createAppointment(
+    params: CreateAppointmentParams = { status: undefined }
+  ): TAppointment {
+    const appointmentStatus =
+      params.status ??
+      faker.helpers.arrayElement([
+        AppointmentStatus.COMPLETED,
+        AppointmentStatus.CANCELLED,
+        AppointmentStatus.SCHEDULED,
+      ]);
+
     return {
       id: faker.number.int(),
       startTime: faker.date.future().toISOString(),
@@ -39,11 +61,8 @@ export class AppointmentsFactory {
       client: ClientFactory.createClient(),
       serviceId: faker.number.int(),
       service: ServiceFactory.createService(),
-      status: faker.helpers.arrayElement([
-        AppointmentStatus.COMPLETED,
-        AppointmentStatus.CANCELLED,
-        AppointmentStatus.SCHEDULED,
-      ]),
+      status: appointmentStatus,
+      note: faker.lorem.sentence(),
     };
   }
 }
