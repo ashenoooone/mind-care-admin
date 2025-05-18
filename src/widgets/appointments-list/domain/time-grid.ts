@@ -27,7 +27,8 @@ export const findEventStartingAtHour = <
   const { events, hour } = params;
   return events.find((event) => {
     const startDate = new Date(event.startTime);
-    const hours = startDate.getHours() + 1;
+    const hours = startDate.getUTCHours() + 1;
+
     return hours === hour;
   });
 };

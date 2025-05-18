@@ -21,6 +21,7 @@ export const Column = <T extends TimeGridEvent>(
 
   const renderHourCell = (hour: number) => {
     // TODO: поддержка если несколько ивентов в один час
+
     const event = findEventStartingAtHour({
       events,
       hour,
