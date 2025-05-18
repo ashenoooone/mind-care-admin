@@ -19,10 +19,7 @@ type Props = {
 
 const formatTime = (date: string) => {
   const localDate = new Date(date);
-  return localDate.toLocaleTimeString('ru-RU', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  return localDate.toUTCString().slice(16, 22);
 };
 
 export const AppointmentInfo = (props: Props) => {
