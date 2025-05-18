@@ -14,6 +14,8 @@ export const calculateTimeGridEventStyles = <
 >(params: {
   event: T;
   hour: number;
+  totalElements?: number;
+  index?: number;
 }): React.CSSProperties => {
   const startDate = new Date(params.event.startTime);
   const endDate = new Date(params.event.endTime);
@@ -27,6 +29,7 @@ export const calculateTimeGridEventStyles = <
     height: heightMultiplier * GRID_CELL_HEIGHT,
     top: top,
     position: 'absolute',
-    width: '100%',
+    width: `calc(100% / ${params.totalElements})`,
+    left: `calc(${params.index} * 100% / ${params.totalElements})`,
   };
 };

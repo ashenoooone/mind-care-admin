@@ -13,19 +13,19 @@ export const HOURS = Array.from(
 );
 
 /**
- * Находит событие, которое начинается в указанный час
+ * Находит все события, которые начинаются в указанный час
  * @param params.events - Массив событий
- * @param params.hour - Час для поиска события
- * @returns Событие, которое начинается в указанный час, или undefined если такого события нет
+ * @param params.hour - Час для поиска событий
+ * @returns Массив событий, которые начинаются в указанный час
  */
-export const findEventStartingAtHour = <
+export const findEventsStartingAtHour = <
   T extends TimeGridEvent,
 >(params: {
   events: T[];
   hour: number;
 }) => {
   const { events, hour } = params;
-  return events.find((event) => {
+  return events.filter((event) => {
     const startDate = new Date(event.startTime);
     const hours = startDate.getUTCHours() + 1;
 

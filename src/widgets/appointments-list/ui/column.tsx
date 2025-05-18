@@ -1,6 +1,6 @@
 import { cn } from '@/shared/lib/utils';
 import {
-  findEventStartingAtHour,
+  findEventsStartingAtHour,
   TimeGridEvent,
 } from '../domain/time-grid';
 import { Cell } from './cell';
@@ -22,29 +22,37 @@ export const Column = <T extends TimeGridEvent>(
   const renderHourCell = (hour: number) => {
     // TODO: поддержка если несколько ивентов в один час
 
-    const event = findEventStartingAtHour({
+    const eventsInCell = findEventsStartingAtHour({
       events,
       hour,
     });
 
-    if (!event) {
+    if (!eventsInCell.length) {
       return <Cell />;
     }
 
-    const styles = calculateTimeGridEventStyles({
-      event,
-      hour,
-    });
+    const eventsElements = eventsInCell.map(
+      (event, index) => {
+        const styles = calculateTimeGridEventStyles({
+          event,
+          hour,
+          totalElements: eventsInCell.length,
+          index: index,
+        });
 
-    const initialElement = renderEvent(event, hour);
-    const elementProps = initialElement.props;
+        const initialElement = renderEvent(event, hour);
+        const elementProps = initialElement.props;
 
-    const element = React.cloneElement(initialElement, {
-      ...elementProps,
-      style: styles,
-    });
+        const element = React.cloneElement(initialElement, {
+          ...elementProps,
+          style: styles,
+        });
 
-    return <Cell>{element}</Cell>;
+        return element;
+      }
+    );
+
+    return <Cell>{eventsElements}</Cell>;
   };
 
   return (
