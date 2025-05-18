@@ -22,6 +22,15 @@ const formatTime = (date: string) => {
   return localDate.toUTCString().slice(16, 22);
 };
 
+const formatDate = (date: string) => {
+  const localDate = new Date(date);
+  return localDate.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+};
+
 export const AppointmentInfo = (props: Props) => {
   const {
     appointment,
@@ -54,6 +63,9 @@ export const AppointmentInfo = (props: Props) => {
       <ListItem>
         {appointment.service.name}
         {editServiceButton}
+      </ListItem>
+      <ListItem>
+        {formatDate(appointment.startTime)}
       </ListItem>
       <ListItem>
         {formatTime(appointment.startTime)} -
