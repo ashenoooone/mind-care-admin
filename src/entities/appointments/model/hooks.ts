@@ -42,7 +42,7 @@ export const CREATE_APPOINTMENTS_MUTATION_OPTIONS =
       AppointmentsService.createAppointment(data),
   });
 
-export const useCreateAppointment = () => {
+export const useAdminCreateAppointment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

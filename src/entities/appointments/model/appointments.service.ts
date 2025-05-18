@@ -43,7 +43,10 @@ export class AppointmentsService {
   }
 
   static createAppointment(data: CreateAppointmentForm) {
-    return $api.post<TAppointment>('appointments', data);
+    return $api.post<TAppointment>(
+      'appointments/admin',
+      data
+    );
   }
 
   static getAppointmentsCalendar(params: {

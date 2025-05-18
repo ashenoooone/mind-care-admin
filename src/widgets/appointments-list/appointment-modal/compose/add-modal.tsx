@@ -9,12 +9,12 @@ import {
   AppointmentForm,
   CreateAppointmentForm,
 } from '@/entities/appointments/ui/form';
-import { useCreateAppointment } from '@/entities/appointments/model/hooks';
+import { useAdminCreateAppointment } from '@/entities/appointments/model/hooks';
 import { toast } from '@/shared/hooks/use-toast';
 
 export const AddModal = () => {
   const { $open, setOpen } = useAddAppointmentModal();
-  const createAppointment = useCreateAppointment();
+  const createAppointment = useAdminCreateAppointment();
 
   const onSubmit = async (data: CreateAppointmentForm) => {
     try {

@@ -4,11 +4,57 @@ import { ClientSelect } from '@/entities/users/ui/client-select';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { cn } from '@/shared/lib/utils';
+import { AppointmentStatus } from '@/entities/appointments/model/types';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/ui/select';
+
+const formatDateForInput = (date: Date) => {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(
+    2,
+    '0'
+  );
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(
+    2,
+    '0'
+  );
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
+const parseDateFromInput = (dateString: string) => {
+  const [datePart, timePart] = dateString.split('T');
+  const [year, month, day] = datePart
+    .split('-')
+    .map(Number);
+  const [hours, minutes] = timePart.split(':').map(Number);
+
+  const date = new Date();
+  date.setUTCFullYear(year);
+  date.setUTCMonth(month - 1);
+  date.setUTCDate(day);
+  date.setUTCHours(hours);
+  date.setUTCMinutes(minutes);
+  date.setUTCSeconds(0);
+  date.setUTCMilliseconds(0);
+
+  return date;
+};
 
 export type CreateAppointmentForm = {
   serviceId: number;
   clientId: number;
-  date: Date;
+  startTime: Date;
+  endTime: Date;
+  note?: string;
+  status?: AppointmentStatus;
 };
 
 type Props = {
@@ -73,25 +119,87 @@ export const AppointmentForm = (props: Props) => {
           )}
         />
         <Controller
-          name="date"
+          name="startTime"
           control={control}
-          rules={{ required: 'Укажите дату и время' }}
+          rules={{ required: 'Укажите время начала' }}
           render={({ field }) => (
             <Input
-              data-testid="date-input"
-              label="Дата и время"
+              data-testid="start-time-input"
+              label="Время начала"
               type="datetime-local"
-              error={errors.date?.message}
+              error={errors.startTime?.message}
               value={
                 field.value
-                  ? new Date(field.value)
-                      .toISOString()
-                      .slice(0, 16)
+                  ? formatDateForInput(field.value)
                   : ''
               }
               onChange={(e) =>
-                field.onChange(new Date(e.target.value))
+                field.onChange(
+                  parseDateFromInput(e.target.value)
+                )
               }
+            />
+          )}
+        />
+        <Controller
+          name="endTime"
+          control={control}
+          rules={{ required: 'Укажите время окончания' }}
+          render={({ field }) => (
+            <Input
+              data-testid="end-time-input"
+              label="Время окончания"
+              type="datetime-local"
+              error={errors.endTime?.message}
+              value={
+                field.value
+                  ? formatDateForInput(field.value)
+                  : ''
+              }
+              onChange={(e) =>
+                field.onChange(
+                  parseDateFromInput(e.target.value)
+                )
+              }
+            />
+          )}
+        />
+        <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <Select
+              defaultValue={field.value}
+              onValueChange={field.onChange}
+            >
+              <SelectTrigger
+                data-testid="status-select"
+                className="w-full"
+              >
+                <SelectValue placeholder="Выберите статус" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(AppointmentStatus).map(
+                  (status) => (
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
+                  )
+                )}
+              </SelectContent>
+            </Select>
+          )}
+        />
+        <Controller
+          name="note"
+          control={control}
+          render={({ field }) => (
+            <Input
+              data-testid="note-input"
+              label="Примечание"
+              type="text"
+              placeholder="Введите примечание"
+              {...field}
             />
           )}
         />
