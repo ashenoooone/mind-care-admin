@@ -23,6 +23,7 @@ import { useGetAiHints } from '../model/use-get-ai-hints';
 import { toast } from '@/shared/hooks/use-toast';
 import { CircleCheck, CircleX, Edit } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
+import { EditTimePopover } from '../ui/edit-time-popover';
 
 export const EditModal = () => {
   const { $open, appointmentId, onOpenChange } =
@@ -69,6 +70,29 @@ export const EditModal = () => {
     }
   };
 
+  const onSubmitEditTime = async (data: {
+    startTime: string;
+    endTime: string;
+  }) => {
+    try {
+      await updateAppointment.mutateAsync({
+        ...appointment!,
+        startTime: data.startTime,
+        endTime: data.endTime,
+      });
+      toast({
+        title: 'Время обновлено',
+        description: 'Время записи успешно обновлено',
+      });
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Не удалось обновить время',
+        variant: 'destructive',
+      });
+    }
+  };
+
   // TODO: обработка состония загрузки и ошибки
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -102,9 +126,11 @@ export const EditModal = () => {
                 </Button>
               }
               editTimeButton={
-                <Button variant="outline">
-                  <Edit />
-                </Button>
+                <EditTimePopover
+                  startTime={appointment?.startTime || ''}
+                  endTime={appointment?.endTime || ''}
+                  onSubmit={onSubmitEditTime}
+                />
               }
               confirmButton={
                 <Button variant="green">
