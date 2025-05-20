@@ -5,13 +5,6 @@ import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { cn } from '@/shared/lib/utils';
 import { AppointmentStatus } from '@/entities/appointments/model/types';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/shared/ui/select';
 
 const formatDateForInput = (date: Date) => {
   const year = date.getUTCFullYear();
@@ -161,45 +154,6 @@ export const AppointmentForm = (props: Props) => {
                   parseDateFromInput(e.target.value)
                 )
               }
-            />
-          )}
-        />
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => (
-            <Select
-              defaultValue={field.value}
-              onValueChange={field.onChange}
-            >
-              <SelectTrigger
-                data-testid="status-select"
-                className="w-full"
-              >
-                <SelectValue placeholder="Выберите статус" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(AppointmentStatus).map(
-                  (status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
-                  )
-                )}
-              </SelectContent>
-            </Select>
-          )}
-        />
-        <Controller
-          name="note"
-          control={control}
-          render={({ field }) => (
-            <Input
-              data-testid="note-input"
-              label="Примечание"
-              type="text"
-              placeholder="Введите примечание"
-              {...field}
             />
           )}
         />

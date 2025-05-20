@@ -14,6 +14,7 @@ import { Note } from '../ui/note';
 import { AppointmentInfo } from '../ui/appointment-info';
 import { EditNote } from '../ui/edit-note';
 import {
+  AppointmentStatus,
   useGetAppointment,
   usePatchAppointment,
 } from '@/entities/appointments';
@@ -93,6 +94,23 @@ export const EditModal = () => {
     }
   };
 
+  const changeAppointmentStatus = async (
+    status: AppointmentStatus
+  ) => {
+    try {
+      await updateAppointment.mutateAsync({
+        ...appointment!,
+        status,
+      });
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Не удалось подтвердить запись',
+        variant: 'destructive',
+      });
+    }
+  };
+
   // TODO: обработка состония загрузки и ошибки
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -133,12 +151,26 @@ export const EditModal = () => {
                 />
               }
               confirmButton={
-                <Button variant="green">
+                <Button
+                  variant="green"
+                  onClick={() =>
+                    changeAppointmentStatus(
+                      AppointmentStatus.COMPLETED
+                    )
+                  }
+                >
                   Подтвердить запись <CircleCheck />
                 </Button>
               }
               denyButton={
-                <Button variant="destructive">
+                <Button
+                  variant="destructive"
+                  onClick={() =>
+                    changeAppointmentStatus(
+                      AppointmentStatus.CANCELLED
+                    )
+                  }
+                >
                   Отменить запись <CircleX />
                 </Button>
               }
