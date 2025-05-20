@@ -1,6 +1,6 @@
 'use client';
+
 import {
-  createUsersListParamsModel,
   TableHeader,
   TableRow,
   useGetUsers,
@@ -9,24 +9,25 @@ import {
 import Loader from '@/shared/ui/loader';
 import Pagination from '@/shared/ui/pagination';
 import { useUnit } from 'effector-react';
+import { createUsersFiltersModel } from '../model/filters.model';
+import { UsersFilters } from './filters';
 
-const usersListParamsModel = createUsersListParamsModel();
+const usersFiltersModel = createUsersFiltersModel();
 
 export const UsersList = () => {
-  const { $page, changePageEv } = useUnit(
-    usersListParamsModel
-  );
+  const filters = useUnit(usersFiltersModel.$filters);
+  const { data } = useGetUsers(filters);
 
-  const { data, isLoading } = useGetUsers({
-    page: $page,
-  });
-
-  if (isLoading || !data) {
+  if (!data) {
     return <Loader />;
   }
 
   return (
     <div>
+      <UsersFilters
+        model={usersFiltersModel}
+        className="mb-4"
+      />
       <UsersTable
         header={<TableHeader />}
         users={data?.data.items.map((user) => (
@@ -35,7 +36,9 @@ export const UsersList = () => {
       />
       {data?.data.meta.totalPages > 1 && (
         <Pagination
-          onPageChange={(page) => changePageEv(page)}
+          onPageChange={(page) => {
+            usersFiltersModel.actions.setPageEv(page);
+          }}
           meta={data?.data.meta}
         />
       )}

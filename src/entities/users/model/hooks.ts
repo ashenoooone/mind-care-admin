@@ -7,7 +7,13 @@ export const useGetUsers = (
   params: FuncFirstParameter<typeof UsersService.getUsers>
 ) => {
   return useQuery({
-    queryKey: [USERS_BASE_KEY, params.limit, params.page],
+    queryKey: [
+      USERS_BASE_KEY,
+      params.limit,
+      params.page,
+      params.name,
+      params.telegramNickname,
+    ],
     queryFn: () => UsersService.getUsers(params),
   });
 };

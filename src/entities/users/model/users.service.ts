@@ -8,7 +8,11 @@ import { TAppointment } from '@/entities/appointments';
 
 export class UsersService {
   static getUsers = (
-    params: { name?: string } & PaginationParams
+    params: {
+      name?: string;
+      telegramNickname?: string;
+      phoneNumber?: string;
+    } & PaginationParams
   ) => {
     return $api.get<
       { items: TClient[] } & WithPaginationMeta
